@@ -1,0 +1,86 @@
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+  font-family: 'Satoshi', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(0deg, rgba(20, 20, 20, 0.20) 0%, rgba(20, 20, 20, 0.20) 100%),
+              linear-gradient(134deg, #D9D9D9 -15.56%, #98B8E3 35.99%, #5094EE 109.21%, #737373 117.78%);
+  min-height: 100vh;
+  color: #141414;
+}
+
+
+/* Text */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'DM Sans', 'Satoshi', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+
+p, span, small, a, li {
+  font-family: 'Satoshi', sans-serif;
+  font-weight: 400;
+}
+
+.icon-32 {
+    font-size: clamp(1rem, 2vw + 0.5rem, 24px);
+}
+
+.title{
+    font-size: clamp(32px, 6vw + 4px, 96px);
+    font-weight: 700;
+}
+
+.text-24{
+    font-size: clamp(12px, 1vw + 8px, 24px);
+    font-weight: 500;
+}
+
+
+/* Hero */
+.section-box {
+  padding: 64px 73px;
+  border-radius: 48px;
+  max-width: calc(100% - 110px);
+  margin: 0 auto;
+}
+
+.mx-56 {
+  margin-left: 56px !important;
+  margin-right: 56px !important;
+}
+
+.gap-hero {
+  margin-bottom: clamp(40px, 8vw, 94px); /* For the <hr> gap */
+}
+
+.mb-title {
+  margin-bottom: clamp(64px, 12vw, 145px); /* For the "Hi, This is Carlo." gap */
+}
+
+@font-face {
+    font-family: 'Satoshi';
+    src: url('fonts/Satoshi-Regular.woff2') format('woff2'),
+             url('fonts/Satoshi-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Satoshi';
+    src: url('fonts/Satoshi-Bold.woff2') format('woff2'),
+             url('fonts/Satoshi-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+@media (max-width: 768px) {
+  .section-box {
+    max-width: calc(100% - 48px);
+    padding: 48px 32px;
+  }
+}
