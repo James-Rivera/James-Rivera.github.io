@@ -5,6 +5,25 @@
   --section-gap: 130px;
 }
 
+@font-face {
+  font-family: "Satoshi";
+  src: url("fonts/Satoshi-Regular.woff2") format("woff2"),
+    url("fonts/Satoshi-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("fonts/Satoshi-Bold.woff2") format("woff2"),
+    url("fonts/Satoshi-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
 body {
   margin: 0;
   padding: 0;
@@ -169,28 +188,20 @@ li {
   right: 10%; /* Align to container right edge */
   top: 28px;
   transform: translateY(-50%);
+  transition: all 0.3s ease;
+}
+
+.circle-btn:hover {
+  background: #5094ee;
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(80, 148, 238, 0.4);
 }
 
 @media (max-width: 768px){
   .circle-btn{ width:100px; height:100px; font-size:14px; }
   .project-line::before{ left: 6%; right: 30%; }
 }
-@font-face {
-  font-family: "Satoshi";
-  src: url("fonts/Satoshi-Regular.woff2") format("woff2"),
-    url("fonts/Satoshi-Regular.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Satoshi";
-  src: url("fonts/Satoshi-Bold.woff2") format("woff2"),
-    url("fonts/Satoshi-Bold.woff") format("woff");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
+
 
 @media (max-width: 768px) {
   .section-box {
