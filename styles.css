@@ -1,50 +1,71 @@
+
+:root {
+  --page-padding: 128px;
+  --circle-size: 140px;
+  --section-gap: 130px;
+}
+
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   position: relative;
-  font-family: 'Satoshi', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(0deg, rgba(20, 20, 20, 0.20) 0%, rgba(20, 20, 20, 0.20) 100%),
-              linear-gradient(134deg, #D9D9D9 -15.56%, #98B8E3 35.99%, #5094EE 109.21%, #737373 117.78%);
+  font-family: "Satoshi", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(
+      0deg,
+      rgba(20, 20, 20, 0.2) 0%,
+      rgba(20, 20, 20, 0.2) 100%
+    ),
+    linear-gradient(
+      134deg,
+      #d9d9d9 -15.56%,
+      #98b8e3 35.99%,
+      #5094ee 109.21%,
+      #737373 117.78%
+    );
   min-height: 100vh;
   color: #141414;
 }
 
-
 /* Text */
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'DM Sans', 'Satoshi', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "DM Sans", "Satoshi", sans-serif;
   font-weight: 700;
   letter-spacing: -0.5px;
 }
 
-
-p, span, small, a, li {
-  font-family: 'Satoshi', sans-serif;
+p,
+span,
+small,
+a,
+li {
+  font-family: "Satoshi", sans-serif;
   font-weight: 400;
 }
 
 .icon-32 {
-    font-size: clamp(1rem, 2vw + 0.5rem, 24px);
+  font-size: clamp(1rem, 2vw + 0.5rem, 24px);
 }
 
-.title{
-    font-size: clamp(32px, 6vw + 4px, 96px);
-    font-weight: 700;
+.title {
+  font-size: clamp(32px, 6vw + 4px, 96px);
+  font-weight: 700;
 }
 
-.text-24{
-    font-size: clamp(12px, 1vw + 8px, 24px);
-    font-weight: 500;
+.text-24 {
+  font-size: clamp(12px, 1vw + 8px, 24px);
+  font-weight: 500;
 }
-
 
 /* Hero */
 .section-box {
-  padding: 64px 128px 73px 128px;
+  padding: 64px var(--page-padding) 73px var(--page-padding);
   border-radius: 48px;
-  max-width: calc(100% - 110px);
-  margin: 0 auto;
 }
 
 .mx-56 {
@@ -57,28 +78,26 @@ p, span, small, a, li {
 }
 
 .mb-title {
-  margin-bottom: clamp(64px, 12vw, 145px); /* For the "Hi, This is Carlo." gap */
+  margin-bottom: clamp(
+    64px,
+    12vw,
+    145px
+  ); /* For the "Hi, This is Carlo." gap */
 }
 
 /* About */
 .about-section {
   background-color: #0f0f0f; /* your background color */
-  padding: 111px 108px 95px 80px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  padding: 111px var(--page-padding) 95px var(--page-padding);
   margin-top: 130px;
 }
 
 .about-content {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 52px; /* the spacing between left and right columns */
+  gap: 120px !important; /* Custom 60px gap */
 }
 
 .about-section h2 {
-  font-size: 2.5rem;
+  font-size: 3rem;
   font-weight: 700;
   color: #ffffff;
   line-height: 1.3;
@@ -90,35 +109,101 @@ p, span, small, a, li {
   line-height: 1.6;
 }
 
-.project-section {
-  background-color: #0f0f0f; /* your background color */
-  padding: 121px 108px 95px 80px;
+/* Projects */
+.project-intro-section {
+  background-color: #0f0f0f; 
+  padding: 121px var(--page-padding) 95px var(--page-padding);
+  position: relative;
+}
+
+.projects-line {
+  position: relative;
+  width: 100%;
+  border-top: 1px solid #ffffff;
+  margin-top: 60px;
+  padding-top: 40px;
   display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  justify-content: space-between;
+  align-items: center;
 }
 
-@font-face {
-    font-family: 'Satoshi';
-    src: url('fonts/Satoshi-Regular.woff2') format('woff2'),
-             url('fonts/Satoshi-Regular.woff') format('woff');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-}
-@font-face {
-    font-family: 'Satoshi';
-    src: url('fonts/Satoshi-Bold.woff2') format('woff2'),
-             url('fonts/Satoshi-Bold.woff') format('woff');
-    font-weight: 700;
-    font-style: normal;
-    font-display: swap;
+.projects-line h3 {
+  color: #ffffff;
+  font-size: 1.2rem;
 }
 
+.small-text {
+  color: #aaaaaa;
+  font-size: 0.9rem;
+}
+
+.project-line {
+  position: relative;
+  padding: 24px 0 56px 0; /* Remove padding, let parent section handle it */
+}
+.project-line::before{
+  content: "";
+  position: absolute;
+  left: 0; /* Start from container edge */
+  right: 0; /* Stop before circle */
+  top: 28px; 
+  height: 1px;
+  background: rgba(255,255,255,0.2); /* Made brighter */
+}
+.project-line > .text-start{ z-index: 2; margin-top: 28px; }
+.project-line .text-start h3,
+.project-line .text-start p { color: #fff; }
+.circle-btn{
+  width: var(--circle-size);
+  height: var(--circle-size);
+  border-radius: 50%;
+  background: #e6e6e6;
+  color: #111;
+  display: grid;
+  place-items: center;
+  font-weight: 500;
+  z-index: 3;
+  border: none;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  position: absolute; 
+  right: 10%; /* Align to container right edge */
+  top: 28px;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 768px){
+  .circle-btn{ width:100px; height:100px; font-size:14px; }
+  .project-line::before{ left: 6%; right: 30%; }
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("fonts/Satoshi-Regular.woff2") format("woff2"),
+    url("fonts/Satoshi-Regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Satoshi";
+  src: url("fonts/Satoshi-Bold.woff2") format("woff2"),
+    url("fonts/Satoshi-Bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
 
 @media (max-width: 768px) {
   .section-box {
     max-width: calc(100% - 48px);
     padding: 48px 32px;
   }
+}
+
+
+@media (max-width: 1200px) {
+  :root { --page-padding: 80px; }
+}
+
+@media (max-width: 768px) {
+  :root { --page-padding: 32px; --circle-size: 100px; }
 }
