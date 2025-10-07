@@ -93,7 +93,7 @@ li {
 }
 
 .gap-hero {
-  margin-bottom: clamp(40px, 8vw, 94px); /* For the <hr> gap */
+  margin-bottom: clamp(40px, 8vw, 94px); 
 }
 
 .mb-title {
@@ -101,7 +101,7 @@ li {
     64px,
     12vw,
     145px
-  ); /* For the "Hi, This is Carlo." gap */
+  ); 
 }
 
 /* About */
@@ -112,7 +112,7 @@ li {
 }
 
 .about-content {
-  gap: 120px !important; /* Custom 60px gap */
+  gap: 120px !important;
 }
 
 .about-section h2 {
@@ -158,16 +158,16 @@ li {
 
 .project-line {
   position: relative;
-  padding: 24px 0 56px 0; /* Remove padding, let parent section handle it */
+  padding: 24px 0 56px 0; 
 }
 .project-line::before{
   content: "";
   position: absolute;
-  left: 0; /* Start from container edge */
-  right: 0; /* Stop before circle */
+  left: 0; 
+  right: 0; 
   top: 28px; 
   height: 1px;
-  background: rgba(255,255,255,0.2); /* Made brighter */
+  background: rgba(255,255,255,0.2); 
 }
 .project-line > .text-start{ z-index: 2; margin-top: 28px; }
 .project-line .text-start h3,
