@@ -21,7 +21,7 @@
   font-display: swap;
 }
 
-
+html { scroll-behavior: smooth; }
 
 body {
   margin: 0;
@@ -355,6 +355,7 @@ li {
 }
 
 .btn-message{
+  margin-top: 50px;
   height: 69px;
   color: #ffffff;
   background: #5094ee;
@@ -376,14 +377,14 @@ li {
   transform: translateY(-2px);
   background: linear-gradient(90deg, #7fc6ff 0%, #5aa6f2 45%, #3b73d9 100%);
   box-shadow:
-    0 30px 60px rgba(59,115,217,0.32), /* bright outer glow */
-    0 10px 30px rgba(80,148,238,0.22), /* mid glow */
-    inset 0 -2px 6px rgba(255,255,255,0.06); /* subtle inner sheen */
+    0 30px 60px rgba(59,115,217,0.32), 
+    0 10px 30px rgba(80,148,238,0.22), 
+    inset 0 -2px 6px rgba(255,255,255,0.06); 
   outline: none;
   filter: saturate(1.05) brightness(1.03);
   transition: all 200ms ease;
-  color: #ffffff; /* keep text white */
-  text-shadow: 0 1px 2px rgba(0,0,0,0.22); /* softens the white so it's less stark */
+  color: #ffffff; 
+  text-shadow: 0 1px 2px rgba(0,0,0,0.22);
 }
 
 /* Footer */
@@ -446,4 +447,35 @@ li {
   }
 
   .info-button .icon { left: 18px; }
+}
+
+/* Typing cursor */
+.typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 8px;
+  background: #ffffff;
+  vertical-align: bottom;
+  animation: blink 1s steps(2, start) infinite;
+}
+
+#typed-text {
+  display: inline-block;
+  transform-origin: left bottom;
+  transition: transform .18s ease;
+}
+
+#typed-text {
+  font-family: "Satoshi", "DM Sans", sans-serif;
+  font-weight: 700;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+#typed-text:hover { transform: translateY(-2px); }
+
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }

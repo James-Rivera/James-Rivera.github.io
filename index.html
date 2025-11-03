@@ -28,22 +28,27 @@
             padding: 22px 81px;
           ">
                 <div class="d-flex align-items-center">
+                    <a href="#" class="d-inline-block" style="z-index: 1;">
                     <div class="rounded-circle d-flex align-items-center justify-content-center"
                         style="width: 64px; height: 64px">
                         <img src="Logo.svg" alt="logo" style="width: 68%; height: 68%; object-fit: contain" />
                     </div>
+                    </a>
                 </div>
 
                 <nav aria-label="Main navigation">
                     <ul class="nav">
                         <li class="nav-item">
-                            <a class="nav-link text-white active" href="#">Home</a>
+                            <a class="nav-link text-white" href="about">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#">About</a>
+                            <a class="nav-link text-white" href="#project-selection">Work</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white" href="#">Work</a>
+                            <a class="nav-link text-white" href="#contact">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-white" href="resume.pdf">Resume</a>
                         </li>
                     </ul>
                 </nav>
@@ -57,10 +62,10 @@
                 <div class="col-12 text-white" style="gap: 94px">
                     <p class="fw-bold mb-1 d-flex align-items-center text-white">
                         <i class="bi bi-geo-alt-fill me-2 icon-32"></i>
-                        <span class="text-24">Based in Philippines → 1:40 PM</span>
+                        <span class="text-24">Based in Philippines → <span id="local-time">--:--</span></span>
                     </p>
                     <hr class="gap-hero" />
-                    <h1 class="fw-bold title mb-title">Hi, This is Carlo.</h1>
+                    <h1 class="fw-bold title mb-title"><span id="typed-text" aria-live="polite"></span><span class="typing-cursor" aria-hidden="true"></span></h1>
                     <p class="text-24">
                         Currently →
                         <span class="fw-bold">
@@ -159,7 +164,7 @@
                     <span class="icon"><img src="mail.svg" alt="email"></span>
                     <span class="info-text">jamescarlorivera52@gmail.com</span>
                 </a>
-                <a class="info-button d-flex align-items-center" href="tel:+639276543210" aria-label="Call">
+                <a class="info-button d-flex align-items-center" href="" aria-label="Call">
                     <span class="icon"><img src="call.svg" alt="call"></span>
                     <span class="info-text">Available upon request</span>
                 </a>
@@ -168,21 +173,21 @@
                     <span class="info-text">James-Rivera</span>
                 </a>
             </div>
-            <div class="container-fluid px-0 mb-5">
+            <div class="container-fluid px-0 mb-2">
                 <form action="https://formspree.io/f/mrbovjer" method="POST" class="row">
                     <div class="col-6">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" class="form-control" id="name" name="name" required />
                     </div>
                     <div class="col-6">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" class="form-label">Your Email</label>
                         <input type="email" class="form-control" id="email" name="_replyto" required />
                     </div>
                     <div class="col-12 mt-4">
                         <label for="message" class="form-label">Message</label>
                         <textarea class="form-control" id="message" name="message" rows="8" required></textarea>
                     </div>
-                    <button type="submit" class="btn btn-message d-inline-flex justify-content-center align-items-center mx-auto mt-4">Send Message</button>
+                    <button type="submit" class="btn btn-message d-inline-flex justify-content-center align-items-center mx-auto">Send Message</button>
                 </form>
             </div>
         </div>
@@ -204,6 +209,65 @@
                     card.classList.add("selected");
                 });
             });
+
+            const timeEl = document.getElementById('local-time');
+            function updateManilaTime() {
+                try {
+                    const now = new Date();
+                    const fmt = new Intl.DateTimeFormat('en-US', {
+                        timeZone: 'Asia/Manila',
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        hour12: true
+                    });
+                    if (timeEl) timeEl.textContent = fmt.format(now);
+                } catch (e) {
+                    const now = new Date();
+                    if (timeEl) timeEl.textContent = now.toLocaleTimeString();
+                }
+            }
+            updateManilaTime();
+            setInterval(updateManilaTime, 15000);
+
+            const typedEl = document.getElementById('typed-text');
+            const text = 'Hi, This is Carlo.';
+            const typeDelay = 70;
+            const eraseDelay = 40;
+            const pauseAfterType = 1400;
+            const pauseAfterErase = 600;
+
+            function sleep(ms) {
+                return new Promise(r => setTimeout(r, ms));
+            }
+
+            async function typeOnce(el, str, delay) {
+                el.textContent = '';
+                for (let i = 0; i < str.length; i++) {
+                    el.textContent += str[i];
+                    await sleep(delay);
+                }
+            }
+
+            async function eraseOnce(el, delay) {
+                while (el.textContent.length > 0) {
+                    el.textContent = el.textContent.slice(0, -1);
+                    await sleep(delay);
+                }
+            }
+
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (reduceMotion) {
+                if (typedEl) typedEl.textContent = text;
+            } else {
+                (async function loopTyping() {
+                    while (true) {
+                        if (typedEl) await typeOnce(typedEl, text, typeDelay);
+                        await sleep(pauseAfterType);
+                        if (typedEl) await eraseOnce(typedEl, eraseDelay);
+                        await sleep(pauseAfterErase);
+                    }
+                })();
+            }
         });
     </script>
 </body>
