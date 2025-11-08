@@ -21,41 +21,45 @@
 </head>
 
 <body>
+    <!-- Navbar -->
     <header class="sticky-top">
-        <div class="container-fluid py-2 mt-4">
-            <div class="d-flex align-items-center justify-content-between mx-56 rounded-pill shadow" style="
-            background: linear-gradient(184deg, #000 3.58%, #898989 415.15%);
-            padding: 22px 81px;
-          ">
-                <div class="d-flex align-items-center">
-                    <a href="#" class="d-inline-block" style="z-index: 1;">
-                    <div class="rounded-circle d-flex align-items-center justify-content-center"
-                        style="width: 64px; height: 64px">
-                        <img src="Logo.svg" alt="logo" style="width: 68%; height: 68%; object-fit: contain" />
-                    </div>
+        <div class="container-fluid py-2 mt-4 px-3 px-lg-5">
+            <nav class="navbar navbar-expand-lg navbar-dark rounded-pill shadow custom-navbar">
+                <div class="container-fluid px-3 px-lg 5">
+                    <a href="#" class="navbar-brand d-inline-block" style="z-index: 1;">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center"
+                            style="width: 64px; height: 64px">
+                            <img src="Logo.svg" alt="logo" style="width: 68%; height: 68%; object-fit: contain" />
+                        </div>
                     </a>
-                </div>
 
-                <nav aria-label="Main navigation">
-                    <ul class="nav">
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="about">About</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#project-selection">Work</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="#contact">Contact</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-white" href="resume.pdf">Resume</a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto gap-lg 4">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="about">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="#project-selection">Work</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="#contact">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="resume.pdf">Resume</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
         </div>
     </header>
 
+    <!-- Hero Section -->
     <div class="container-fluid mt-4">
         <div class="section-box text-white">
             <div class="row">
@@ -85,6 +89,7 @@
         </div>
     </div>
 
+    <!-- About Section -->
     <section id="about" class="about-section">
         <div class="row about-content">
             <div class="about-text col-8">
@@ -101,6 +106,7 @@
         </div>
     </section>
 
+    <!-- Projects Section -->
     <section id="project-intro" class="project-intro-section">
         <div class="container-fluid px-0 position-relative">
             <div class="project-line d-flex align-items-center justify-content-between">
@@ -116,39 +122,62 @@
         </div>
     </section>
 
+    <!-- Project Selection Section -->
     <section id="project-selection" class="project-selection">
         <div class="project-container container-fluid px-0">
             <div class="d-flex flex-row justify-content-between align-items-stretch flex-wrap">
                 <div class="project-card position-relative flex-fill m-1">
-                    <img src="project1.jpg" alt="Project 1" class="img-fluid" />
-                    <div
-                        class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3">
-                        <h5 class="text-white">Tokyo Showcase</h5>
-                        <p class="text-white">Activity No.5 in WebDev</p>
-                    </div>
+                    <a class="project-link d-block h-100" href="https://james-rivera.github.io/tokyo-showcase/" target="_blank" rel="noopener noreferrer">
+                        <div class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3">
+                            <h5 class="text-white fs-3">Tokyo Showcase</h5>
+                            <p class="text-white fs-6">Activity No.5 in WebDev</p>
+                        </div>
+
+                        <div class="project-preview" data-src="https://james-rivera.github.io/tokyo-showcase/" aria-hidden="true">
+                            <div class="preview-frame">
+                                <iframe loading="lazy" src="" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                                <div class="preview-overlay"></div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
 
                 <div class="project-card position-relative flex-fill m-1">
-                    <img src="project2.jpg" alt="Project 2" class="img-fluid" />
-                    <div
-                        class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3">
-                        <h5 class="text-white">Playstation 5 Landing Page</h5>
-                        <p class="text-white">Activity No.4 in WebDev</p>
-                    </div>
+                    <a class="project-link d-block h-100" href="https://james-rivera.github.io/ps5-page/" target="_blank" rel="noopener noreferrer">
+                        <div class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3">
+                            <h5 class="text-white fs-3">Playstation 5 Landing Page</h5>
+                            <p class="text-white fs-6">Activity No.4 in WebDev</p>
+                        </div>
+
+                        <div class="project-preview" data-src="https://james-rivera.github.io/ps5-page/" aria-hidden="true">
+                            <div class="preview-frame">
+                                <iframe loading="lazy" src="" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                                <div class="preview-overlay"></div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
 
                 <div class="project-card position-relative flex-fill m-1">
-                    <img src="project3.jpg" alt="Project 3" class="img-fluid" />
-                    <div
-                        class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3">
-                        <h5 class="text-white">Flow Mail</h5>
-                        <p class="text-white">Mail Integration</p>
-                    </div>
+                    <a class="project-link d-block h-100" href="https://james-rivera.github.io/art2cart/" target="_blank" rel="noopener noreferrer">
+                        <div class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3">
+                            <h5 class="text-white fs-3">Art2Cart</h5>
+                            <p class="text-white fs-6">Project from IPT</p>
+                        </div>
+
+                        <div class="project-preview" data-src="https://james-rivera.github.io/art2cart/" aria-hidden="true">
+                            <div class="preview-frame">
+                                <iframe loading="lazy" src="" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                                <div class="preview-overlay"></div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Contact Section -->
     <section id="contact" class="contact-section">
         <div class="container-fluid px-0">
             <div
@@ -161,15 +190,15 @@
 
             <div class="contact-info d-flex flex-wrap align-items-center justify-content-center gap-4 my-5">
                 <a class="info-button d-flex align-items-center" href="mailto:jamescarlorivera52@gmail.com" aria-label="Email">
-                    <span class="icon"><img src="mail.svg" alt="email"></span>
+                    <span class="icon"><img src="icons/mail.svg" alt="email"></span>
                     <span class="info-text">jamescarlorivera52@gmail.com</span>
                 </a>
                 <a class="info-button d-flex align-items-center" href="" aria-label="Call">
-                    <span class="icon"><img src="call.svg" alt="call"></span>
+                    <span class="icon"><img src="icons/call.svg" alt="call"></span>
                     <span class="info-text">Available upon request</span>
                 </a>
                 <a class="info-button d-flex align-items-center" href="https://github.com/James-Rivera" target="_blank" rel="noopener" aria-label="GitHub">
-                    <span class="icon"><img src="github.svg" alt="github"></span>
+                    <span class="icon"><img src="icons/github.svg" alt="github"></span>
                     <span class="info-text">James-Rivera</span>
                 </a>
             </div>
@@ -193,6 +222,7 @@
         </div>
     </section>
 
+    <!-- Footer -->
     <footer class="footer-section py-5">
         <div class="container text-center text-white">
             <p class="mb-0">© 2025 James Carlo Rivera. All rights reserved.</p>
@@ -231,43 +261,22 @@
 
             const typedEl = document.getElementById('typed-text');
             const text = 'Hi, This is Carlo.';
-            const typeDelay = 70;
-            const eraseDelay = 40;
-            const pauseAfterType = 1400;
-            const pauseAfterErase = 600;
-
-            function sleep(ms) {
-                return new Promise(r => setTimeout(r, ms));
-            }
-
-            async function typeOnce(el, str, delay) {
+            const speed = 70;
+            async function typeText(el, str, delay) {
+                if (!el) return;
                 el.textContent = '';
                 for (let i = 0; i < str.length; i++) {
                     el.textContent += str[i];
-                    await sleep(delay);
+                    await new Promise(r => setTimeout(r, delay));
                 }
             }
+            typeText(typedEl, text, speed);
 
-            async function eraseOnce(el, delay) {
-                while (el.textContent.length > 0) {
-                    el.textContent = el.textContent.slice(0, -1);
-                    await sleep(delay);
-                }
-            }
-
-            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-            if (reduceMotion) {
-                if (typedEl) typedEl.textContent = text;
-            } else {
-                (async function loopTyping() {
-                    while (true) {
-                        if (typedEl) await typeOnce(typedEl, text, typeDelay);
-                        await sleep(pauseAfterType);
-                        if (typedEl) await eraseOnce(typedEl, eraseDelay);
-                        await sleep(pauseAfterErase);
-                    }
-                })();
-            }
+            document.querySelectorAll('.project-preview').forEach(preview => {
+                const src = preview.dataset.src;
+                const iframe = preview.querySelector('iframe');
+                if (iframe && src) iframe.src = src;
+            });
         });
     </script>
 </body>
