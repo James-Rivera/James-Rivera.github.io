@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>James Carlo Rivera</title>
+    <title>James Carlo Rivera - Card Stack Design</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -23,8 +23,8 @@
 <body>
     <!-- Navbar -->
     <header class="sticky-top">
-        <div class="container-fluid py-2 mt-4 px-3 px-lg-5">
-            <nav class="navbar navbar-expand-lg navbar-dark rounded-pill shadow custom-navbar">
+        <div class="container-fluid p5-2 mt-4 px-3 px-lg-5">
+            <nav class="navbar navbar-expand-lg navbar-dark shadow custom-navbar">
                 <div class="container-fluid px-3 px-lg 5">
                     <a href="#" class="navbar-brand d-inline-block" style="z-index: 1;">
                         <div class="rounded-circle d-flex align-items-center justify-content-center"
@@ -59,179 +59,286 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <div class="container-fluid mt-4">
-        <div class="section-box text-white">
-            <div class="row">
-                <div class="col-12 text-white" style="gap: 94px">
-                    <p class="fw-bold mb-1 d-flex align-items-center text-white">
-                        <i class="bi bi-geo-alt-fill me-2 icon-32"></i>
-                        <span class="text-24">Based in Philippines → <span id="local-time">--:--</span></span>
-                    </p>
-                    <hr class="gap-hero" />
-                    <h1 class="fw-bold title mb-title"><span id="typed-text" aria-live="polite"></span><span class="typing-cursor" aria-hidden="true"></span></h1>
-                    <p class="text-24">
-                        Currently →
-                        <span class="fw-bold">
-                            Pursuing my Bachelor’s Degree in Information Technology</span>
-                    </p>
-                    <p class="text-24">
-                        School →
-                        <span class="fw-bold">
-                            Polytechnic University of the Philippines - Sto. Tomas
-                            Branch</span>
-                    </p>
-                    <p class="text-24">
-                        Learning → <span class="fw-bold"> Arduino, JavaScript</span>
-                    </p>
+    <!-- Card Stack Content Wrapper -->
+    <div class="cards-container">
+        <!-- Hero Card -->
+        <div class="card-item hero-card reveal-container">
+            <div class="container-fluid mt-0">
+                <div class="section-box text-white hero-section">
+                    <div class="row">
+                        <div class="col-12 text-white" style="gap: 94px">
+                            <p class="fw-bold mb-1 d-flex align-items-center text-white">
+                                <i class="bi bi-geo-alt-fill me-2 icon-32"></i>
+                                <span class="text-24">Based in Philippines → <span id="local-time">--:--</span></span>
+                            </p>
+                            <hr class="gap-hero" />
+                            <h1 class="fw-bold title mb-title">James Rivera.</h1>
+                            <p class="text-24 hero-meta"><span class="hero-label">Role</span><span class="hero-value">Full Stack Developer & Designer</span></p>
+                            <p class="text-24 hero-meta"><span class="hero-label">Stack</span><span class="hero-value">PHP, MySQL, React, Figma</span></p>
+                            <p class="text-24 hero-meta"><span class="hero-label">Status</span><span class="hero-value">Available for remote work</span></p>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <!-- About Card -->
+        <div class="card-item about-card reveal-container">
+            <section id="about" class="about-section">
+                <div class="row about-content">
+                    <div class="about-text col-12">
+                        <h2>Technical Toolkit</h2>
+                        <div class="toolkit-grid">
+                            <div class="toolkit-column">
+                                <span class="info-label">Design</span>
+                                <div class="logo-grid">
+                                    <div class="logo-card">
+                                        <div class="logo-icon figma-icon" aria-hidden="true"></div>
+                                        <span class="logo-name">Figma</span>
+                                    </div>
+                                    <div class="logo-card">
+                                        <div class="logo-icon ps-icon" aria-hidden="true"></div>
+                                        <span class="logo-name">Photoshop</span>
+                                    </div>
+                                    <div class="logo-card">
+                                        <div class="logo-icon lr-icon" aria-hidden="true"></div>
+                                        <span class="logo-name">Lightroom</span>
+                                    </div>
+                                    <div class="logo-card">
+                                        <div class="logo-icon resolve-icon" aria-hidden="true"></div>
+                                        <span class="logo-name">DaVinci</span>
+                                    </div>
+                                    <div class="logo-card">
+                                        <div class="logo-icon uiux-icon" aria-hidden="true"></div>
+                                        <span class="logo-name">UI/UX</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="toolkit-column">
+                                <span class="info-label">Development</span>
+                                <div class="logo-grid">
+                                    <div class="logo-card">
+                                        <div class="logo-icon php-icon" aria-hidden="true"></div>
+                                        <span class="logo-name">PHP</span>
+                                    </div>
+                                    <div class="logo-card">
+                                        <div class="logo-icon mysql-icon" aria-hidden="true"></div>
+                                        <span class="logo-name">MySQL</span>
+                                    </div>
+                                    <div class="logo-card">
+                                        <div class="logo-icon js-icon" aria-hidden="true"></div>
+                                        <span class="logo-name">JavaScript</span>
+                                    </div>
+                                    <div class="logo-card">
+                                        <div class="logo-icon html-icon" aria-hidden="true"></div>
+                                        <span class="logo-name">HTML</span>
+                                    </div>
+                                    <div class="logo-card">
+                                        <div class="logo-icon css-icon" aria-hidden="true"></div>
+                                        <span class="logo-name">CSS</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Projects Card -->
+        <div class="card-item projects-card reveal-container">
+            <section id="project-intro" class="project-intro-section">
+                <div class="container-fluid px-0 position-relative">
+                    <div class="project-line d-flex align-items-center justify-content-between">
+                        <div class="text-start">
+                            <h3 class="fw-semibold mb-1">Created with care_</h3>
+                            <p class="mb-0 small-text">
+                                These are a handful of my recent works
+                            </p>
+                        </div>
+
+                        <a href="about.html" class="circle-btn btn text-decoration-none" aria-label="About me">about me</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="project-selection" class="project-selection">
+                <div class="project-container container-fluid px-0">
+                    <div class="d-flex flex-row justify-content-between align-items-stretch flex-wrap">
+                        <div class="project-card position-relative flex-fill m-1 reveal--stagger">
+                            <a class="project-link d-block h-100" href="https://james-rivera.github.io/tokyo-tourism-landing-page/" target="_blank" rel="noopener noreferrer">
+                                <div class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3">
+                                    <h5 class="text-white fs-3">Tokyo Tourism: Immersive Travel Portal</h5>
+                                    <p class="text-white fs-6">High-conversion landing page featuring modern typography, responsive hero sections, and minimalist navigation.</p>
+                                </div>
+
+                                <div class="project-preview" data-src="https://james-rivera.github.io/tokyo-tourism-landing-page/" aria-hidden="true">
+                                    <div class="preview-frame">
+                                        <iframe loading="lazy" src="" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                                        <div class="preview-overlay"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="project-card position-relative flex-fill m-1 reveal--stagger">
+                            <a class="project-link d-block h-100" href="https://james-rivera.github.io/ps5-page/" target="_blank" rel="noopener noreferrer">
+                                <div class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3">
+                                    <h5 class="text-white fs-3">Playstation 5 Landing Page</h5>
+                                    <p class="text-white fs-6">Activity No.4 in WebDev</p>
+                                </div>
+
+                                <div class="project-preview" data-src="https://james-rivera.github.io/ps5-page/" aria-hidden="true">
+                                    <div class="preview-frame">
+                                        <iframe loading="lazy" src="" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                                        <div class="preview-overlay"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="project-card position-relative flex-fill m-1 reveal--stagger">
+                            <a class="project-link d-block h-100" href="https://james-rivera.github.io/art2cart/" target="_blank" rel="noopener noreferrer">
+                                <div class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3">
+                                    <h5 class="text-white fs-3">Japan Gallery</h5>
+                                    <p class="text-white fs-6">Activity 6</p>
+                                </div>
+
+                                <div class="project-preview" data-src="https://james-rivera.github.io/art2cart/" aria-hidden="true">
+                                    <div class="preview-frame">
+                                        <iframe loading="lazy" src="" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                                        <div class="preview-overlay"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <div class="project-card position-relative flex-fill m-1 reveal--stagger">
+                            <a class="project-link d-block h-100" href="https://james-rivera.github.io/league-champion-api-dashboard/" target="_blank" rel="noopener noreferrer">
+                                <div class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3">
+                                    <h5 class="text-white fs-3">Japan Gallery</h5>
+                                    <p class="text-white fs-6">Activity 6</p>
+                                </div>
+
+                                <div class="project-preview" data-src="https://james-rivera.github.io/league-champion-api-dashboard/" aria-hidden="true">
+                                    <div class="preview-frame">
+                                        <iframe loading="lazy" src="" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                                        <div class="preview-overlay"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Contact Card -->
+        <div class="card-item contact-card reveal-container">
+            <section id="contact" class="contact-section">
+                <div class="container-fluid px-0">
+                    <div class="contact-box d-flex flex-column flex-md-row align-items-center justify-content-between text-white">
+                        <div class="contact-text mb-3 mb-md-0">
+                            <h4>Get in Touch</h4>
+                            <p class="mb-0">Feel free to reach out to me if you're looking for a developer, have a query, or simply want to connect.</p>
+                        </div>
+                    </div>
+
+                    <div class="contact-info d-flex flex-wrap align-items-center justify-content-center gap-4 my-5">
+                        <a class="info-button d-flex align-items-center" href="mailto:jamescarlorivera52@gmail.com" aria-label="Email">
+                            <span class="icon"><img src="icons/mail.svg" alt="email"></span>
+                            <span class="info-text">jamescarlorivera52@gmail.com</span>
+                        </a>
+                        <a class="info-button d-flex align-items-center" href="" aria-label="Call">
+                            <span class="icon"><img src="icons/call.svg" alt="call"></span>
+                            <span class="info-text">Available upon request</span>
+                        </a>
+                        <a class="info-button d-flex align-items-center" href="https://github.com/James-Rivera" target="_blank" rel="noopener" aria-label="GitHub">
+                            <span class="icon"><img src="icons/github.svg" alt="github"></span>
+                            <span class="info-text">James-Rivera</span>
+                        </a>
+                    </div>
+                    <div class="container-fluid px-0 mb-2">
+                        <form action="https://formspree.io/f/mrbovjer" method="POST" class="row">
+                            <div class="col-6">
+                                <label for="name" class="form-label">Name</label>
+                                <input type="text" class="form-control" id="name" name="name" required />
+                            </div>
+                            <div class="col-6">
+                                <label for="email" class="form-label">Your Email</label>
+                                <input type="email" class="form-control" id="email" name="_replyto" required />
+                            </div>
+                            <div class="col-12 mt-4">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="8" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-message d-inline-flex justify-content-center align-items-center mx-auto">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
         </div>
     </div>
-
-    <!-- About Section -->
-    <section id="about" class="about-section">
-        <div class="row about-content">
-            <div class="about-text col-8">
-                <h2>
-                    Empowering ideas through<br />intelligent design and technology.
-                </h2>
-            </div>
-            <div class="about-description col-3">
-                <p>
-                    I enjoy bringing ideas to life through design and code, creating
-                    experiences that are thoughtful, functional, and meaningful.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="project-intro" class="project-intro-section">
-        <div class="container-fluid px-0 position-relative">
-            <div class="project-line d-flex align-items-center justify-content-between">
-                <div class="text-start">
-                    <h3 class="fw-semibold mb-1">Created with care_</h3>
-                    <p class="mb-0 small-text">
-                        These are a handful of my recent works
-                    </p>
-                </div>
-
-                <a href="about.html" class="circle-btn btn text-decoration-none" aria-label="About me">about me</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Project Selection Section -->
-    <section id="project-selection" class="project-selection">
-        <div class="project-container container-fluid px-0">
-            <div class="d-flex flex-row justify-content-between align-items-stretch flex-wrap">
-                <div class="project-card position-relative flex-fill m-1">
-                    <a class="project-link d-block h-100" href="https://james-rivera.github.io/tokyo-showcase/" target="_blank" rel="noopener noreferrer">
-                        <div class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3">
-                            <h5 class="text-white fs-3">Tokyo Showcase</h5>
-                            <p class="text-white fs-6">Activity No.5 in WebDev</p>
-                        </div>
-
-                        <div class="project-preview" data-src="https://james-rivera.github.io/tokyo-showcase/" aria-hidden="true">
-                            <div class="preview-frame">
-                                <iframe loading="lazy" src="" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
-                                <div class="preview-overlay"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="project-card position-relative flex-fill m-1">
-                    <a class="project-link d-block h-100" href="https://james-rivera.github.io/ps5-page/" target="_blank" rel="noopener noreferrer">
-                        <div class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3">
-                            <h5 class="text-white fs-3">Playstation 5 Landing Page</h5>
-                            <p class="text-white fs-6">Activity No.4 in WebDev</p>
-                        </div>
-
-                        <div class="project-preview" data-src="https://james-rivera.github.io/ps5-page/" aria-hidden="true">
-                            <div class="preview-frame">
-                                <iframe loading="lazy" src="" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
-                                <div class="preview-overlay"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="project-card position-relative flex-fill m-1">
-                    <a class="project-link d-block h-100" href="https://james-rivera.github.io/japan-gallery/" target="_blank" rel="noopener noreferrer">
-                        <div class="project-overlay position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-end p-3">
-                            <h5 class="text-white fs-3">Japan Gallery</h5>
-                            <p class="text-white fs-6">Activity 6</p>
-                        </div>
-
-                        <div class="project-preview" data-src="https://james-rivera.github.io/japan-gallery/" aria-hidden="true">
-                            <div class="preview-frame">
-                                <iframe loading="lazy" src="" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
-                                <div class="preview-overlay"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="contact-section">
-        <div class="container-fluid px-0">
-            <div
-                class="contact-box d-flex flex-column flex-md-row align-items-center justify-content-between text-white">
-                <div class="contact-text mb-3 mb-md-0">
-                    <h4>Get in Touch</h4>
-                    <p class="mb-0">Feel free to reach out to me if you're looking for a developer, have a query, or simply want to connect.</p>
-                </div>
-            </div>
-
-            <div class="contact-info d-flex flex-wrap align-items-center justify-content-center gap-4 my-5">
-                <a class="info-button d-flex align-items-center" href="mailto:jamescarlorivera52@gmail.com" aria-label="Email">
-                    <span class="icon"><img src="icons/mail.svg" alt="email"></span>
-                    <span class="info-text">jamescarlorivera52@gmail.com</span>
-                </a>
-                <a class="info-button d-flex align-items-center" href="" aria-label="Call">
-                    <span class="icon"><img src="icons/call.svg" alt="call"></span>
-                    <span class="info-text">Available upon request</span>
-                </a>
-                <a class="info-button d-flex align-items-center" href="https://github.com/James-Rivera" target="_blank" rel="noopener" aria-label="GitHub">
-                    <span class="icon"><img src="icons/github.svg" alt="github"></span>
-                    <span class="info-text">James-Rivera</span>
-                </a>
-            </div>
-            <div class="container-fluid px-0 mb-2">
-                <form action="https://formspree.io/f/mrbovjer" method="POST" class="row">
-                    <div class="col-6">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name" name="name" required />
-                    </div>
-                    <div class="col-6">
-                        <label for="email" class="form-label">Your Email</label>
-                        <input type="email" class="form-control" id="email" name="_replyto" required />
-                    </div>
-                    <div class="col-12 mt-4">
-                        <label for="message" class="form-label">Message</label>
-                        <textarea class="form-control" id="message" name="message" rows="8" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-message d-inline-flex justify-content-center align-items-center mx-auto">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
 
     <!-- Footer -->
     <footer class="footer-section py-5">
         <div class="container text-center text-white">
             <p class="mb-0">© 2025 James Carlo Rivera. All rights reserved.</p>
         </div>
-
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
+        // Debug: Log when script starts
+        console.log('=== Card Stack Animation Script Started ===');
+
+        // Scroll Reveal Animation Setup
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -30px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    console.log('Element visible:', entry.target.className);
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Initialize animations when DOM is ready
+        function initializeAnimations() {
+            console.log('Initializing animations...');
+            
+            // Get all elements that should animate
+            const selectors = ['.reveal', '.reveal--stagger', '.reveal--fade-in', '.divider--animate', '.reveal-container'];
+            let totalElements = 0;
+            
+            selectors.forEach(selector => {
+                const elements = document.querySelectorAll(selector);
+                console.log(`Found ${elements.length} elements with selector: ${selector}`);
+                totalElements += elements.length;
+                elements.forEach(el => {
+                    observer.observe(el);
+                });
+            });
+            
+            console.log(`Total elements being observed: ${totalElements}`);
+        }
+
+        // Run when DOM is loaded
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeAnimations);
+        } else {
+            initializeAnimations();
+        }
+
+        // Also initialize on page load to be extra safe
+        window.addEventListener('load', initializeAnimations);
+
+        // Initialize other page scripts
+        document.addEventListener('DOMContentLoaded', () => {
             const cards = document.querySelectorAll(".project-card");
             cards.forEach((card) => {
                 card.addEventListener("click", () => {
