@@ -99,9 +99,10 @@ html { scroll-behavior: smooth; }
 }
 
 .hero-meta {
-  display: flex;
+  display: grid;
+  grid-template-columns: 140px 1fr;
   align-items: baseline;
-  gap: 12px;
+  column-gap: 12px;
   margin: 8px 0;
   color: #dfe7f3;
 }
@@ -113,7 +114,6 @@ html { scroll-behavior: smooth; }
   color: rgba(255, 255, 255, 0.65);
   font-weight: 700;
   display: inline-block;
-  min-width: 80px;
 }
 
 .hero-value {
