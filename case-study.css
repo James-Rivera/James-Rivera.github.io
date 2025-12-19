@@ -1,4 +1,3 @@
-/* Swiss Design Layout for Art2Cart */
 
 /* Base */
 body {
@@ -180,7 +179,6 @@ body {
   --art2cart-dark-navy: #2C3E50;
   --art2cart-dark-bg: #1a252f;
   --art2cart-light: #f8f9fa;
-  /* Wider, fluid content width: grows with viewport but caps for readability */
   --content-max: clamp(1200px, 92vw, 1600px);
 }
 
@@ -193,7 +191,6 @@ body {
   z-index: 0;
 }
 
-/* Top overlay only for hero region, blends with body gradient */
 body::before {
   content: "";
   position: fixed;
@@ -201,7 +198,6 @@ body::before {
   height: min(68vh, 720px);
   pointer-events: none;
   z-index: 0;
-  /* Dark-to-transparent fade to keep readability without a hard box */
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0.55) 0%,
@@ -355,11 +351,10 @@ body::before {
   .content-section .row > .col-lg-8.mx-auto,
   .content-section .row > .col-lg-9.mx-auto,
   .content-section .row > .col-lg-10.mx-auto {
-    margin-left: auto;  /* center like a container */
+    margin-left: auto; 
     margin-right: auto;
   }
 
-  /* Constrain hero's inner text block to the same container width */
   .section-box > .row > .col-12 {
     width: 100%;
     max-width: var(--content-max);
