@@ -50,10 +50,11 @@ body {
 /* Right column */
 .cs-title {
   font-size: clamp(2.2rem, 4.5vw, 4rem);
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.05;
   color: #eee;
   margin-bottom: 16px;
+  font-family: "DM Sans", "Satoshi", sans-serif;
 }
 
 .cs-intro {
@@ -1054,3 +1055,14 @@ body::before { content: none !important; }
 .cs-header .cs-intro { color: rgba(255,255,255,0.92); }
 .cs-header .meta-label { color: rgba(255,255,255,0.8); }
 .cs-header .meta-value { color: #ffffff; }
+
+.art-link{
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.art-link .link-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  transform: translateY(-2px);
+}
