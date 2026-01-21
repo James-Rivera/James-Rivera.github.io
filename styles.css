@@ -953,12 +953,17 @@ header .container-fluid {
   }
 }
 
-/* Hide Project Preview (≤900px) */
+/* Project preview behavior on small screens: hide iframe, show image fallback (≤900px) */
 @media (max-width: 900px) {
-  .project-preview { 
-    display: none; 
-  }
+  .project-preview { display: block; }
+  .project-preview .preview-iframe { display: none; }
+  .project-preview .preview-img { display: block; width: 100%; height: 100%; object-fit: cover; }
 }
+
+/* Ensure iframe is visible by default and image hidden on larger screens */
+.project-preview .preview-iframe { display: block; width: 100%; height: 100%; border: 0; }
+.project-preview .preview-img { display: none; }
+.preview-frame iframe { width: 100%; height: 100%; }
 
 /* Medium Devices (≤991px) */
 @media (max-width: 991px) {
