@@ -1,0 +1,24 @@
+{
+  "name": "james-rivera-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@fontsource/jetbrains-mono": "latest",
+    "@fontsource/space-grotesk": "latest",
+    "astro": "latest",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "latest",
+    "@astrojs/react": "latest",
+    "typescript": "latest"
+  }
+}

@@ -1,0 +1,12 @@
+---
+const { project, compact = false } = Astro.props;
+---
+<article class:list={["project-row", compact && "project-row--compact"]} style={`--project-accent:${project.accent}`} data-reveal>
+  <a href={`/work/${project.slug}/`} aria-label={`View ${project.title} case study`} data-cursor>
+    <span class="project-number">{project.number}</span>
+    <h3>{project.title}</h3>
+    <span class="project-status">{project.status}</span>
+    <span class="project-year">{project.year} ↗</span>
+    <span class="project-dot"></span>
+  </a>
+</article>

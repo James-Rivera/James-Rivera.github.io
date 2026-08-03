@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroMotion from '../components/HeroMotion.jsx';
+import ProjectCard from '../components/ProjectCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { featuredProjects, schoolProjects } from '../data/projects.js';
+
+const timeline = [
+  ['2026', 'Konektado', 'Undergraduate thesis · in development', 'A barangay-oriented mobile platform matching residents with local workers through service categories, roles, location and verification signals.'],
+  ['2025', 'FlowPress', 'Built and deployed at CJNET', 'The QR upload and print path for the shop, revised after watching how it was actually used.'],
+  ['2024', 'Homelab', 'Self-hosted infrastructure', 'Linux, Docker, Nginx and Cloudflare routing. Where deployment became something I operate.'],
+  ['2023', 'Polytechnic University of the Philippines', 'BSIT · final year', 'Coursework in systems, networks and databases, strengthened through projects built beyond the classroom.'],
+  ['2021', 'CJNET Computer Shop', 'Family business · operations', 'Support, networking, print workflow and internal tools—and the environment that tells me which problems are worth building for.'],
+  ['Next', 'Avera', 'Future direction', 'A product studio focused on practical software for workflows and communities I understand firsthand.']
+];
+
+const stackGroups = [
+  { title: 'Used in substantial projects', note: 'Things I have shipped or deployed something real with.', items: ['React','React Native','Expo','Next.js','TypeScript','JavaScript','Tailwind CSS','PHP','Supabase','PostgreSQL','Docker','Linux','Nginx','Cloudflare','Vercel','MikroTik','Git & GitHub'] },
+  { title: 'Working knowledge', note: 'Enough to be useful and to know what I do not know yet.', items: ['Node.js','REST APIs','Auth & access control','MySQL / MariaDB','DigitalOcean','System design','Network configuration','Security fundamentals'] },
+  { title: 'Currently exploring', note: 'Not in any shipped project—actively learning.', items: ['LLM-powered apps','Semantic retrieval','Embeddings','STM32','Embedded systems'] }
+];
+
+const process = [
+  ['01','Observe','Standing at the counter watching where the queue actually breaks—not asking anyone what they need.'],
+  ['02','Define','The workflow gets written before the stack does. Most ideas die here, which is the cheapest place to die.'],
+  ['03','Build','Tools can accelerate the typing. Requirements, architecture, integration and validation stay mine.'],
+  ['04','Deploy','Onto hardware I run myself. Deployment is part of the design, not the step after it.'],
+  ['05','Watch','Staff went around the admin queue I built. That is information, not failure.'],
+  ['06','Revise','Rebuild around what people actually do—and keep the old path if they still trust it.']
+];
+
+const principles = [
+  ['On staying useful', 'I don’t chase frameworks. I learn principles.'],
+  ['On product work', 'The judgement is the job. The typing is not.'],
+  ['On shipping', 'A system is only real when somebody depends on it.']
+];
+
+const questions = [
+  ['design and build?', 'Can you design and build it?', 'Yes—the same person decides what it should do, designs it, writes it, and puts it on the server. Nothing gets lost in a handoff because there isn’t one.'],
+  ['shipped anything real?', 'Have you shipped anything real?', 'FlowPress runs inside CJNET. I also operate internal tools, networks and self-hosted infrastructure that have to work for people other than me.'],
+  ['what have you gotten wrong?', 'What have you gotten wrong?', 'I have built workflows people ignored. Watching that happen taught me to treat behavior as better evidence than a requirements conversation.'],
+  ['do you use AI?', 'Do you use AI?', 'Yes, where it improves speed or capability. Product decisions, architecture, integration and validation remain my responsibility.'],
+  ['what are you looking for?', 'What are you looking for?', 'An internship or product-engineering role where I can work close to users, own meaningful problems and keep growing across the stack.']
+];
+---
+
+<BaseLayout>
+  <HeroMotion client:load />
+
+  <div class="marquee" aria-hidden="true"><div>{[0,1].map(() => <span>Product engineering <i>✳</i> Full stack <i>✳</i> Internal tools <i>✳</i> Self-hosted infrastructure <i>✳</i> Deployment <i>✳</i> Watching real users <i>✳</i></span>)}</div></div>
+
+  <section class="statement" id="about" data-screen-label="Statement">
+    <div class="statement-side" data-reveal>
+      <p>(01) — Statement</p>
+      <img src="/images/portrait.jpg" alt="Portrait of James Carlo Rivera" />
+    </div>
+    <div class="statement-main">
+      <p class="statement-copy" data-reveal>I build complete systems for real operational problems—from the interface to the server they run on. <span>Product decisions, architecture, real users, and interfaces careful enough that nobody notices the plumbing.</span></p>
+      <p class="statement-last" data-reveal>Most of my projects started as an operational problem in a business I could actually walk into.</p>
+      <div class="statement-stats" data-reveal><div><strong>01</strong><span>System in real operations</span></div><div><strong>03</strong><span>In development or ongoing</span></div><div><strong>2027</strong><span>BSIT, PUP Sto. Tomas</span></div></div>
+    </div>
+  </section>
+
+  <section class="systems" id="work" data-screen-label="Selected systems">
+    <SectionHeading number="02" title="Selected systems" note="Status shown per system" />
+    <div class="project-list">{featuredProjects.map((project) => <ProjectCard project={project} />)}</div>
+    <div class="school-title" data-reveal><p>School projects</p><span>Earlier frontend, API and product-design work</span></div>
+    <div class="project-list project-list--school">{schoolProjects.map((project) => <ProjectCard project={project} compact />)}</div>
+  </section>
+
+  <section class="timeline" data-screen-label="Timeline">
+    <SectionHeading number="03" title="Path" note="2021 — present" />
+    <div class="timeline-grid"><i class="timeline-spine"><b></b></i>{timeline.map(([year,title,meta,copy]) => <article data-reveal><strong>{year}</strong><div><h3>{title}</h3><span>{meta}</span><p>{copy}</p></div></article>)}</div>
+  </section>
+
+  <section class="stack" data-screen-label="Stack">
+    <SectionHeading number="04" title="Stack" note="By depth, not by count" />
+    {stackGroups.map(({title,note,items}) => <div class="stack-group" data-reveal><header><strong>{title}</strong><span>{note}</span></header><div>{items.map((item) => <span>{item}</span>)}</div></div>)}
+  </section>
+
+  <section class="process" data-screen-label="How I work">
+    <SectionHeading number="05" title="How I work" note="Six steps, in this order" />
+    <div class="process-grid">{process.map(([number,title,copy]) => <article data-reveal><span>{number}</span><h3>{title}</h3><p>{copy}</p></article>)}</div>
+    <p class="process-manifesto" data-reveal>The judgement is the job. The typing is not.</p>
+  </section>
+
+  <section class="principles" data-screen-label="Principles" data-principles data-index="0">
+    <SectionHeading number="06" title="Principles" note="Click to advance" />
+    <button class="principle-stage" type="button" aria-label="Show next principle" data-principle-next>
+      {principles.map(([eyebrow,copy],index) => <span class:list={[index === 0 && 'is-active']} data-principle><small>{eyebrow}</small><strong>{copy}</strong></span>)}
+      <i><b></b><b></b><b></b></i><em data-principle-count>01 / 03</em>
+    </button>
+  </section>
+
+  <section class="questions" data-screen-label="Questions">
+    <SectionHeading number="07" title="Ask me something" note="Pick a question" />
+    <div class="answer" data-answer><span>rivera@portfolio ~ %</span><h2>{questions[0][1]}</h2><p>{questions[0][2]}</p></div>
+    <div class="question-picker"><p>Ask me something</p><div>{questions.map(([label,title,answer],index) => <button class:list={[index === 0 && 'is-active']} type="button" data-question data-title={title} data-answer-copy={answer}>{label}</button>)}</div></div>
+  </section>
+
+  <footer class="contact" id="contact" data-screen-label="Contact">
+    <SectionHeading number="08" title="Contact" />
+    <a class="contact-title" href="mailto:jamescarlorivera52@gmail.com">Let’s build<br />something↗</a>
+    <div class="contact-meta"><div><span>Where</span><strong>Batangas, Philippines</strong></div><div><span>Open to</span><strong>Internships · product engineering</strong></div><div><span>Reach me</span><a href="mailto:jamescarlorivera52@gmail.com">Email ↗</a><a href="https://github.com/James-Rivera" target="_blank" rel="noreferrer">GitHub ↗</a></div></div>
+    <div class="contact-bottom"><span>© {new Date().getFullYear()} James Carlo Rivera</span><span data-clock>Asia/Manila</span><a href="#top">Back to top ↑</a></div>
+  </footer>
+</BaseLayout>
