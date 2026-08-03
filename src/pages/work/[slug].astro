@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import CasePipeline from '../../components/CasePipeline.astro';
+import ScreenGallery from '../../components/ScreenGallery.astro';
 import { projects } from '../../data/projects.js';
 import { getCaseDetail } from '../../data/cases.js';
 
@@ -17,29 +19,31 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
   <article class="case-study" style={`--project-accent:${project.accent}`}>
     <nav class="case-nav" aria-label="Case study navigation">
       <a href="/#work">← All work</a>
-      <a class="mono-brand" href="/"><i>◒</i> James Carlo Rivera</a>
-      <button class="theme-toggle" type="button" aria-label="Switch color theme"><span></span><b data-theme-label>Dark</b></button>
+      <a class="mono-brand" href="/"><img src="/images/Logo Cleaned - White.png" alt="" data-logo /> James Carlo Rivera</a>
+      <button class="theme-toggle" type="button" aria-label="Switch color theme" data-theme-toggle><span></span><b data-theme-label>Dark</b></button>
     </nav>
 
-    <header class="case-hero">
-      <p class="case-eyebrow">({project.number}) — {detail.eyebrow}</p>
-      <h1>{project.title}</h1>
-      <p class="case-summary">{detail.summary || project.summary}</p>
-      <div class="case-fact-row">
+    <header class="case-hero" data-screen-label={project.title}>
+      <p class="case-eyebrow" data-rise>({project.number}) — {detail.eyebrow}</p>
+      <h1 data-rise>{project.title}</h1>
+      <p class="case-summary" data-rise>{detail.summary || project.summary}</p>
+      <div class="case-fact-row" data-rise>
         {detail.facts.map(([label,value]: [string,string]) => <div><strong>{value}</strong><span>{label}</span></div>)}
       </div>
     </header>
 
-    <div class="case-cover" aria-hidden="true">
-      {project.image ? <img src={project.image} alt="" /> : <div class="case-cover-art"><span>{project.number}</span><strong>{project.title}</strong><i></i><i></i><i></i></div>}
+    <div class="case-cover" data-tile>
+      {project.image ? <img src={project.image} alt={`${project.title} project preview`} /> : <div class="case-cover-art"><span>{project.number}</span><strong>{project.title}</strong><i></i><i></i><i></i></div>}
       <p>{project.title} — project cover</p>
     </div>
 
     <div class="case-sections">
-      {detail.sections.map((section: { title: string; lead?: string; body?: string; items?: [string,string][] },index: number) => <section data-reveal>
+      {detail.sections.map((section: any, index: number) => <section data-rise data-screen-label={section.title}>
         <header><p>({String(index + 2).padStart(2,'0')}) — {section.title}</p></header>
         {section.lead && <h2>{section.lead}</h2>}
         {section.body && <p class="case-body-copy">{section.body}</p>}
+        {section.kind === 'pipeline' && <CasePipeline versions={section.versions} />}
+        {section.kind === 'screens' && <ScreenGallery screens={section.screens} project={project.title} />}
         {section.items && <div class="case-item-grid">{section.items.map(([title,copy]: [string,string]) => <article><strong>{title}</strong><p>{copy}</p></article>)}</div>}
       </section>)}
     </div>

@@ -1,0 +1,20 @@
+---
+const { versions = [] } = Astro.props;
+---
+
+<div class="case-pipelines">
+  {versions.map((version: any) => (
+    <article class="case-pipeline" data-pipe>
+      <header><strong>{version.title}</strong><span>{version.status}</span></header>
+      <div class="pipeline-track">
+        {version.nodes.map((node: [string, string], index: number) => (
+          <>
+            <div class="pipeline-node" data-node><i></i><strong data-node-title>{node[0]}</strong><span>{node[1]}</span></div>
+            {index < version.nodes.length - 1 && <div class="pipeline-link" data-link><b data-link-fill></b></div>}
+          </>
+        ))}
+      </div>
+      <p>{version.copy}</p>
+    </article>
+  ))}
+</div>

@@ -16,7 +16,7 @@ interface Props {
 const {
   title = 'James Carlo Rivera — Product Engineer & Systems Builder',
   description = 'Product engineer in Batangas building complete systems for real operational problems.',
-  image = '/images/Logo.svg',
+  image = '/images/Logo Cleaned - White.png',
   rail = true
 } = Astro.props;
 
@@ -45,7 +45,7 @@ const socialImage = new URL(image, Astro.site).toString();
     <title>{title}</title>
     <script is:inline>
       (() => {
-        const saved = localStorage.getItem('portfolio-theme');
+        const saved = localStorage.getItem('pf-theme') || localStorage.getItem('portfolio-theme');
         document.documentElement.classList.add('js');
         document.documentElement.dataset.theme = saved || 'dark';
       })();
@@ -55,7 +55,7 @@ const socialImage = new URL(image, Astro.site).toString();
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
     {rail && <aside class="section-rail" data-rail aria-hidden="true">
-      <button class="theme-toggle" type="button" aria-label="Switch color theme">
+      <button class="theme-toggle" type="button" aria-label="Switch color theme" data-theme-toggle>
         <span></span><b data-theme-label>Dark</b>
       </button>
       <span data-rail-label>Hero</span>

@@ -191,12 +191,12 @@ export default function HeroMotion() {
       <canvas ref={canvasRef} className="water-canvas" aria-hidden="true" />
       {!ready && (
         <div className="loader" aria-live="polite">
-          <div><span className="mono-brand"><i>◒</i> James Carlo Rivera</span><strong>{String(count).padStart(3, '0')}</strong></div>
+          <div><span className="mono-brand"><img src="/images/Logo Cleaned - White.png" alt="" data-logo /> James Carlo Rivera</span><strong>{String(count).padStart(3, '0')}</strong></div>
           <span className="loader-track"><i style={{ width: `${count}%` }} /></span>
         </div>
       )}
       <nav className="hero-nav" aria-label="Primary navigation">
-        <a className="mono-brand" href="#top"><i>◒</i><span>James Carlo Rivera</span></a>
+        <a className="mono-brand" href="#top"><img src="/images/Logo Cleaned - White.png" alt="" data-logo /><span>James Carlo Rivera</span></a>
         <span>{monoLinks.map(([label, href]) => <a key={href} href={href} className={label === 'Contact' ? 'active' : ''}>{label}</a>)}</span>
       </nav>
       <div className="hero-body">

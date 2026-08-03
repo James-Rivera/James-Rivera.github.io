@@ -20,7 +20,7 @@ export const projects = [
     repoUrl: 'https://github.com/James-Rivera/konektado'
   },
   {
-    slug: 'cjnet', number: '03', title: 'CJNET Operations', kind: 'featured',
+    slug: 'cjnet', number: '03', title: 'CJNET', kind: 'featured',
     label: 'Internal systems', year: '2021—', status: 'Operational tools · experiments',
     summary: 'A growing set of cashier, printing, expense and reporting tools shaped inside the family business they support.',
     context: 'CJNET combines internet access, printing, document assistance and walk-in services. Generic tools rarely match that mix of fast, small and highly varied transactions.',
