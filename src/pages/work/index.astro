@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import WorkIndex from '../../components/WorkIndex.jsx';
+import { projects } from '../../data/projects.js';
+import '../../styles/work-index.css';
+
+const workProjects = projects.map((project, index) => {
+  const external = project.slug === 'solesource' || project.kind === 'school';
+  return {
+    slug: project.slug,
+    number: String(index + 1).padStart(2, '0'),
+    title: project.slug === 'cjnet' ? 'CJNET Operations' : project.title,
+    label: project.slug === 'konektado' ? 'Community platform' : project.label,
+    year: project.kind === 'school' ? (index < 7 ? '2024' : '2023') : project.year,
+    group: project.kind === 'school' ? 'school' : 'systems',
+    href: external ? project.liveUrl : `/work/${project.slug}/`,
+    external,
+    cover: project.image || null,
+    imageAlt: project.imageAlt || ''
+  };
+});
+---
+<BaseLayout title="All work — James Carlo Rivera" description="Index of every project by James Carlo Rivera: operational systems, internal tools, self-hosted infrastructure and school work." rail={false}>
+  <div class="work-page">
+    <nav class="work-nav" aria-label="Primary navigation">
+      <a class="mono-brand" href="/"><img src="/images/Logo Cleaned - White.png" alt="" data-logo /><span>James Carlo Rivera</span></a>
+      <span><a href="/">Index</a><a href="/work/" class="active" aria-current="page">Work</a><a href="/#about">About</a><a href="/#contact">Contact</a></span>
+      <button class="theme-toggle" type="button" aria-label="Switch color theme" data-theme-toggle><i></i><b data-theme-label>Dark</b></button>
+    </nav>
+    <header class="work-header" id="work" data-screen-label="Work index"><p>Index — all projects</p><h1>All work.</h1><div>Everything I have built, in one place — operational systems, internal tools, infrastructure and earlier school work.</div></header>
+    <WorkIndex projects={workProjects} client:load />
+  </div>
+</BaseLayout>

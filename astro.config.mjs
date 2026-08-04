@@ -5,11 +5,6 @@ export default defineConfig({
   site: 'https://jamesrivera.dev',
   output: 'static',
   integrations: [react()],
-  vite: {
-    resolve: {
-      preserveSymlinks: true
-    }
-  },
   build: {
     format: 'directory'
   }

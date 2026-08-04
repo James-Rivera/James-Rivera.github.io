@@ -16,40 +16,64 @@ export function initReveals() {
   elements.forEach((element) => observer.observe(element));
 }
 
-function wrapWords(element) {
-  const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
-  const textNodes = [];
-  while (walker.nextNode()) {
-    const node = walker.currentNode;
-    if (node.parentElement?.closest('[data-swap-art]')) continue;
-    if (node.parentElement?.closest('[data-swap-word]')) continue;
-    if (node.textContent.trim()) textNodes.push(node);
-  }
+function splitScrollWords(element) {
+  if (element.dataset.splitDone) return;
 
-  textNodes.forEach((node) => {
-    const fragment = document.createDocumentFragment();
-    node.textContent.split(/(\s+)/).forEach((token) => {
-      if (!token) return;
-      if (/^\s+$/.test(token)) {
-        fragment.appendChild(document.createTextNode(token));
-        return;
+  const tokens = [];
+  [...element.childNodes].forEach((node) => {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent || '';
+      const leadingPunctuation = text.match(/^[.,;:!?’'"\)\]]+/);
+      let body = text;
+      if (leadingPunctuation && tokens.length) {
+        tokens.at(-1).tail += leadingPunctuation[0];
+        body = text.slice(leadingPunctuation[0].length);
       }
-      const outer = document.createElement('span');
-      const inner = document.createElement('span');
-      outer.className = 'scroll-word';
-      inner.textContent = token;
-      outer.appendChild(inner);
-      fragment.appendChild(outer);
-    });
-    node.replaceWith(fragment);
+      body.trim().split(/\s+/).filter(Boolean).forEach((word) => {
+        tokens.push({ value: word, tail: '' });
+      });
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      tokens.push({ value: node, tail: '' });
+    }
+  });
+
+  element.dataset.splitDone = 'true';
+  element.replaceChildren();
+  tokens.forEach((token, index) => {
+    const outer = document.createElement('span');
+    const inner = document.createElement('span');
+    outer.className = 'scroll-word';
+    outer.style.overflow = typeof token.value === 'string' ? 'hidden' : 'visible';
+
+    if (typeof token.value === 'string') {
+      inner.textContent = token.value + token.tail;
+    } else {
+      inner.append(token.value);
+      if (token.tail) inner.append(document.createTextNode(token.tail));
+    }
+
+    outer.append(inner);
+    element.append(outer);
+    if (index < tokens.length - 1) element.append(document.createTextNode(' '));
   });
 }
 
 export function initScrollWords() {
   const groups = [...document.querySelectorAll('[data-scroll-words]')];
-  groups.forEach(wrapWords);
-  const prepared = groups.map((element) => ({ element, words: [...element.querySelectorAll('.scroll-word')] }));
+  groups.forEach(splitScrollWords);
+  const prepared = groups.map((element) => ({
+    element,
+    words: [...element.children].filter((node) => node.matches('.scroll-word'))
+  }));
   if (!prepared.length) return;
+
+  prepared.forEach(({ words }) => words.forEach((outer) => {
+    outer.style.overflow = 'visible';
+    const inner = outer.firstElementChild;
+    if (!inner) return;
+    inner.style.transition = 'none';
+    inner.style.willChange = 'opacity, transform';
+  }));
 
   const paint = () => {
     const viewport = innerHeight || 1;
@@ -69,8 +93,39 @@ export function initScrollWords() {
       });
     });
   };
-  addEventListener('scroll', paint, { passive: true });
-  addEventListener('resize', paint, { passive: true });
+  let animationFrame = 0;
+  let running = false;
+  const tick = () => {
+    paint();
+    animationFrame = running ? requestAnimationFrame(tick) : 0;
+  };
+  const start = () => {
+    if (running) return;
+    running = true;
+    if (!animationFrame) animationFrame = requestAnimationFrame(tick);
+  };
+  const stop = () => {
+    running = false;
+    paint();
+  };
+
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (entry.isIntersecting) start();
+      else stop();
+    }), { rootMargin: '60% 0px 60% 0px' });
+    prepared.forEach(({ element }) => observer.observe(element));
+  } else {
+    start();
+  }
+
+  const paintWhenIdle = () => {
+    if (!running) paint();
+  };
+  addEventListener('scroll', paintWhenIdle, { passive: true });
+  addEventListener('resize', paintWhenIdle, { passive: true });
+  document.fonts?.ready.then(paint, paint);
+  [0, 250, 900, 2200].forEach((delay) => window.setTimeout(paint, delay));
   paint();
 }
 

@@ -151,7 +151,9 @@ export function initSwaps() {
 
 export function initCursorAndClock() {
   const cursor = document.querySelector('[data-cursor-dot]');
-  if (cursor && matchMedia('(hover:hover)').matches) {
+  const supportsCustomCursor = matchMedia('(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference)');
+  if (cursor && supportsCustomCursor.matches) {
+    document.documentElement.classList.add('has-custom-cursor');
     let x = innerWidth / 2;
     let y = innerHeight / 2;
     let targetX = x;

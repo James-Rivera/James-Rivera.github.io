@@ -4,7 +4,8 @@ import HeroMotion from '../components/HeroMotion.jsx';
 import HoverSwap from '../components/HoverSwap.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import SectionHeading from '../components/SectionHeading.astro';
-import { featuredProjects, schoolProjects } from '../data/projects.js';
+import Statement from '../components/Statement.astro';
+import { featuredProjects } from '../data/projects.js';
 
 const timeline = [
   ['2026', 'Konektado', 'Undergraduate thesis · in development', 'A barangay-oriented mobile platform matching residents with local workers through service categories, roles, location and verification signals.'],
@@ -44,24 +45,15 @@ const questions = [
 
   <div class="marquee" aria-hidden="true"><div>{[0,1].map(() => <span>Product engineering <i>✳</i> Full stack <i>✳</i> Internal tools <i>✳</i> Self-hosted infrastructure <i>✳</i> Deployment <i>✳</i> Watching real users <i>✳</i></span>)}</div></div>
 
-  <section class="statement" id="about" data-screen-label="Statement">
-    <div class="statement-side" data-reveal>
-      <p>(01) — Statement</p>
-      <figure data-tile><img src="/images/portrait.jpg" alt="Portrait of James Carlo Rivera" /></figure>
-    </div>
-    <div class="statement-main">
-      <p class="statement-copy" data-scroll-words>I build complete <HoverSwap word="systems" alternate="docker compose up -d — it just runs" />&nbsp;for real operational problems—from the interface to the server they run on. <span>Product decisions, <HoverSwap word="architecture" graph />,&nbsp;real users, and <HoverSwap word="interfaces" alternate="hover · focus · empty · error" />&nbsp;careful enough that nobody notices the plumbing.</span></p>
-      <p class="statement-last" data-reveal>Most of my projects started as an operational problem in a business I could actually walk into.</p>
-      <div class="statement-stats" data-reveal><div><strong data-count="1">00</strong><span>System in real operations</span></div><div><strong data-count="3">00</strong><span>In development or ongoing</span></div><div><strong>2027</strong><span>BSIT, PUP Sto. Tomas</span></div></div>
-    </div>
-  </section>
+  <Statement />
 
   <section class="systems" id="work" data-screen-label="Selected systems">
-    <SectionHeading number="02" title="Selected systems" note="Status shown per system" />
-    <div class="project-list" data-work-list>{featuredProjects.map((project) => <ProjectCard project={project} />)}</div>
+    <header class="section-heading"><p>(02) — Selected systems</p><span>Four of nine — <a class="full-index-link" href="/work/">full index ↗</a></span></header>
+    <div class="project-list" data-work-list>
+      {featuredProjects.slice(0, 4).map((project) => <ProjectCard project={project} />)}
+      <article class="project-row project-row--directory" data-reveal><a href="/work/"><span class="project-number">+05</span><h3>All work, including school projects</h3><span class="project-status">Filterable index</span><span class="project-year">09 ↗</span><span class="project-dot"></span></a></article>
+    </div>
     <div class="work-preview" data-work-preview aria-hidden="true"><span>Selected system</span><strong>FlowPress</strong><i></i></div>
-    <div class="school-title" data-reveal><p>School projects</p><span>Earlier frontend, API and product-design work</span></div>
-    <div class="project-list project-list--school">{schoolProjects.map((project) => <ProjectCard project={project} compact />)}</div>
   </section>
 
   <section class="timeline" data-screen-label="Timeline">
