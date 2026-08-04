@@ -35,7 +35,7 @@ const updateScroll = () => {
   }
   const heroBody = document.querySelector('.hero-body');
   const heroNav = document.querySelector('.hero-nav');
-  if (heroBody && scrollY < viewport) {
+  if (heroBody && scrollY < viewport && document.documentElement.classList.contains('portfolio-ready')) {
     const progress = Math.max(0, Math.min(1, scrollY / viewport));
     heroBody.style.transform = `translateY(${-progress * 90}px)`;
     heroBody.style.opacity = String(Math.max(0, 1 - progress * 1.5));
@@ -45,6 +45,7 @@ const updateScroll = () => {
 
 addEventListener('scroll', () => { if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScroll); }, { passive: true });
 addEventListener('resize', updateScroll, { passive: true });
+addEventListener('portfolio:ready', updateScroll);
 updateScroll();
 
 const spine = document.querySelector('.timeline-spine');

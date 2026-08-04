@@ -123,19 +123,29 @@ export function initTiles() {
   const tiles = [...document.querySelectorAll('[data-tile]')];
   if (!tiles.length) return;
   const show = (tile) => {
+    if (tile.dataset.shown) return;
     tile.classList.add('is-shown');
     tile.dataset.shown = 'true';
+    observer?.unobserve(tile);
   };
   const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
     if (!entry.isIntersecting) return;
     show(entry.target);
-    observer.unobserve(entry.target);
   }), { threshold: 0.18 });
+  const showVisible = () => tiles.forEach((tile) => {
+    if (tile.dataset.shown) return;
+    const rect = tile.getBoundingClientRect();
+    if (rect.top < innerHeight * 0.92 && rect.bottom > 0) show(tile);
+  });
   tiles.forEach((tile) => {
     observer.observe(tile);
     tile.addEventListener('mouseenter', () => tile.classList.add('is-hovered'));
     tile.addEventListener('mouseleave', () => tile.classList.remove('is-hovered'));
   });
+  addEventListener('scroll', showVisible, { passive: true });
+  addEventListener('resize', showVisible, { passive: true });
+  requestAnimationFrame(showVisible);
+  window.setTimeout(() => tiles.forEach(show), 6000);
 }
 
 export function initPipeline() {

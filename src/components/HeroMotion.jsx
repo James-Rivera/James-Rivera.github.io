@@ -9,7 +9,11 @@ const monoLinks = [
 export default function HeroMotion() {
   const canvasRef = useRef(null);
   const frameRef = useRef(0);
-  const [count, setCount] = useState(0);
+  const loaderRef = useRef(null);
+  const loaderBrandRef = useRef(null);
+  const loadNumberRef = useRef(null);
+  const loadTrackRef = useRef(null);
+  const loadBarRef = useRef(null);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -59,7 +63,8 @@ export default function HeroMotion() {
       const deep = dark ? '#05070B' : '#9FAEBE';
       const line = dark ? '239,236,228' : '20,22,26';
       const t = reduced ? 0 : (now - start) / 1000;
-      const base = height * 0.44;
+      const level = Number.isFinite(window.__pfLevel) ? window.__pfLevel : 0.44;
+      const base = height * level;
       const amp = height * 0.052;
       const k = Math.PI * 2 / (width / 1.25);
       const px = pointer.x * width;
@@ -147,39 +152,150 @@ export default function HeroMotion() {
       context.fillRect(0, height * 0.72, width, height * 0.28);
     };
 
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    const previousBodyOverflow = document.body.style.overflow;
+    const nav = document.querySelector('[data-hero-nav]');
+    const navBrand = document.querySelector('[data-nav-brand]');
+    const timers = new Set();
+    let loaderFrame = 0;
+    let finished = false;
+
+    const later = (callback, delay) => {
+      const timer = window.setTimeout(() => {
+        timers.delete(timer);
+        callback();
+      }, delay);
+      timers.add(timer);
+      return timer;
+    };
+
+    const restoreScroll = () => {
+      document.documentElement.style.overflow = previousHtmlOverflow;
+      document.body.style.overflow = previousBodyOverflow;
+    };
+
+    const showHero = () => {
+      document.documentElement.classList.add('portfolio-ready');
+      dispatchEvent(new Event('portfolio:ready'));
+    };
+
+    const done = () => {
+      if (finished) return;
+      finished = true;
+      window.__pfLoaded = true;
+      if (loaderRef.current) loaderRef.current.style.opacity = '0';
+      if (nav) {
+        nav.style.transition = 'opacity .8s ease';
+        nav.style.opacity = '1';
+      }
+      restoreScroll();
+      later(showHero, 180);
+      later(() => setReady(true), 700);
+    };
+
+    const flyBrand = () => {
+      const loadBrand = loaderBrandRef.current;
+      if (!loadBrand || !navBrand) {
+        done();
+        return;
+      }
+      const from = loadBrand.getBoundingClientRect();
+      const to = navBrand.getBoundingClientRect();
+      if (nav) nav.style.opacity = '1';
+      loadBrand.style.transition = 'transform 1s cubic-bezier(.16,1,.3,1), font-size 1s ease';
+      loadBrand.style.transform = `translate(${(to.left - from.left).toFixed(1)}px,${(to.top - from.top).toFixed(1)}px)`;
+      later(() => {
+        navBrand.style.transition = 'opacity .3s ease';
+        navBrand.style.opacity = '1';
+        done();
+      }, 1000);
+    };
+
+    const settle = () => {
+      const started = performance.now();
+      const duration = 900;
+      if (loadNumberRef.current) {
+        loadNumberRef.current.style.transition = 'opacity .5s ease, transform .7s cubic-bezier(.16,1,.3,1)';
+        loadNumberRef.current.style.opacity = '0';
+        loadNumberRef.current.style.transform = 'translateY(18px)';
+      }
+      if (loadTrackRef.current) {
+        loadTrackRef.current.style.transition = 'opacity .5s ease';
+        loadTrackRef.current.style.opacity = '0';
+      }
+      const ease = (now) => {
+        const progress = Math.min(1, (now - started) / duration);
+        const amount = 1 - Math.pow(1 - progress, 3);
+        window.__pfLevel = 0.395 + (0.44 - 0.395) * amount;
+        if (progress < 1) loaderFrame = requestAnimationFrame(ease);
+        else flyBrand();
+      };
+      loaderFrame = requestAnimationFrame(ease);
+    };
+
+    const runLoader = () => {
+      document.documentElement.classList.remove('portfolio-ready');
+      if (nav) nav.style.opacity = '0';
+      if (navBrand) navBrand.style.opacity = '0';
+
+      if (window.__pfLoaded) {
+        window.__pfLevel = 0.44;
+        if (nav) nav.style.opacity = '1';
+        if (navBrand) navBrand.style.opacity = '1';
+        showHero();
+        setReady(true);
+        return;
+      }
+
+      if (reduced) {
+        window.__pfLevel = 0.44;
+        if (loadNumberRef.current) loadNumberRef.current.textContent = '100';
+        if (loadBarRef.current) loadBarRef.current.style.width = '100%';
+        if (navBrand) navBrand.style.opacity = '1';
+        done();
+        return;
+      }
+
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+      window.scrollTo(0, 0);
+      window.__pfLevel = 1.04;
+      const started = performance.now();
+      const duration = 2600;
+      const rise = (now) => {
+        const progress = Math.min(1, (now - started) / duration);
+        const amount = progress < 0.5
+          ? 2 * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+        window.__pfLevel = 1.04 + (0.395 - 1.04) * amount;
+        const value = Math.round(amount * 100);
+        if (loadNumberRef.current) loadNumberRef.current.textContent = String(value).padStart(3, '0');
+        if (loadBarRef.current) loadBarRef.current.style.width = `${(amount * 100).toFixed(1)}%`;
+        if (progress < 1) loaderFrame = requestAnimationFrame(rise);
+        else later(settle, 200);
+      };
+      loaderFrame = requestAnimationFrame(rise);
+      later(() => {
+        if (!finished) {
+          window.__pfLevel = 0.44;
+          done();
+        }
+      }, 7000);
+    };
+
+    window.__pfLevel = window.__pfLoaded || reduced ? 0.44 : 1.04;
     resize();
     window.addEventListener('resize', resize);
     canvas.addEventListener('pointermove', move, { passive: true });
     canvas.addEventListener('click', click);
     frameRef.current = requestAnimationFrame(draw);
-
-    const alreadyLoaded = sessionStorage.getItem('portfolio-loaded') === '1';
-    let loaderTimer = 0;
-    if (alreadyLoaded || reduced) {
-      setCount(100);
-      setReady(true);
-      document.documentElement.classList.add('portfolio-ready');
-    } else {
-      const duration = 2100;
-      loaderTimer = window.setInterval(() => {
-        const elapsed = performance.now() - start;
-        const progress = Math.min(1, elapsed / duration);
-        const eased = progress < 0.5 ? 2 * progress * progress : 1 - Math.pow(-2 * progress + 2, 2) / 2;
-        setCount(Math.round(eased * 100));
-        if (progress >= 1) {
-          clearInterval(loaderTimer);
-          sessionStorage.setItem('portfolio-loaded', '1');
-          window.setTimeout(() => {
-            setReady(true);
-            document.documentElement.classList.add('portfolio-ready');
-          }, 260);
-        }
-      }, 24);
-    }
+    runLoader();
 
     return () => {
       cancelAnimationFrame(frameRef.current);
-      if (loaderTimer) clearInterval(loaderTimer);
+      cancelAnimationFrame(loaderFrame);
+      timers.forEach((timer) => clearTimeout(timer));
+      restoreScroll();
       window.removeEventListener('resize', resize);
       canvas.removeEventListener('pointermove', move);
       canvas.removeEventListener('click', click);
@@ -190,13 +306,13 @@ export default function HeroMotion() {
     <section className="hero" data-screen-label="Hero" id="top">
       <canvas ref={canvasRef} className="water-canvas" aria-hidden="true" />
       {!ready && (
-        <div className="loader" aria-live="polite">
-          <div><span className="mono-brand"><img src="/images/Logo Cleaned - White.png" alt="" data-logo /> James Carlo Rivera</span><strong>{String(count).padStart(3, '0')}</strong></div>
-          <span className="loader-track"><i style={{ width: `${count}%` }} /></span>
+        <div ref={loaderRef} className="loader" data-loader aria-live="polite">
+          <div><span ref={loaderBrandRef} className="mono-brand" data-load-brand><img src="/images/Logo Cleaned - White.png" alt="" data-logo /> James Carlo Rivera</span><strong ref={loadNumberRef} data-load-num>000</strong></div>
+          <span ref={loadTrackRef} className="loader-track"><i ref={loadBarRef} data-load-bar /></span>
         </div>
       )}
-      <nav className="hero-nav" aria-label="Primary navigation">
-        <a className="mono-brand" href="#top"><img src="/images/Logo Cleaned - White.png" alt="" data-logo /><span>James Carlo Rivera</span></a>
+      <nav className="hero-nav" data-hero-nav aria-label="Primary navigation">
+        <a className="mono-brand" data-nav-brand href="#top"><img src="/images/Logo Cleaned - White.png" alt="" data-logo /><span>James Carlo Rivera</span></a>
         <span>{monoLinks.map(([label, href]) => <a key={href} href={href} className={label === 'Contact' ? 'active' : ''}>{label}</a>)}</span>
       </nav>
       <div className="hero-body">
