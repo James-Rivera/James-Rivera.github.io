@@ -47,7 +47,7 @@ export const projects = [
     contribution: 'I designed and implemented the customer experience, commerce flows, PHP/MySQL backend and supporting voucher and messaging integrations.',
     outcome: 'SoleSource became a practical exercise in joining brand expression, transaction design and backend behavior into one coherent product.',
     stack: ['PHP', 'MySQL', 'JavaScript', 'REST API', 'SMS'], accent: '#d7f74a',
-    image: '/images/solesource-thumbnail.png', imageAlt: 'SoleSource storefront preview',
+    image: '/images/solesource-thumbnail.jpg', imageAlt: 'SoleSource storefront preview',
     liveUrl: 'https://solesource.jamescarlo.me/', repoUrl: 'https://github.com/James-Rivera/solesource'
   },
   {
@@ -68,7 +68,7 @@ export const projects = [
     contribution: 'I shaped the product flows, storefront interface and administration experience, then documented the system as a case study.',
     outcome: 'Art2Cart became the most complete case study from my school work and remains evidence of end-to-end thinking.',
     stack: ['PHP', 'MySQL', 'JavaScript', 'Product Design'], accent: '#ff706c',
-    image: '/images/markeplace.png', imageAlt: 'Art2Cart marketplace interface', liveUrl: 'http://art2cart.shop/'
+    image: '/images/marketplace.jpg', imageAlt: 'Art2Cart marketplace interface', liveUrl: 'http://art2cart.shop/'
   },
   {
     slug: 'japan-tours', number: 'S3', title: 'Japan Tours', kind: 'school',

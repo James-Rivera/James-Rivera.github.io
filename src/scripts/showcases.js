@@ -79,6 +79,7 @@ export function initPrincipleCarousels(scope = document) {
     carousel.dataset.wired = 'true';
     const cards = [...carousel.querySelectorAll('[data-principle-card]')];
     const tabs = [...carousel.querySelectorAll('[data-principle-tab]')];
+    const nextButtons = [...carousel.querySelectorAll('[data-principle-next]')];
     const count = carousel.querySelector('[data-principle-count]');
     if (cards.length < 2 || tabs.length !== cards.length) return;
 
@@ -142,6 +143,10 @@ export function initPrincipleCarousels(scope = document) {
         event.preventDefault();
         activate(next, true);
       });
+    });
+
+    nextButtons.forEach((button) => {
+      button.addEventListener('click', () => activate(index + 1));
     });
 
     const setPaused = (value) => {

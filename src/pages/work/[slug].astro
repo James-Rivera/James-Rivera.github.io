@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import CasePipeline from '../../components/CasePipeline.astro';
 import ScreenGallery from '../../components/ScreenGallery.astro';
+import SiteNav from '../../components/SiteNav.astro';
 import { projects } from '../../data/projects.js';
 import { getCaseDetail } from '../../data/cases.js';
 
@@ -17,11 +18,7 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
 
 <BaseLayout title={`${project.title} — James Carlo Rivera`} description={detail.summary || project.summary} image={project.image} rail={false}>
   <article class="case-study" style={`--project-accent:${project.accent}`}>
-    <nav class="case-nav" aria-label="Case study navigation">
-      <a href="/#work">← All work</a>
-      <a class="mono-brand" href="/"><img src="/images/Logo Cleaned - White.png" alt="" data-logo /> James Carlo Rivera</a>
-      <button class="theme-toggle" type="button" aria-label="Switch color theme" data-theme-toggle><span></span><b data-theme-label>Dark</b></button>
-    </nav>
+    <SiteNav current="work" />
 
     <header class="case-hero" data-screen-label={project.title}>
       <p class="case-eyebrow" data-rise>({project.number}) — {detail.eyebrow}</p>
@@ -49,7 +46,7 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
     </div>
 
     <footer class="case-footer">
-      <div><a href="/#work">← Back to all work</a><span>{project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noreferrer">Live project ↗</a>}{project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noreferrer">GitHub ↗</a>}</span></div>
+      <div><a href="/work/">← Back to all work</a><span>{project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noreferrer">Live project ↗</a>}{project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noreferrer">GitHub ↗</a>}</span></div>
       <a class="case-next" href={`/work/${nextProject.slug}/`}><span>Next project</span><strong>{nextProject.title}</strong><i>↗</i></a>
     </footer>
   </article>

@@ -15,6 +15,7 @@ export default function WorkIndex({ projects }) {
   const [active, setActive] = useState(0);
   const previewRef = useRef(null);
   const inputRef = useRef(null);
+  const paletteRef = useRef(null);
 
   const setFilter = (next) => { setFilterState(next); localStorage.setItem('pf-work-filter', next); };
   const setView = (next) => { setViewState(next); localStorage.setItem('pf-work-view', next); };
@@ -27,7 +28,25 @@ export default function WorkIndex({ projects }) {
   }, []);
 
   useEffect(() => {
-    if (paletteOpen) requestAnimationFrame(() => inputRef.current?.focus());
+    if (!paletteOpen) return;
+    const previousFocus = document.activeElement;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(() => inputRef.current?.focus());
+    const trapFocus = (event) => {
+      if (event.key !== 'Tab' || !paletteRef.current) return;
+      const focusable = [...paletteRef.current.querySelectorAll('input,button,[href]')].filter((element) => !element.disabled);
+      if (!focusable.length) return;
+      const first = focusable[0], last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    };
+    addEventListener('keydown', trapFocus);
+    return () => {
+      removeEventListener('keydown', trapFocus);
+      document.body.style.overflow = previousOverflow;
+      if (previousFocus instanceof HTMLElement) previousFocus.focus();
+    };
   }, [paletteOpen]);
 
   const visible = filter === 'all' ? projects : projects.filter((project) => project.group === filter);
@@ -92,6 +111,6 @@ export default function WorkIndex({ projects }) {
       {visible.map((project, index) => { const beat = beats[index % 4]; return <a href={project.href} target={project.external ? '_blank' : undefined} rel={project.external ? 'noreferrer' : undefined} className="work-card" data-work-card style={{ gridColumn: beat[0], marginTop: beat[2], animationDelay: `${index * 40}ms` }} key={project.slug}><div className="work-cover" style={{ aspectRatio: beat[1] }}>{project.cover && <img src={project.cover} alt={project.imageAlt || ''} />}</div><div><strong>{project.title}</strong><span>{project.year}</span></div><p>{project.label}</p></a>; })}
     </div>}
     <footer className="work-footer"><a href="/">← Index</a><button type="button" onClick={() => { setPaletteOpen(true); setQuery(''); setActive(0); }}>Press / to search</button><a href="https://github.com/James-Rivera" target="_blank" rel="noreferrer">GitHub ↗</a></footer>
-    {paletteOpen && <div className="palette-overlay" onMouseDown={() => setPaletteOpen(false)}><div className="palette" role="dialog" aria-modal="true" aria-label="Command palette" onMouseDown={(event) => event.stopPropagation()}><div className="palette-search"><span>›</span><input ref={inputRef} value={query} onChange={(event) => { setQuery(event.target.value); setActive(0); }} placeholder="Search projects, filters, pages…" /><span>Esc</span></div><div className="palette-results">{results.map((entry, index) => <button type="button" className={active === index ? 'is-active' : ''} onMouseEnter={() => setActive(index)} onClick={() => runResult(entry)} key={`${entry.label}-${index}`}><i></i><span>{entry.label}</span><span>{entry.hint}</span></button>)}</div><div className="palette-help"><span>↑↓ Move</span><span>↵ Open</span><span>{String(results.length).padStart(2, '0')} results</span></div></div></div>}
+    {paletteOpen && <div className="palette-overlay" onMouseDown={() => setPaletteOpen(false)}><div className="palette" ref={paletteRef} role="dialog" aria-modal="true" aria-label="Command palette" onMouseDown={(event) => event.stopPropagation()}><div className="palette-search"><span>›</span><input ref={inputRef} value={query} onChange={(event) => { setQuery(event.target.value); setActive(0); }} placeholder="Search projects, filters, pages…" aria-label="Search projects and pages" /><span>Esc</span></div><div className="palette-results">{results.map((entry, index) => <button type="button" className={active === index ? 'is-active' : ''} onMouseEnter={() => setActive(index)} onClick={() => runResult(entry)} key={`${entry.label}-${index}`}><i></i><span>{entry.label}</span><span>{entry.hint}</span></button>)}</div><div className="palette-help"><span>↑↓ Move</span><span>↵ Open</span><span>{String(results.length).padStart(2, '0')} results</span></div></div></div>}
   </>;
 }

@@ -111,6 +111,135 @@ export function initQuestions() {
   }));
 }
 
+export function initAskOverlay() {
+  const button = document.querySelector('[data-ask-toggle]');
+  const overlay = document.querySelector('[data-ask-overlay]');
+  if (!button || !overlay || overlay.dataset.wired) return;
+  overlay.dataset.wired = 'true';
+  const label = button.querySelector('[data-ask-label]');
+  const dot = button.querySelector('[data-ask-dot]');
+  const stage = overlay.querySelector('[data-ask-stage]');
+  const list = overlay.querySelector('[data-ask-list]');
+  const back = overlay.querySelector('[data-ask-back]');
+  const questions = [...overlay.querySelectorAll('[data-ask-question]')];
+  const answers = [...overlay.querySelectorAll('[data-ask-answer]')];
+  const lines = [...overlay.querySelectorAll('[data-ask-line]')];
+  let open = false;
+  let currentAnswer = -1;
+  let revealTimer = 0;
+  let previousFocus = null;
+  let previousHtmlOverflow = '';
+  let previousBodyOverflow = '';
+
+  const revealPill = () => {
+    button.style.opacity = '1';
+    button.style.pointerEvents = 'auto';
+    button.style.transform = 'none';
+    button.tabIndex = 0;
+  };
+  if (document.documentElement.classList.contains('portfolio-ready')) revealPill();
+  else addEventListener('portfolio:ready', revealPill, { once: true });
+
+  const revealLines = (visible) => {
+    clearTimeout(revealTimer);
+    lines.forEach((element, index) => {
+      element.style.transitionDelay = visible ? `${(0.16 + index * 0.055).toFixed(3)}s` : '0s';
+      element.style.opacity = visible ? '1' : '0';
+      element.style.transform = visible ? 'none' : 'translateY(14px)';
+    });
+    if (visible) revealTimer = window.setTimeout(() => lines.forEach((element) => { element.style.transitionDelay = '0s'; }), 700);
+  };
+
+  const showAnswer = (index, moveFocus = true) => {
+    currentAnswer = index;
+    const showingAnswer = index >= 0;
+    answers.forEach((answer, answerIndex) => {
+      const selected = answerIndex === index;
+      answer.style.opacity = selected ? '1' : '0';
+      answer.style.transform = selected ? 'none' : 'translateY(16px)';
+      answer.style.pointerEvents = selected ? 'auto' : 'none';
+    });
+    list.style.opacity = showingAnswer ? '0' : '1';
+    list.style.transform = showingAnswer ? 'translateY(-12px)' : 'none';
+    list.style.pointerEvents = showingAnswer ? 'none' : 'auto';
+    list.inert = showingAnswer;
+    back.style.opacity = showingAnswer ? '1' : '0';
+    back.style.pointerEvents = showingAnswer ? 'auto' : 'none';
+    back.tabIndex = showingAnswer ? 0 : -1;
+    if (moveFocus) requestAnimationFrame(() => (showingAnswer ? back : questions[0])?.focus());
+  };
+
+  const setOpen = (value) => {
+    open = value;
+    if (value) {
+      previousFocus = document.activeElement;
+      previousHtmlOverflow = document.documentElement.style.overflow;
+      previousBodyOverflow = document.body.style.overflow;
+    }
+    overlay.style.opacity = value ? '1' : '0';
+    overlay.style.pointerEvents = value ? 'auto' : 'none';
+    overlay.inert = !value;
+    overlay.setAttribute('aria-hidden', String(!value));
+    button.setAttribute('aria-expanded', String(value));
+    button.setAttribute('aria-label', value ? 'Close questions' : 'Ask me something');
+    label.textContent = value ? 'Close' : 'Ask';
+    dot.style.transform = value ? 'scale(.42)' : 'none';
+    button.style.color = value ? 'var(--fg)' : 'var(--fg-62)';
+    button.style.borderColor = value ? 'var(--accent)' : 'var(--line)';
+    document.documentElement.style.overflow = value ? 'hidden' : previousHtmlOverflow;
+    document.body.style.overflow = value ? 'hidden' : previousBodyOverflow;
+    const rect = button.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    const reach = Math.ceil(Math.hypot(Math.max(centerX, innerWidth - centerX), Math.max(centerY, innerHeight - centerY)) + 40);
+    const clip = `circle(${value ? reach : 0}px at ${centerX.toFixed(1)}px ${centerY.toFixed(1)}px)`;
+    overlay.style.clipPath = clip;
+    overlay.style.transitionDelay = value ? '0s,0s' : '0s,.25s';
+    if (value) {
+      showAnswer(-1, false);
+      revealLines(false);
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        if (!open) return;
+        revealLines(true);
+        questions[0]?.focus();
+      }));
+    } else {
+      revealLines(false);
+      currentAnswer = -1;
+      if (previousFocus instanceof HTMLElement) requestAnimationFrame(() => previousFocus.focus());
+    }
+  };
+
+  button.addEventListener('click', () => setOpen(!open));
+  back.addEventListener('click', () => showAnswer(-1));
+  questions.forEach((question, index) => {
+    const mark = question.querySelector('[data-ask-mark]');
+    const enter = () => { question.style.color = 'var(--fg)'; question.style.transform = 'translateX(5px)'; mark.style.opacity = '1'; };
+    const leave = () => { question.style.color = 'var(--fg-50)'; question.style.transform = 'none'; mark.style.opacity = '0'; };
+    question.addEventListener('click', () => showAnswer(index));
+    question.addEventListener('mouseenter', enter);
+    question.addEventListener('mouseleave', leave);
+    question.addEventListener('focus', enter);
+    question.addEventListener('blur', leave);
+  });
+  overlay.addEventListener('click', (event) => { if (event.target === overlay || event.target === stage) setOpen(false); });
+  addEventListener('keydown', (event) => {
+    if (!open) return;
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      if (currentAnswer >= 0) showAnswer(-1); else setOpen(false);
+      return;
+    }
+    if (event.key !== 'Tab') return;
+    const focusable = [...overlay.querySelectorAll('button')].filter((element) => getComputedStyle(element).pointerEvents !== 'none');
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+    else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+  });
+}
+
 export function initSwaps() {
   document.querySelectorAll('[data-swap]').forEach((token) => {
     const word = token.querySelector('[data-swap-word]');

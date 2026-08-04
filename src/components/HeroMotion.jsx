@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
 const monoLinks = [
-  ['Work', '#work'],
+  ['Work', '/work/'],
   ['Gallery', '/gallery/'],
   ['About', '#about'],
   ['Contact', '#contact']
@@ -239,14 +239,21 @@ export default function HeroMotion() {
       if (nav) nav.style.opacity = '0';
       if (navBrand) navBrand.style.opacity = '0';
 
-      if (window.__pfLoaded) {
+      const navigation = performance.getEntriesByType('navigation')[0];
+      let introSeen = false;
+      try { introSeen = sessionStorage.getItem('pf-intro-seen') === '1'; } catch {}
+      const skipIntro = window.__pfLoaded || introSeen || Boolean(location.hash) || navigation?.type === 'back_forward';
+      if (skipIntro) {
         window.__pfLevel = 0.44;
         if (nav) nav.style.opacity = '1';
         if (navBrand) navBrand.style.opacity = '1';
+        document.documentElement.classList.add('intro-seen');
         showHero();
         setReady(true);
         return;
       }
+
+      try { sessionStorage.setItem('pf-intro-seen', '1'); } catch {}
 
       if (reduced) {
         window.__pfLevel = 0.44;
@@ -315,7 +322,8 @@ export default function HeroMotion() {
       <div className="hero-frame">
         <nav className="hero-nav" data-hero-nav aria-label="Primary navigation">
           <a className="mono-brand" data-nav-brand href="#top"><img src="/images/Logo Cleaned - White.png" alt="" data-logo /><span>James Carlo Rivera</span></a>
-          <span>{monoLinks.map(([label, href]) => <a key={href} href={href} className={label === 'Contact' ? 'active' : ''}>{label}</a>)}</span>
+          <span className="site-nav-links">{monoLinks.map(([label, href]) => <a key={href} href={href} className={label === 'About' ? 'nav-about' : undefined}>{label}</a>)}</span>
+          <button className="nav-theme-toggle" type="button" aria-label="Switch color theme" data-theme-toggle><i></i><b data-theme-label>Dark</b></button>
         </nav>
         <div className="hero-body">
           <p className="hero-lead">I design and build complete systems for real operational problems — from the interface to the server they run on.</p>

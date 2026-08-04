@@ -26,8 +26,10 @@ function applyTheme(mode) {
     logo.style.filter = mode === 'light' ? 'invert(1)' : 'none';
   });
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content', mode === 'light' ? '#F7F6F3' : '#0A0D12');
-  localStorage.setItem('pf-theme', mode);
-  localStorage.setItem('portfolio-theme', mode);
+  try {
+    localStorage.setItem('pf-theme', mode);
+    localStorage.setItem('portfolio-theme', mode);
+  } catch {}
 }
 
 function fadeTheme(mode) {
@@ -171,7 +173,8 @@ function themeWave(mode, flip) {
 }
 
 export function initTheme() {
-  const saved = localStorage.getItem('pf-theme') || localStorage.getItem('portfolio-theme') || 'dark';
+  let saved = 'dark';
+  try { saved = localStorage.getItem('pf-theme') || localStorage.getItem('portfolio-theme') || 'dark'; } catch {}
   applyTheme(saved);
 
   document.querySelectorAll('[data-theme-toggle], .theme-toggle').forEach((button) => {

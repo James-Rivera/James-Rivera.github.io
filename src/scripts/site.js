@@ -1,6 +1,6 @@
 import { initTheme } from './theme.js';
 import { initCounters, initPipeline, initReveals, initScrollWords, initSteps, initTiles } from './motion.js';
-import { initCursorAndClock, initDetailRows, initPrinciples, initProjectRows, initQuestions, initSwaps } from './interactions.js';
+import { initAskOverlay, initCursorAndClock, initDetailRows, initPrinciples, initProjectRows, initQuestions, initSwaps } from './interactions.js';
 
 initTheme();
 initReveals();
@@ -13,6 +13,7 @@ initProjectRows();
 initDetailRows();
 initPrinciples();
 initQuestions();
+initAskOverlay();
 initSwaps();
 initCursorAndClock();
 

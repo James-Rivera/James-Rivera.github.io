@@ -45,9 +45,16 @@ const socialImage = new URL(image, Astro.site).toString();
     <title>{title}</title>
     <script is:inline>
       (() => {
-        const saved = localStorage.getItem('pf-theme') || localStorage.getItem('portfolio-theme');
         document.documentElement.classList.add('js');
-        document.documentElement.dataset.theme = saved || 'dark';
+        const nav = performance.getEntriesByType('navigation')[0];
+        try {
+          const saved = localStorage.getItem('pf-theme') || localStorage.getItem('portfolio-theme');
+          document.documentElement.dataset.theme = saved || 'dark';
+          if (location.pathname !== '/' || location.hash || nav?.type === 'back_forward') sessionStorage.setItem('pf-intro-seen', '1');
+          if (sessionStorage.getItem('pf-intro-seen') === '1' || location.hash || nav?.type === 'back_forward') document.documentElement.classList.add('intro-seen');
+        } catch {
+          document.documentElement.dataset.theme = 'dark';
+        }
       })();
     </script>
   </head>
@@ -55,9 +62,6 @@ const socialImage = new URL(image, Astro.site).toString();
     <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="cursor-dot" data-cursor-dot aria-hidden="true"></div>
     {rail && <aside class="section-rail" data-rail aria-hidden="true">
-      <button class="theme-toggle" type="button" aria-label="Switch color theme" data-theme-toggle>
-        <span></span><b data-theme-label>Dark</b>
-      </button>
       <span data-rail-label>Hero</span>
       <i><em data-rail-fill></em></i>
     </aside>}

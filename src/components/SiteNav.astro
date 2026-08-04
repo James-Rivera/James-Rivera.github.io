@@ -1,0 +1,14 @@
+---
+interface Props { current?: 'work' | 'gallery'; overlay?: boolean; }
+const { current, overlay = false } = Astro.props;
+---
+<nav class:list={['site-nav', overlay && 'site-nav--overlay']} aria-label="Primary navigation">
+  <a class="mono-brand" href="/"><img src="/images/Logo Cleaned - White.png" alt="" data-logo /><span>James Carlo Rivera</span></a>
+  <span class="site-nav-links">
+    <a href="/work/" class:list={[current === 'work' && 'active']} aria-current={current === 'work' ? 'page' : undefined}>Work</a>
+    <a href="/gallery/" class:list={[current === 'gallery' && 'active']} aria-current={current === 'gallery' ? 'page' : undefined}>Gallery</a>
+    <a class="nav-about" href="/#about">About</a>
+    <a href="/#contact">Contact</a>
+  </span>
+  <button class="nav-theme-toggle" type="button" aria-label="Switch color theme" data-theme-toggle><i></i><b data-theme-label>Dark</b></button>
+</nav>
