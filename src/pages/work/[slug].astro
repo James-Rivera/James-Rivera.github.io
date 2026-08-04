@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CasePipeline from '../../components/CasePipeline.astro';
+import ScreenGallery from '../../components/ScreenGallery.astro';
+import SiteNav from '../../components/SiteNav.astro';
+import { projects } from '../../data/projects.js';
+import { getCaseDetail } from '../../data/cases.js';
+
+export function getStaticPaths() {
+  return projects.map((project) => ({ params: { slug: project.slug }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const detail = getCaseDetail(project);
+const currentIndex = projects.findIndex((item) => item.slug === project.slug);
+const nextProject = projects[(currentIndex + 1) % projects.length];
+---
+
+<BaseLayout title={`${project.title} — James Carlo Rivera`} description={detail.summary || project.summary} image={project.image} rail={false}>
+  <article class="case-study" style={`--project-accent:${project.accent}`}>
+    <SiteNav current="work" />
+
+    <header class="case-hero" data-screen-label={project.title}>
+      <p class="case-eyebrow" data-rise>({project.number}) — {detail.eyebrow}</p>
+      <h1 data-rise>{project.title}</h1>
+      <p class="case-summary" data-rise>{detail.summary || project.summary}</p>
+      <div class="case-fact-row" data-rise>
+        {detail.facts.map(([label,value]: [string,string]) => <div><strong>{value}</strong><span>{label}</span></div>)}
+      </div>
+    </header>
+
+    <div class="case-cover" data-tile>
+      {project.image ? <img src={project.image} alt={`${project.title} project preview`} /> : <div class="case-cover-art"><span>{project.number}</span><strong>{project.title}</strong><i></i><i></i><i></i></div>}
+      <p>{project.title} — project cover</p>
+    </div>
+
+    <div class="case-sections">
+      {detail.sections.map((section: any, index: number) => <section data-rise data-screen-label={section.title}>
+        <header><p>({String(index + 2).padStart(2,'0')}) — {section.title}</p></header>
+        {section.lead && <h2>{section.lead}</h2>}
+        {section.body && <p class="case-body-copy">{section.body}</p>}
+        {section.kind === 'pipeline' && <CasePipeline versions={section.versions} />}
+        {section.kind === 'screens' && <ScreenGallery screens={section.screens} project={project.title} />}
+        {section.items && <div class="case-item-grid">{section.items.map(([title,copy]: [string,string]) => <article><strong>{title}</strong><p>{copy}</p></article>)}</div>}
+      </section>)}
+    </div>
+
+    <footer class="case-footer">
+      <div><a href="/work/">← Back to all work</a><span>{project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noreferrer">Live project ↗</a>}{project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noreferrer">GitHub ↗</a>}</span></div>
+      <a class="case-next" href={`/work/${nextProject.slug}/`}><span>Next project</span><strong>{nextProject.title}</strong><i>↗</i></a>
+    </footer>
+  </article>
+</BaseLayout>

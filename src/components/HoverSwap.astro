@@ -1,0 +1,25 @@
+---
+interface Props {
+  word: string;
+  alternate?: string;
+  graph?: boolean;
+}
+
+const { word, alternate = '', graph = false } = Astro.props;
+---
+
+<span class="hover-swap" data-swap tabindex="0">
+  <span data-swap-word>{word}</span>
+  <span class:list={["swap-art", graph && "swap-art--graph"]} data-swap-art data-graph={graph || undefined} aria-hidden="true">
+    {graph ? (
+      <span class="mini-graph">
+        {['browser', 'queue', 'print'].map((label, index) => (
+          <>
+            <i data-gnode><b data-gcheck>✓</b>{label}</i>
+            {index < 2 && <em>{[0,1,2].map(() => <b data-gedge></b>)}</em>}
+          </>
+        ))}
+      </span>
+    ) : <code>{alternate}</code>}
+  </span>
+</span>

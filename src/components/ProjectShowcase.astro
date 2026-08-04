@@ -1,0 +1,35 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import { featuredProjects, schoolProjects } from '../data/projects.js';
+import '../styles/showcases.css';
+---
+
+<section class="systems" id="work" data-screen-label="Selected systems">
+  <header class="section-heading">
+    <p>(02) — Selected systems</p>
+    <span>{featuredProjects.length + schoolProjects.length} projects — <a class="full-index-link" href="/work/">full index ↗</a></span>
+  </header>
+
+  <div class="section-switcher" data-segmented>
+    <div class="section-switcher-tabs" role="tablist" aria-label="Project categories">
+      <button class="is-active" id="projects-flagship-tab" type="button" role="tab" aria-selected="true" aria-controls="projects-flagship" data-segmented-tab="flagship">Flagship</button>
+      <button id="projects-school-tab" type="button" role="tab" aria-selected="false" aria-controls="projects-school" tabindex="-1" data-segmented-tab="school">School</button>
+    </div>
+
+    <div class="section-switcher-panels" data-work-list>
+      <div class="section-switcher-panel is-active" id="projects-flagship" role="tabpanel" aria-labelledby="projects-flagship-tab" data-segmented-panel="flagship">
+        <div class="project-list">{featuredProjects.map((project) => <ProjectCard project={project} />)}</div>
+      </div>
+      <div class="section-switcher-panel" id="projects-school" role="tabpanel" aria-labelledby="projects-school-tab" aria-hidden="true" data-segmented-panel="school">
+        <div class="project-list project-list--school">{schoolProjects.map((project) => <ProjectCard project={project} compact />)}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="work-preview" data-work-preview aria-hidden="true"><span>Selected system</span><strong>FlowPress</strong><i></i></div>
+</section>
+
+<script>
+  import { initSegmentedControls } from '../scripts/showcases.js';
+  initSegmentedControls();
+</script>

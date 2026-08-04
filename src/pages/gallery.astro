@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Gallery from '../components/Gallery.jsx';
+import SiteNav from '../components/SiteNav.astro';
+import '../styles/gallery.css';
+---
+<BaseLayout title="Gallery — James Carlo Rivera" description="Photographs by James Carlo Rivera — structure, light and stacked cities across Hong Kong, Manila and Batangas." image="/images/gallery/cover.jpg" rail={false}>
+  <div class="gallery-page">
+    <SiteNav current="gallery" overlay />
+    <header class="gallery-hero"><img src="/images/gallery/cover.jpg" alt="Mount Fuji at dusk across Lake Kawaguchi" /><i aria-hidden="true"></i><div><section><h1>Gallery</h1><small>Cover — Clay Banks / Unsplash</small></section><p>Most days I'm inside a system. These are the minutes I stopped building and just looked — whatever else the work is for, it's for this.</p></div></header>
+    <Gallery client:load />
+    <footer class="gallery-footer"><span>Not the work — the noticing</span><span><a href="/work/">Work</a><a href="/">Index</a></span></footer>
+  </div>
+</BaseLayout>

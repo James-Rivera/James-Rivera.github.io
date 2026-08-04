@@ -1,0 +1,38 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import '../styles/showcases.css';
+
+const groups = [
+  { id: 'proven', label: 'Proven', title: 'Used in substantial projects', note: 'Things I have shipped or deployed something real with.', items: ['React','React Native','Expo','Next.js','TypeScript','JavaScript','Tailwind CSS','PHP','Supabase','PostgreSQL','Docker','Linux','Nginx','Cloudflare','Vercel','MikroTik','Git & GitHub'] },
+  { id: 'working', label: 'Working', title: 'Working knowledge', note: 'Enough to be useful and to know what I do not know yet.', items: ['Node.js','REST APIs','Auth & access control','MySQL / MariaDB','DigitalOcean','System design','Network configuration','Security fundamentals'] },
+  { id: 'exploring', label: 'Exploring', title: 'Currently exploring', note: 'Not in any shipped project—actively learning.', items: ['LLM-powered apps','Semantic retrieval','Embeddings','STM32','Embedded systems'] }
+];
+---
+
+<section class="stack" data-screen-label="Stack">
+  <SectionHeading number="04" title="Stack" note="By depth, not by count" />
+
+  <div class="section-switcher" data-segmented>
+    <div class="section-switcher-tabs" role="tablist" aria-label="Technology experience levels">
+      {groups.map(({ id, label }, index) => (
+        <button class:list={[index === 0 && 'is-active']} id={`stack-${id}-tab`} type="button" role="tab" aria-selected={index === 0 ? 'true' : 'false'} aria-controls={`stack-${id}`} tabindex={index === 0 ? undefined : '-1'} data-segmented-tab={id}>{label}</button>
+      ))}
+    </div>
+
+    <div class="section-switcher-panels section-switcher-panels--stack">
+      {groups.map(({ id, title, note, items }, index) => (
+        <div class:list={['section-switcher-panel', index === 0 && 'is-active']} id={`stack-${id}`} role="tabpanel" aria-labelledby={`stack-${id}-tab`} aria-hidden={index === 0 ? undefined : 'true'} data-segmented-panel={id}>
+          <div class="stack-group">
+            <header><strong>{title}</strong><span>{note}</span></header>
+            <div>{items.map((item) => <span>{item}</span>)}</div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initSegmentedControls } from '../scripts/showcases.js';
+  initSegmentedControls();
+</script>
