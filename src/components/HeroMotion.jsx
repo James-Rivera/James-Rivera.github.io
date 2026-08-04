@@ -318,11 +318,11 @@ export default function HeroMotion() {
         </nav>
         <div className="hero-body">
           <p className="hero-lead">I design and build complete systems for real operational problems — from the interface to the server they run on.</p>
-          <div className="hero-primary">
+          <div className="hero-title hero-primary">
             <h1><span>Products,</span><span>not demos.</span></h1>
-            <div className="hero-links">
-              <a href="#contact">Contact me</a><a href="#work">Selected systems ↓</a><a href="https://github.com/James-Rivera" target="_blank" rel="noreferrer">GitHub ↗</a>
-            </div>
+          </div>
+          <div className="hero-links">
+            <a href="#contact">Contact me</a><a href="#work">Selected systems ↓</a><a href="https://github.com/James-Rivera" target="_blank" rel="noreferrer">GitHub ↗</a>
           </div>
           <div className="hero-meta">
             <span>Batangas, Philippines</span>
