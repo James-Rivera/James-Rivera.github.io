@@ -1,4 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import React from 'react';
+
+const { useEffect, useRef, useState } = React;
 
 const monoLinks = [
   ['Work', '/work/'],

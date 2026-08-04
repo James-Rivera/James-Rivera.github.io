@@ -1,4 +1,6 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import React from 'react';
+
+const { useEffect, useMemo, useRef, useState } = React;
 
 const beats = [
   ['1 / span 7', '4 / 3', '0px'],
