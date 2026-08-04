@@ -1,11 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroMotion from '../components/HeroMotion.jsx';
-import HoverSwap from '../components/HoverSwap.astro';
-import ProjectCard from '../components/ProjectCard.astro';
+import PrinciplesCarousel from '../components/PrinciplesCarousel.astro';
+import ProjectShowcase from '../components/ProjectShowcase.astro';
 import SectionHeading from '../components/SectionHeading.astro';
+import StackShowcase from '../components/StackShowcase.astro';
 import Statement from '../components/Statement.astro';
-import { featuredProjects } from '../data/projects.js';
 
 const timeline = [
   ['2026', 'Konektado', 'Undergraduate thesis · in development', 'A barangay-oriented mobile platform matching residents with local workers through service categories, roles, location and verification signals.'],
@@ -14,12 +14,6 @@ const timeline = [
   ['2023', 'Polytechnic University of the Philippines', 'BSIT · final year', 'Coursework in systems, networks and databases, strengthened through projects built beyond the classroom.'],
   ['2021', 'CJNET Computer Shop', 'Family business · operations', 'Support, networking, print workflow and internal tools—and the environment that tells me which problems are worth building for.'],
   ['Next', 'Avera', 'Future direction', 'A product studio focused on practical software for workflows and communities I understand firsthand.']
-];
-
-const stackGroups = [
-  { title: 'Used in substantial projects', note: 'Things I have shipped or deployed something real with.', items: ['React','React Native','Expo','Next.js','TypeScript','JavaScript','Tailwind CSS','PHP','Supabase','PostgreSQL','Docker','Linux','Nginx','Cloudflare','Vercel','MikroTik','Git & GitHub'] },
-  { title: 'Working knowledge', note: 'Enough to be useful and to know what I do not know yet.', items: ['Node.js','REST APIs','Auth & access control','MySQL / MariaDB','DigitalOcean','System design','Network configuration','Security fundamentals'] },
-  { title: 'Currently exploring', note: 'Not in any shipped project—actively learning.', items: ['LLM-powered apps','Semantic retrieval','Embeddings','STM32','Embedded systems'] }
 ];
 
 const process = [
@@ -47,24 +41,14 @@ const questions = [
 
   <Statement />
 
-  <section class="systems" id="work" data-screen-label="Selected systems">
-    <header class="section-heading"><p>(02) — Selected systems</p><span>Four of nine — <a class="full-index-link" href="/work/">full index ↗</a></span></header>
-    <div class="project-list" data-work-list>
-      {featuredProjects.slice(0, 4).map((project) => <ProjectCard project={project} />)}
-      <article class="project-row project-row--directory" data-reveal><a href="/work/"><span class="project-number">+05</span><h3>All work, including school projects</h3><span class="project-status">Filterable index</span><span class="project-year">09 ↗</span><span class="project-dot"></span></a></article>
-    </div>
-    <div class="work-preview" data-work-preview aria-hidden="true"><span>Selected system</span><strong>FlowPress</strong><i></i></div>
-  </section>
+  <ProjectShowcase />
 
   <section class="timeline" data-screen-label="Timeline">
     <SectionHeading number="03" title="Path" note="2021 — present" />
     <div class="timeline-grid"><i class="timeline-spine"><b></b></i>{timeline.map(([year,title,meta,copy]) => <article data-reveal data-erow><i data-erow-wipe></i><strong>{year}</strong><div><h3 data-erow-title>{title}</h3><span>{meta}</span><p data-erow-detail>{copy}</p></div></article>)}</div>
   </section>
 
-  <section class="stack" data-screen-label="Stack">
-    <SectionHeading number="04" title="Stack" note="By depth, not by count" />
-    {stackGroups.map(({title,note,items}) => <div class="stack-group" data-reveal><header><strong>{title}</strong><span>{note}</span></header><div>{items.map((item) => <span>{item}</span>)}</div></div>)}
-  </section>
+  <StackShowcase />
 
   <section class="process" data-screen-label="How I work">
     <SectionHeading number="05" title="How I work" note="Six steps, in this order" />
@@ -72,15 +56,7 @@ const questions = [
     <p class="process-manifesto" data-reveal>The judgement is the job. The typing is not.</p>
   </section>
 
-  <section class="principles" data-screen-label="Principles" data-principles data-index="0">
-    <SectionHeading number="06" title="Principles" note="Click to advance" />
-    <button class="principle-stage" type="button" aria-label="Show next principle" data-principle-next>
-      <span class="is-active" data-principle><small>On staying useful</small><strong>I don’t chase <HoverSwap word="frameworks" alternate="npm i whatever@latest — no thanks" />. I learn principles.</strong></span>
-      <span data-principle><small>On what the job is</small><strong>Great software isn’t written into existence. It comes from understanding <HoverSwap word="people" alternate="walk-ins, not personas" />&nbsp;and designing systems that survive being used.</strong></span>
-      <span data-principle><small>On why there is always another one</small><strong>Every project has to teach me something I didn’t know <HoverSwap word="yesterday" alternate="git log --since=yesterday" />.</strong></span>
-      <i><b></b><b></b><b></b></i><em data-principle-count>01 / 03</em>
-    </button>
-  </section>
+  <PrinciplesCarousel />
 
   <section class="questions" data-screen-label="Questions">
     <SectionHeading number="07" title="Ask me something" note="Pick a question" />
