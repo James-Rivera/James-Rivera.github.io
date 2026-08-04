@@ -315,15 +315,19 @@ export default function HeroMotion() {
         <a className="mono-brand" data-nav-brand href="#top"><img src="/images/Logo Cleaned - White.png" alt="" data-logo /><span>James Carlo Rivera</span></a>
         <span>{monoLinks.map(([label, href]) => <a key={href} href={href} className={label === 'Contact' ? 'active' : ''}>{label}</a>)}</span>
       </nav>
+      <p className="hero-lead">I design and build complete systems for real operational problems — from the interface to the server they run on.</p>
       <div className="hero-body">
         <div>
           <h1><span>Products,</span><span>not demos.</span></h1>
-          <p className="hero-lead">I design and build complete systems for real operational problems — from the interface to the server they run on.</p>
           <div className="hero-links">
             <a href="#contact">Contact me</a><a href="#work">Selected systems ↓</a><a href="https://github.com/James-Rivera" target="_blank" rel="noreferrer">GitHub ↗</a>
           </div>
         </div>
-         <div className="hero-meta"><span>Batangas, Philippines</span><span>4th-year BSIT · PUP Sto. Tomas</span><span>● Open to internships & product engineering roles</span></div>
+        <div className="hero-meta">
+          <span>Batangas, Philippines</span>
+          <span>4th-year BSIT · PUP Sto. Tomas</span>
+          <span>● Open to internships &amp; product engineering roles</span>
+        </div>
       </div>
       <div className="hero-scroll">Scroll <span>↓</span></div>
     </section>
