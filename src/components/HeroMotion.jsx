@@ -328,8 +328,13 @@ export default function HeroMotion() {
           <div className="hero-meta">
             <span>Batangas, Philippines</span>
             <span>4th-year BSIT · PUP Sto. Tomas</span>
-            <span>● Open to internships &amp; product engineering roles</span>
+            <span className="hero-availability"><i aria-hidden="true" />Open to internships &amp; product engineering roles</span>
           </div>
+          <a className="hero-featured" href="/work/konektado/" aria-label="View Konektado community marketplace case study">
+            <small><i aria-hidden="true" />Featured system 02</small>
+            <strong>Konektado</strong>
+            <em>View case ↗</em>
+          </a>
         </div>
       </div>
       <div className="hero-scroll">Scroll <span>↓</span></div>
