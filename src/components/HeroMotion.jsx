@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 
 const monoLinks = [
   ['Work', '#work'],
+  ['Gallery', '/gallery/'],
   ['About', '#about'],
   ['Contact', '#contact']
 ];
