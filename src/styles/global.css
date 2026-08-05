@@ -70,6 +70,7 @@ button{font:inherit;color:inherit}img{display:block;max-width:100%}
 
 /* Original interaction layer, rebuilt as modular components. */
 .mono-brand img{width:17px;height:17px;object-fit:contain;flex:none;transition:filter .5s}
+:root[data-theme='dark'] [data-logo]{filter:none}:root[data-theme='light'] [data-logo]{filter:invert(1)}
 .statement-side figure{width:100%;max-width:330px;margin:0;overflow:hidden}.statement-side figure img{max-width:none}
 [data-rise]{opacity:0;transform:translateY(24px);transition:opacity .85s,transform .85s cubic-bezier(.16,1,.3,1)}[data-rise].is-visible{opacity:1;transform:none}
 [data-tile]{clip-path:inset(100% 0 0);transition:clip-path 1.1s cubic-bezier(.16,1,.3,1)}[data-tile].is-shown{clip-path:inset(0)}[data-tile] > :first-child{transform:scale(1.14);transition:transform 1.2s cubic-bezier(.16,1,.3,1)}[data-tile].is-shown > :first-child{transform:none}[data-tile].is-hovered > :first-child{transform:scale(1.05)}

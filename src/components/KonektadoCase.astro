@@ -57,12 +57,18 @@ const trackEmphasis = changed.items[2][1].split(';').map((copy: string) => copy.
 
   <section class="kn-section kn-band kn-video" data-screen-label="Demo">
     <header class="kn-label-row"><p data-rise>({number(video.title)}) — {video.title}</p><span data-rise><i></i>{video.label}</span></header>
-    <figure class="case-video" data-case-video-player data-tile>
-      <video playsinline preload="metadata" poster={video.poster} data-case-video data-start-at={video.startAt || 0} aria-label="KONEKTADO AI demo video">
-        <source src={video.src} type="video/mp4" />Your browser does not support embedded video.
-      </video>
-      <button class="case-video-toggle" type="button" data-video-toggle aria-label="Load KONEKTADO demo" disabled><i aria-hidden="true"></i><strong data-video-action>Loading film</strong><em data-video-time>02:28</em></button>
-    </figure>
+    <div class="kn-video-pin">
+      <figure class="case-video kn-video-stage" data-scroll-video>
+        <video muted loop playsinline preload="auto" poster={video.poster} data-start-at={video.startAt || 0} aria-label="KONEKTADO AI demo video">
+          <source src={video.src} type="video/mp4" />Your browser does not support embedded video.
+        </video>
+        <div class="kn-video-overlay">
+          <span>KONEKTADO AI · Playing automatically</span>
+          <button type="button" data-video-sound aria-label="Turn video sound on"><i></i><span>Sound on</span></button>
+        </div>
+        <span class="kn-video-progress" aria-hidden="true"><i data-video-progress></i></span>
+      </figure>
+    </div>
     <div class="kn-video-copy kn-two"><h2 data-rise>{video.lead}</h2><p class="kn-body" data-rise>{video.body}</p></div>
   </section>
 
@@ -73,7 +79,7 @@ const trackEmphasis = changed.items[2][1].split(';').map((copy: string) => copy.
       <div class="kn-actions" data-rise><a class="kn-button kn-button--primary" href={live.url} target="_blank" rel="noreferrer">Open in a new tab ↗</a><button class="kn-button" data-live-reload type="button">Reload preview</button></div>
       <div class="kn-live-facts" data-rise><div><strong>konektado.app</strong><span>Deployment</span></div><div><strong>{live.frame[0]} × {live.frame[1]}</strong><span>Preview width</span></div><div><strong>Live build</strong><span>Source</span></div></div>
     </div>
-    <div class="kn-phone" data-phone data-tile>
+    <div class="kn-phone" data-phone>
       <div class="kn-phone-frame">
         <div class="kn-live-fallback" data-live-fallback><i></i><strong data-live-heading>Loading konektado.app…</strong><p>If the live app declines to be embedded, open it in a new tab instead.</p><a href={live.url} target="_blank" rel="noreferrer">konektado.app ↗</a></div>
         <iframe data-live-frame src={live.url} title="Live preview of konektado.app" loading="lazy" referrerpolicy="no-referrer"></iframe>
@@ -99,7 +105,7 @@ const trackEmphasis = changed.items[2][1].split(';').map((copy: string) => copy.
 
   <section class="kn-section kn-figures" data-screen-label="Research system mockups">
     <p class="kn-label" data-rise>({number(mockups.title)}) — {mockups.title}</p><h2 data-rise>{mockups.lead}</h2><p class="kn-body" data-rise>{mockups.body}</p>
-    {mockups.images.map((image: any, index: number) => <figure class:list={[index === 1 && 'kn-figure--inset']} data-tile><img src={image.src} alt={image.alt} loading="lazy" decoding="async" /><figcaption><span>Fig. {index + 1}</span>{image.label}</figcaption></figure>)}
+    {mockups.images.map((image: any, index: number) => <figure class:list={[index === 1 && 'kn-figure--inset']}><img src={image.src} alt={image.alt} loading="lazy" decoding="async" /><figcaption><span>Fig. {index + 1}</span>{image.label}</figcaption></figure>)}
   </section>
 
   <section class="kn-section kn-band" data-screen-label="Trust">

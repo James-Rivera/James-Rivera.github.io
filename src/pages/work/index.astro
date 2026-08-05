@@ -17,7 +17,8 @@ const workProjects = projects.map((project, index) => {
     href: external ? project.liveUrl : `/work/${project.slug}/`,
     external,
     cover: project.image || null,
-    imageAlt: project.imageAlt || ''
+    imageAlt: project.imageAlt || '',
+    accent: project.accent || '#1f5fef'
   };
 });
 ---

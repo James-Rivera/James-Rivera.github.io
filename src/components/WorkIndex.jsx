@@ -84,16 +84,17 @@ export default function WorkIndex({ projects }) {
   useEffect(() => {
     if (view !== 'list' || matchMedia('(hover: none)').matches) return;
     const box = previewRef.current;
+    const cursor = document.querySelector('[data-cursor-dot]');
     if (!box) return;
     let x = 0, y = 0, tx = 0, ty = 0, frame = 0, on = false;
     const move = (event) => { tx = event.clientX; ty = event.clientY; if (!on) { x = tx; y = ty; } };
     const tick = () => { x += (tx - x) * .14; y += (ty - y) * .14; const tilt = Math.max(-7, Math.min(7, (tx - x) * .14)); box.style.transform = `translate3d(${x}px,${y}px,0) translate(-50%,-50%) rotate(${tilt}deg) scale(${on ? 1 : .9})`; frame = requestAnimationFrame(tick); };
     const rows = [...document.querySelectorAll('[data-work-row]')];
-    const enter = (event) => { on = true; box.dataset.active = event.currentTarget.dataset.slug; box.style.opacity = '1'; };
-    const leave = () => { on = false; box.style.opacity = '0'; };
+    const enter = (event) => { on = true; box.dataset.active = event.currentTarget.dataset.slug; box.style.opacity = '1'; cursor?.classList.add('is-previewing'); };
+    const leave = () => { on = false; box.style.opacity = '0'; cursor?.classList.remove('is-previewing'); };
     rows.forEach((row) => { row.addEventListener('pointerenter', enter); row.addEventListener('pointerleave', leave); });
     addEventListener('mousemove', move, { passive: true }); frame = requestAnimationFrame(tick);
-    return () => { cancelAnimationFrame(frame); removeEventListener('mousemove', move); rows.forEach((row) => { row.removeEventListener('pointerenter', enter); row.removeEventListener('pointerleave', leave); }); };
+    return () => { cancelAnimationFrame(frame); removeEventListener('mousemove', move); cursor?.classList.remove('is-previewing'); rows.forEach((row) => { row.removeEventListener('pointerenter', enter); row.removeEventListener('pointerleave', leave); }); };
   }, [view, filter]);
 
   const runResult = (entry) => { entry.run(); setPaletteOpen(false); };
@@ -108,7 +109,7 @@ export default function WorkIndex({ projects }) {
     </div>
     {view === 'list' ? <div className="work-list">
       {visible.map((project, index) => <a href={project.href} target={project.external ? '_blank' : undefined} rel={project.external ? 'noreferrer' : undefined} className="work-row" data-work-row data-slug={project.slug} style={{ animationDelay: `${index * 40}ms` }} key={project.slug}><span>{project.number}</span><strong>{project.title}</strong><span>{project.label}</span><span>{project.year} {project.external ? '↗' : '→'}</span></a>)}
-      <div className="work-preview-box" ref={previewRef} aria-hidden="true">{visible.map((project) => <div className="work-preview-layer" data-slug={project.slug} key={project.slug}>{project.cover && <img src={project.cover} alt="" />}</div>)}</div>
+      <div className="work-preview-box" ref={previewRef} aria-hidden="true">{visible.map((project) => <div className={`work-preview-layer ${project.cover ? 'has-cover' : 'is-fallback'}`} data-slug={project.slug} style={{ '--preview-accent': project.accent }} key={project.slug}>{project.cover ? <img src={project.cover} alt="" /> : <><i></i><i></i><span>Selected work</span><strong>{project.title}</strong></>}</div>)}</div>
     </div> : <div className="work-grid">
       {visible.map((project, index) => { const beat = beats[index % 4]; return <a href={project.href} target={project.external ? '_blank' : undefined} rel={project.external ? 'noreferrer' : undefined} className="work-card" data-work-card style={{ gridColumn: beat[0], marginTop: beat[2], animationDelay: `${index * 40}ms` }} key={project.slug}><div className="work-cover" style={{ aspectRatio: beat[1] }}>{project.cover && <img src={project.cover} alt={project.imageAlt || ''} />}</div><div><strong>{project.title}</strong><span>{project.year}</span></div><p>{project.label}</p></a>; })}
     </div>}

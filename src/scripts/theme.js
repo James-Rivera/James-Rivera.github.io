@@ -4,6 +4,7 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matc
 let waveCanvas;
 let waveFrame;
 let themeTimer;
+let themeControlsWired = false;
 
 function toRgb(hex) {
   const value = String(hex).replace('#', '');
@@ -21,9 +22,6 @@ function applyTheme(mode) {
   root.dataset.theme = mode;
   document.querySelectorAll('[data-theme-label]').forEach((label) => {
     label.textContent = mode === 'light' ? 'Light' : 'Dark';
-  });
-  document.querySelectorAll('[data-logo]').forEach((logo) => {
-    logo.style.filter = mode === 'light' ? 'invert(1)' : 'none';
   });
   document.querySelector('meta[name="theme-color"]')?.setAttribute('content', mode === 'light' ? '#F7F6F3' : '#0A0D12');
   try {
@@ -177,13 +175,12 @@ export function initTheme() {
   try { saved = localStorage.getItem('pf-theme') || localStorage.getItem('portfolio-theme') || 'dark'; } catch {}
   applyTheme(saved);
 
-  document.querySelectorAll('[data-theme-toggle], .theme-toggle').forEach((button) => {
-    if (button.dataset.themeWired) return;
-    button.dataset.themeWired = 'true';
-    button.addEventListener('click', () => {
-      const next = root.dataset.theme === 'light' ? 'dark' : 'light';
-      if (document.querySelector('.hero') && !reducedMotion) themeWave(next, () => fadeTheme(next));
-      else fadeTheme(next);
-    });
+  if (themeControlsWired) return;
+  themeControlsWired = true;
+  document.addEventListener('click', (event) => {
+    if (!(event.target instanceof Element) || !event.target.closest('[data-theme-toggle], .theme-toggle')) return;
+    const next = root.dataset.theme === 'light' ? 'dark' : 'light';
+    if (!reducedMotion) themeWave(next, () => fadeTheme(next));
+    else fadeTheme(next);
   });
 }

@@ -193,12 +193,13 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: clamp(200px, 22vw, 320px);
-    aspect-ratio: 4/3;
+    width: 360px;
+    height: 245px;
     pointer-events: none;
     opacity: 0;
     z-index: 70;
     overflow: hidden;
+    border-radius: 20px;
     background: var(--surface);
     border: 1px solid var(--line);
     transition: opacity .35s
@@ -215,6 +216,53 @@
     width: 100%;
     height: 100%;
     object-fit: cover
+}
+
+.work-preview-layer.is-fallback {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 23px;
+    background: var(--bg)
+}
+
+.work-preview-layer.is-fallback>i {
+    position: absolute;
+    width: 270px;
+    height: 270px;
+    right: -50px;
+    top: -110px;
+    border: 1px solid var(--preview-accent, var(--accent));
+    border-radius: 50%;
+    opacity: .5
+}
+
+.work-preview-layer.is-fallback>i+i {
+    width: 150px;
+    height: 150px;
+    right: 10px;
+    top: -50px;
+    border-color: var(--fg-16)
+}
+
+.work-preview-layer.is-fallback span,
+.work-preview-layer.is-fallback strong {
+    position: relative;
+    z-index: 1
+}
+
+.work-preview-layer.is-fallback span {
+    font: 8px 'JetBrains Mono', monospace;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--fg-42)
+}
+
+.work-preview-layer.is-fallback strong {
+    font-size: 38px;
+    font-weight: 500;
+    letter-spacing: -.05em;
+    line-height: 1.05
 }
 
 .work-preview-box[data-active="flowpress"] [data-slug="flowpress"],

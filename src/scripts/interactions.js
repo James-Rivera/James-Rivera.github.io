@@ -124,6 +124,8 @@ export function initAskOverlay() {
   overlay.dataset.wired = 'true';
   const label = button.querySelector('[data-ask-label]');
   const dot = button.querySelector('[data-ask-dot]');
+  const wash = overlay.querySelector('[data-ask-wash]');
+  const surface = overlay.querySelector('[data-ask-surface]');
   const stage = overlay.querySelector('[data-ask-stage]');
   const list = overlay.querySelector('[data-ask-list]');
   const back = overlay.querySelector('[data-ask-back]');
@@ -133,18 +135,35 @@ export function initAskOverlay() {
   let open = false;
   let currentAnswer = -1;
   let revealTimer = 0;
+  let washTimer = 0;
   let previousFocus = null;
   let previousHtmlOverflow = '';
   let previousBodyOverflow = '';
+  let portfolioReady = document.documentElement.classList.contains('portfolio-ready');
+  let revealFrame = 0;
 
-  const revealPill = () => {
-    button.style.opacity = '1';
-    button.style.pointerEvents = 'auto';
-    button.style.transform = 'none';
-    button.tabIndex = 0;
+  const setPillVisible = (visible) => {
+    button.style.opacity = visible ? '1' : '0';
+    button.style.pointerEvents = visible ? 'auto' : 'none';
+    button.style.transform = visible ? 'none' : 'translateY(10px)';
+    button.tabIndex = visible ? 0 : -1;
   };
-  if (document.documentElement.classList.contains('portfolio-ready')) revealPill();
-  else addEventListener('portfolio:ready', revealPill, { once: true });
+  const updatePillVisibility = () => {
+    revealFrame = 0;
+    const hero = document.querySelector('.hero');
+    const hasReachedContent = !hero || hero.getBoundingClientRect().bottom <= innerHeight * 0.16;
+    setPillVisible(open || (portfolioReady && hasReachedContent));
+  };
+  const queuePillUpdate = () => {
+    if (!revealFrame) revealFrame = requestAnimationFrame(updatePillVisibility);
+  };
+  addEventListener('scroll', queuePillUpdate, { passive: true });
+  addEventListener('resize', queuePillUpdate, { passive: true });
+  if (!portfolioReady) addEventListener('portfolio:ready', () => {
+    portfolioReady = true;
+    updatePillVisibility();
+  }, { once: true });
+  updatePillVisibility();
 
   const revealLines = (visible) => {
     clearTimeout(revealTimer);
@@ -177,11 +196,13 @@ export function initAskOverlay() {
 
   const setOpen = (value) => {
     open = value;
+    clearTimeout(washTimer);
     if (value) {
       previousFocus = document.activeElement;
       previousHtmlOverflow = document.documentElement.style.overflow;
       previousBodyOverflow = document.body.style.overflow;
     }
+    overlay.style.transitionDelay = value ? '0s' : '.72s';
     overlay.style.opacity = value ? '1' : '0';
     overlay.style.pointerEvents = value ? 'auto' : 'none';
     overlay.inert = !value;
@@ -199,9 +220,19 @@ export function initAskOverlay() {
     const centerY = rect.top + rect.height / 2;
     const reach = Math.ceil(Math.hypot(Math.max(centerX, innerWidth - centerX), Math.max(centerY, innerHeight - centerY)) + 40);
     const clip = `circle(${value ? reach : 0}px at ${centerX.toFixed(1)}px ${centerY.toFixed(1)}px)`;
-    overlay.style.clipPath = clip;
-    overlay.style.transitionDelay = value ? '0s,0s' : '0s,.25s';
+    wash.style.clipPath = clip;
+    surface.style.clipPath = clip;
+    wash.style.opacity = value ? '1' : '0';
+    wash.style.transitionDelay = value ? '0s' : '.08s';
+    surface.style.transitionDelay = value ? '.1s' : '0s';
+    stage.style.transitionDelay = value ? '.34s,.28s' : '0s,0s';
+    stage.style.opacity = value ? '1' : '0';
+    stage.style.transform = value ? 'none' : 'translateY(12px)';
+    setPillVisible(true);
     if (value) {
+      washTimer = window.setTimeout(() => {
+        if (open) wash.style.opacity = '0';
+      }, 580);
       showAnswer(-1, false);
       revealLines(false);
       requestAnimationFrame(() => requestAnimationFrame(() => {
@@ -212,6 +243,10 @@ export function initAskOverlay() {
     } else {
       revealLines(false);
       currentAnswer = -1;
+      window.setTimeout(() => {
+        if (open) return;
+        updatePillVisibility();
+      }, 820);
       if (previousFocus instanceof HTMLElement) requestAnimationFrame(() => previousFocus.focus());
     }
   };
@@ -237,7 +272,7 @@ export function initAskOverlay() {
       return;
     }
     if (event.key !== 'Tab') return;
-    const focusable = [...overlay.querySelectorAll('button')].filter((element) => getComputedStyle(element).pointerEvents !== 'none');
+    const focusable = [button, ...overlay.querySelectorAll('button')].filter((element) => getComputedStyle(element).pointerEvents !== 'none');
     if (!focusable.length) return;
     const first = focusable[0];
     const last = focusable[focusable.length - 1];

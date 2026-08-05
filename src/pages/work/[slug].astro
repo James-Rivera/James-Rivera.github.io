@@ -76,9 +76,17 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
     const toggle = player.querySelector<HTMLButtonElement>('[data-video-toggle]');
     const action = player.querySelector<HTMLElement>('[data-video-action]');
     const time = player.querySelector<HTMLElement>('[data-video-time]');
-    if (!video || !toggle || !action || !time) return;
+    if (!video) return;
 
     const startAt = Number(video.dataset.startAt || 0);
+    if (!toggle || !action || !time) {
+      const setStart = () => {
+        if (video.currentTime < startAt - .05) video.currentTime = startAt;
+      };
+      if (video.readyState >= 1) setStart();
+      else video.addEventListener('loadedmetadata', setStart, { once: true });
+      return;
+    }
     const memoryKey = player.closest('.case-study--konektado') ? 'kn-ai-demo-time' : '';
     let primed = false;
     const formatTime = (seconds: number) => {
@@ -184,5 +192,56 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
       frame.src = url.toString();
     });
     start();
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-scroll-video]').forEach((stage) => {
+    const video = stage.querySelector<HTMLVideoElement>('video');
+    const sound = stage.querySelector<HTMLButtonElement>('[data-video-sound]');
+    const soundLabel = sound?.querySelector<HTMLElement>('span');
+    const progress = stage.querySelector<HTMLElement>('[data-video-progress]');
+    if (!video || !sound || !soundLabel || !progress) return;
+
+    const startAt = Number(video.dataset.startAt || 0);
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let active = false;
+
+    const setStart = () => {
+      if (video.currentTime < startAt - .05) video.currentTime = startAt;
+    };
+    const updateProgress = () => {
+      if (!Number.isFinite(video.duration)) return;
+      progress.style.width = `${Math.max(0, Math.min(1, video.currentTime / video.duration)) * 100}%`;
+    };
+    const play = async () => {
+      if (reducedMotion || document.hidden) return;
+      setStart();
+      try { await video.play(); } catch {}
+    };
+
+    if (video.readyState >= 1) setStart();
+    else video.addEventListener('loadedmetadata', setStart, { once: true });
+    video.addEventListener('timeupdate', updateProgress);
+    sound.addEventListener('click', async () => {
+      video.muted = !video.muted;
+      soundLabel.textContent = video.muted ? 'Sound on' : 'Sound off';
+      sound.setAttribute('aria-label', video.muted ? 'Turn video sound on' : 'Turn video sound off');
+      if (video.paused) await play();
+    });
+
+    if (reducedMotion) {
+      video.controls = true;
+      sound.hidden = true;
+      return;
+    }
+
+    new IntersectionObserver(([entry]) => {
+      active = entry.isIntersecting;
+      if (active) play(); else video.pause();
+    }, { threshold: .35 }).observe(stage);
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) video.pause();
+      else if (active) play();
+    });
   });
 </script>
