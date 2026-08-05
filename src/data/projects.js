@@ -7,7 +7,7 @@ export const projects = [
     contribution: 'I contributed to product strategy, system and interface design, mobile development and team coordination, then proposed adapting the research concept into KONEKTADO AI for a hackathon.',
     outcome: 'The project progressed from an academic research concept into a working mobile prototype and a focused AI-assisted matching demonstration.',
     stack: ['Expo', 'React Native', 'TypeScript', 'Supabase', 'PostgreSQL'], accent: '#62a8eb',
-    image: '/images/konektado-cover.jpg', imageAlt: 'KONEKTADO wordmark over a blue community photograph',
+    image: '/images/konektado-cover.webp', imageAlt: 'KONEKTADO wordmark over a blue community photograph',
     repoUrl: 'https://github.com/James-Rivera/konektado', liveUrl: 'https://konektado.app', theme: 'konektado'
   },
   {
