@@ -1,6 +1,17 @@
 export const projects = [
   {
-    slug: 'flowpress', number: '01', title: 'FlowPress', kind: 'featured',
+    slug: 'konektado', number: '01', title: 'KONEKTADO', kind: 'featured',
+    label: 'Community job matching', year: '2026', status: 'Research prototype · hackathon adaptation',
+    summary: 'A research-driven mobile platform connecting residents with nearby workers, jobs and community services through location, roles and layered trust signals.',
+    context: 'Finding trustworthy local help often depends on referrals, group chats and posts that the right nearby provider may never see.',
+    contribution: 'I contributed to product strategy, system and interface design, mobile development and team coordination, then proposed adapting the research concept into KONEKTADO AI for a hackathon.',
+    outcome: 'The project progressed from an academic research concept into a working mobile prototype and a focused AI-assisted matching demonstration.',
+    stack: ['Expo', 'React Native', 'TypeScript', 'Supabase', 'PostgreSQL'], accent: '#62a8eb',
+    image: '/images/konektado-cover.jpg', imageAlt: 'KONEKTADO wordmark over a blue community photograph',
+    repoUrl: 'https://github.com/James-Rivera/konektado', liveUrl: 'https://konektado.app', theme: 'konektado'
+  },
+  {
+    slug: 'flowpress', number: '02', title: 'FlowPress', kind: 'featured',
     label: 'Print workflow', year: '2025—26', status: 'Running in real operations',
     summary: 'A QR-first upload and print workflow built for the pace and constraints of a neighborhood computer shop.',
     context: 'Customers used to move files through chat threads, USB drives and counter conversations. The handoff was slow, hard to track and easy to misunderstand during busy hours.',
@@ -8,16 +19,6 @@ export const projects = [
     outcome: 'FlowPress is used at CJNET and continues to evolve around the habits of the people running the shop—not an imagined ideal process.',
     stack: ['React', 'TypeScript', 'Supabase', 'Docker', 'Nginx'], accent: '#356dff',
     repoUrl: 'https://github.com/James-Rivera/flowpress-v2'
-  },
-  {
-    slug: 'konektado', number: '02', title: 'Konektado', kind: 'featured',
-    label: 'Community marketplace', year: '2026', status: 'Thesis · active development',
-    summary: 'A barangay-oriented mobile platform matching residents with nearby workers through roles, location and verification signals.',
-    context: 'Finding trusted local help is still driven by word of mouth. That works until the right person sits outside your immediate network or the work needs clearer accountability.',
-    contribution: 'I own the product direction, interaction design and application architecture, translating community trust patterns into practical mobile flows.',
-    outcome: 'The thesis build is in active development, with verification, matching and service discovery treated as one connected system.',
-    stack: ['React Native', 'Expo', 'TypeScript', 'Supabase', 'PostgreSQL'], accent: '#ef5d9b',
-    repoUrl: 'https://github.com/James-Rivera/konektado'
   },
   {
     slug: 'cjnet', number: '03', title: 'CJNET', kind: 'featured',

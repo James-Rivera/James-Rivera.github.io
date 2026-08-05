@@ -1,6 +1,7 @@
 export function initProjectRows() {
   const list = document.querySelector('[data-work-list]');
   const preview = document.querySelector('[data-work-preview]');
+  const cursor = document.querySelector('[data-cursor-dot]');
   if (!list) return;
 
   let targetX = 0;
@@ -26,10 +27,12 @@ export function initProjectRows() {
       targetX = x = event.clientX;
       targetY = y = event.clientY;
       preview.style.opacity = '1';
+      cursor?.classList.add('is-previewing');
     });
     list.addEventListener('pointerleave', () => {
       visible = false;
       preview.style.opacity = '0';
+      cursor?.classList.remove('is-previewing');
     });
   }
 
@@ -39,6 +42,9 @@ export function initProjectRows() {
       if (preview) {
         preview.querySelector('strong').textContent = row.querySelector('[data-row-title]')?.textContent || '';
         preview.style.setProperty('--preview-accent', row.closest('.project-row')?.style.getPropertyValue('--project-accent') || 'var(--accent)');
+        preview.classList.toggle('is-image', Boolean(row.dataset.previewImage));
+        const image = preview.querySelector('img');
+        if (image && row.dataset.previewImage) image.src = row.dataset.previewImage;
       }
     });
     row.addEventListener('pointerleave', () => row.classList.remove('is-hovered'));

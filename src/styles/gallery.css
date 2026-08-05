@@ -1,7 +1,463 @@
-@keyframes gfade{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}@keyframes gin{from{opacity:0}to{opacity:1}}
-.gallery-page{--gallery-pad:clamp(24px,4vw,64px);min-height:100vh;overflow-x:clip}.gallery-nav{position:absolute;inset:0 0 auto;z-index:60;height:96px;padding:0 var(--gallery-pad);display:flex;align-items:center;gap:clamp(18px,3vw,32px);font:11px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:rgba(239,236,228,.58)}.gallery-nav>.mono-brand{color:#efece4}.gallery-nav>span{margin-left:auto;display:flex;gap:clamp(16px,2.4vw,30px)}.gallery-nav>span a{color:rgba(239,236,228,.58)}.gallery-nav>span a.active{color:#efece4;border-bottom:1px solid var(--accent);padding-bottom:3px}.gallery-nav .theme-toggle{position:static;writing-mode:initial;border:1px solid rgba(239,236,228,.2);padding:8px 12px;gap:9px;color:rgba(239,236,228,.6)}.gallery-nav .theme-toggle i{width:7px;height:7px;border-radius:50%;background:var(--accent)}
-.gallery-hero{position:relative;height:clamp(540px,92vh,980px);overflow:hidden}.gallery-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%;mask-image:linear-gradient(to bottom,#000 0%,#000 44%,rgba(0,0,0,.86) 62%,rgba(0,0,0,.5) 80%,rgba(0,0,0,.16) 92%,transparent 100%);animation:gin 1.4s ease both}.gallery-hero>i{position:absolute;inset:0 0 auto;height:190px;background:linear-gradient(to bottom,rgba(8,10,14,.62),rgba(8,10,14,.28) 52%,transparent)}.gallery-hero>div{position:absolute;left:var(--gallery-pad);right:var(--gallery-pad);bottom:clamp(34px,6vh,66px);display:flex;align-items:flex-end;justify-content:space-between;gap:32px}.gallery-hero section{display:flex;flex-direction:column;gap:clamp(16px,2.4vh,24px)}.gallery-hero h1{margin:0;font-size:clamp(30px,4.4vw,62px);font-weight:500;line-height:1;letter-spacing:-.04em;animation:gfade .9s cubic-bezier(.16,1,.3,1) .1s both}.gallery-hero small{font:9px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-34)}.gallery-hero p{max-width:26em;margin:0;text-align:right;font-size:clamp(15px,1.6vw,19px);line-height:1.65;color:var(--fg-62);text-wrap:pretty;animation:gfade .9s cubic-bezier(.16,1,.3,1) .26s both}
-.gallery-controls{position:sticky;top:0;z-index:40;background:var(--bg);display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:clamp(15px,2.2vh,20px) var(--gallery-pad);border-bottom:1px solid var(--line)}.gallery-controls>div{display:flex;flex-wrap:wrap;gap:clamp(16px,2.4vw,30px)}.gallery-controls button{display:flex;gap:8px;border:0;border-bottom:1px solid transparent;background:transparent;padding:0 0 3px;color:var(--fg);opacity:.42;font:11px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:border-color .4s,opacity .4s}.gallery-controls button.is-active{opacity:1;border-color:var(--accent)}.gallery-controls button span+span{opacity:.45}.gallery-controls>span{font:11px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-34)}
-.gallery-grid{display:flex;align-items:flex-start;gap:clamp(9px,1.1vw,16px);padding:clamp(26px,5vh,60px) var(--gallery-pad) clamp(90px,16vh,190px)}.gallery-column{min-width:0;display:flex;flex-direction:column;gap:clamp(9px,1.1vw,16px)}.gallery-tile{position:relative;width:100%;border:0;padding:0;background:var(--surface);overflow:hidden;cursor:zoom-in;animation:gin .55s ease both}.gallery-tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .5s,transform .7s cubic-bezier(.16,1,.3,1)}.gallery-tile:hover img{opacity:.74;transform:scale(1.035)}.gallery-tile>i{position:absolute;inset:auto 0 0;height:36%;background:linear-gradient(to bottom,transparent,rgba(6,8,11,.3) 50%,rgba(6,8,11,.74))}.gallery-tile>span{position:absolute;left:11px;bottom:9px;display:flex;gap:8px;color:#efece4;font:9px 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase}.gallery-tile small{font:inherit;opacity:.6}
-.lightbox{position:fixed;inset:0;z-index:120;background:rgba(6,8,11,.96);display:flex;flex-direction:column;color:#efece4;animation:gin .3s ease both}.lightbox>header{display:flex;align-items:center;gap:20px;padding:20px clamp(20px,4vw,52px);font:11px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:rgba(239,236,228,.5)}.lightbox>header>div{margin-left:auto;display:flex;align-items:center;gap:18px}.lightbox button{border:0;background:transparent;color:rgba(239,236,228,.7);font:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer}.lightbox button:hover{color:var(--accent)}.lightbox .lightbox-close{border:1px solid rgba(239,236,228,.2);padding:7px 11px}.lightbox-body{flex:1;min-height:0;display:flex;gap:clamp(20px,3vw,44px);padding:0 clamp(20px,4vw,52px) clamp(24px,5vh,52px)}.lightbox figure{flex:1;min-width:0;display:flex;align-items:center;justify-content:center;margin:0}.lightbox figure img{max-width:100%;max-height:100%;object-fit:contain}.lightbox aside{width:clamp(200px,22vw,290px);display:flex;flex-direction:column;justify-content:flex-end;gap:16px;padding-bottom:6px}.lightbox aside small{font:10px 'JetBrains Mono',monospace;letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}.lightbox h2{font-size:clamp(19px,2vw,26px);font-weight:500;letter-spacing:-.03em;line-height:1.15;margin:0}.lightbox aside p{margin:0;font-size:15px;line-height:1.6;color:rgba(239,236,228,.6)}.lightbox aside>div{margin-top:6px;padding-top:14px;border-top:1px solid rgba(239,236,228,.14);font:10px/1.9 'JetBrains Mono',monospace;letter-spacing:.14em;text-transform:uppercase;color:rgba(239,236,228,.42)}.gallery-footer{border-top:1px solid var(--line);padding:clamp(34px,6vh,60px) var(--gallery-pad);display:flex;justify-content:space-between;gap:24px;flex-wrap:wrap;font:11px 'JetBrains Mono',monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--fg-42)}.gallery-footer>span:last-child{display:flex;gap:clamp(16px,2.4vw,30px)}
-@media(max-width:900px){.gallery-nav>.mono-brand span{display:none}.gallery-hero{height:clamp(360px,56vh,520px)}.gallery-hero>div{align-items:flex-start;flex-direction:column;gap:18px}.gallery-hero p{text-align:left;max-width:none}.gallery-controls{flex-direction:column;align-items:flex-start;gap:14px}.lightbox-body{flex-direction:column}.lightbox aside{width:auto}.lightbox aside>div{display:none}}@media(max-width:620px){.gallery-nav{gap:14px}.gallery-nav>span{gap:14px}.gallery-nav>span a:nth-child(3),.gallery-nav>span a:nth-child(4){display:none}.gallery-nav .theme-toggle{padding:7px}.gallery-nav .theme-toggle b,.lightbox>header>div>span{display:none}}@media(prefers-reduced-motion:reduce){.gallery-hero>*,.gallery-tile,.lightbox{animation-duration:.001ms!important}}
+@keyframes gfade {
+    from {
+        opacity: 0;
+        transform: translateY(14px)
+    }
+
+    to {
+        opacity: 1;
+        transform: none
+    }
+}
+
+@keyframes gin {
+    from {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+.gallery-page {
+    --gallery-pad: clamp(24px, 4vw, 64px);
+    min-height: 100vh;
+    overflow-x: clip
+}
+
+.gallery-nav {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 60;
+    height: 96px;
+    padding: 0 var(--gallery-pad);
+    display: flex;
+    align-items: center;
+    gap: clamp(18px, 3vw, 32px);
+    font: 11px 'JetBrains Mono', monospace;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(239, 236, 228, .58)
+}
+
+.gallery-nav>.mono-brand {
+    color: #efece4
+}
+
+.gallery-nav>span {
+    margin-left: auto;
+    display: flex;
+    gap: clamp(16px, 2.4vw, 30px)
+}
+
+.gallery-nav>span a {
+    color: rgba(239, 236, 228, .58)
+}
+
+.gallery-nav>span a.active {
+    color: #efece4;
+    border-bottom: 1px solid var(--accent);
+    padding-bottom: 3px
+}
+
+.gallery-nav .theme-toggle {
+    position: static;
+    writing-mode: initial;
+    border: 1px solid rgba(239, 236, 228, .2);
+    padding: 8px 12px;
+    gap: 9px;
+    color: rgba(239, 236, 228, .6)
+}
+
+.gallery-nav .theme-toggle i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent)
+}
+
+.gallery-hero {
+    position: relative;
+    height: clamp(540px, 92vh, 980px);
+    overflow: hidden
+}
+
+.gallery-hero>img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 42%;
+    mask-image: linear-gradient(to bottom, #000 0%, #000 44%, rgba(0, 0, 0, .86) 62%, rgba(0, 0, 0, .5) 80%, rgba(0, 0, 0, .16) 92%, transparent 100%);
+    animation: gin 1.4s ease both
+}
+
+.gallery-hero>i {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 190px;
+    background: linear-gradient(to bottom, rgba(8, 10, 14, .62), rgba(8, 10, 14, .28) 52%, transparent)
+}
+
+.gallery-hero>div {
+    position: absolute;
+    left: var(--gallery-pad);
+    right: var(--gallery-pad);
+    bottom: clamp(34px, 6vh, 66px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 32px
+}
+
+.gallery-hero section {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 2.4vh, 24px)
+}
+
+.gallery-hero h1 {
+    margin: 0;
+    font-size: clamp(30px, 4.4vw, 62px);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -.04em;
+    animation: gfade .9s cubic-bezier(.16, 1, .3, 1) .1s both
+}
+
+.gallery-hero small {
+    font: 9px 'JetBrains Mono', monospace;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--fg-34)
+}
+
+.gallery-hero p {
+    max-width: 26em;
+    margin: 0;
+    text-align: right;
+    font-size: clamp(15px, 1.6vw, 19px);
+    line-height: 1.65;
+    color: var(--fg-62);
+    text-wrap: pretty;
+    animation: gfade .9s cubic-bezier(.16, 1, .3, 1) .26s both
+}
+
+.gallery-controls {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: var(--bg);
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: clamp(15px, 2.2vh, 20px) var(--gallery-pad);
+    border-bottom: 1px solid var(--line)
+}
+
+.gallery-controls>div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(16px, 2.4vw, 30px)
+}
+
+.gallery-controls button {
+    display: flex;
+    gap: 8px;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    background: transparent;
+    padding: 0 0 3px;
+    color: var(--fg);
+    opacity: .42;
+    font: 11px 'JetBrains Mono', monospace;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color .4s, opacity .4s
+}
+
+.gallery-controls button.is-active {
+    opacity: 1;
+    border-color: var(--accent)
+}
+
+.gallery-controls button span+span {
+    opacity: .45
+}
+
+.gallery-controls>span {
+    font: 11px 'JetBrains Mono', monospace;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--fg-34)
+}
+
+.gallery-grid {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(9px, 1.1vw, 16px);
+    padding: clamp(26px, 5vh, 60px) var(--gallery-pad) clamp(90px, 16vh, 190px)
+}
+
+.gallery-column {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(9px, 1.1vw, 16px)
+}
+
+.gallery-tile {
+    position: relative;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    background: var(--surface);
+    overflow: hidden;
+    cursor: zoom-in;
+    animation: gin .55s ease both
+}
+
+.gallery-tile img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity .5s, transform .7s cubic-bezier(.16, 1, .3, 1)
+}
+
+.gallery-tile:hover img {
+    opacity: .74;
+    transform: scale(1.035)
+}
+
+.gallery-tile>i {
+    position: absolute;
+    inset: auto 0 0;
+    height: 36%;
+    background: linear-gradient(to bottom, transparent, rgba(6, 8, 11, .3) 50%, rgba(6, 8, 11, .74))
+}
+
+.gallery-tile>span {
+    position: absolute;
+    left: 11px;
+    bottom: 9px;
+    display: flex;
+    gap: 8px;
+    color: #efece4;
+    font: 9px 'JetBrains Mono', monospace;
+    letter-spacing: .14em;
+    text-transform: uppercase
+}
+
+.gallery-tile small {
+    font: inherit;
+    opacity: .6
+}
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 120;
+    background: rgba(6, 8, 11, .96);
+    display: flex;
+    flex-direction: column;
+    color: #efece4;
+    animation: gin .3s ease both
+}
+
+.lightbox>header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px clamp(20px, 4vw, 52px);
+    font: 11px 'JetBrains Mono', monospace;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: rgba(239, 236, 228, .5)
+}
+
+.lightbox>header>div {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 18px
+}
+
+.lightbox button {
+    border: 0;
+    background: transparent;
+    color: rgba(239, 236, 228, .7);
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    cursor: pointer
+}
+
+.lightbox button:hover {
+    color: var(--accent)
+}
+
+.lightbox .lightbox-close {
+    border: 1px solid rgba(239, 236, 228, .2);
+    padding: 7px 11px
+}
+
+.lightbox-body {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    gap: clamp(20px, 3vw, 44px);
+    padding: 0 clamp(20px, 4vw, 52px) clamp(24px, 5vh, 52px)
+}
+
+.lightbox figure {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0
+}
+
+.lightbox figure img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain
+}
+
+.lightbox aside {
+    width: clamp(200px, 22vw, 290px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 16px;
+    padding-bottom: 6px
+}
+
+.lightbox aside small {
+    font: 10px 'JetBrains Mono', monospace;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--accent)
+}
+
+.lightbox h2 {
+    font-size: clamp(19px, 2vw, 26px);
+    font-weight: 500;
+    letter-spacing: -.03em;
+    line-height: 1.15;
+    margin: 0
+}
+
+.lightbox aside p {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(239, 236, 228, .6)
+}
+
+.lightbox aside>div {
+    margin-top: 6px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(239, 236, 228, .14);
+    font: 10px/1.9 'JetBrains Mono', monospace;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: rgba(239, 236, 228, .42)
+}
+
+.gallery-footer {
+    border-top: 1px solid var(--line);
+    padding: clamp(34px, 6vh, 60px) var(--gallery-pad);
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    font: 11px 'JetBrains Mono', monospace;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    color: var(--fg-42)
+}
+
+.gallery-footer>span:last-child {
+    display: flex;
+    gap: clamp(16px, 2.4vw, 30px)
+}
+
+@media(max-width:900px) {
+    .gallery-nav>.mono-brand span {
+        display: none
+    }
+
+    .gallery-hero {
+        height: clamp(360px, 56vh, 520px)
+    }
+
+    .gallery-hero>div {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px
+    }
+
+    .gallery-hero p {
+        text-align: left;
+        max-width: none
+    }
+
+    .gallery-controls {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px
+    }
+
+    .lightbox-body {
+        flex-direction: column
+    }
+
+    .lightbox aside {
+        width: auto
+    }
+
+    .lightbox aside>div {
+        display: none
+    }
+}
+
+@media(max-width:620px) {
+    .gallery-nav {
+        gap: 14px
+    }
+
+    .gallery-nav>span {
+        gap: 14px
+    }
+
+    .gallery-nav>span a:nth-child(3),
+    .gallery-nav>span a:nth-child(4) {
+        display: none
+    }
+
+    .gallery-nav .theme-toggle {
+        padding: 7px
+    }
+
+    .gallery-nav .theme-toggle b,
+    .lightbox>header>div>span {
+        display: none
+    }
+}
+
+@media(prefers-reduced-motion:reduce) {
+
+    .gallery-hero>*,
+    .gallery-tile,
+    .lightbox {
+        animation-duration: .001ms !important
+    }
+}

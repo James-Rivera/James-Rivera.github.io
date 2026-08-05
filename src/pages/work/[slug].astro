@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import CasePipeline from '../../components/CasePipeline.astro';
 import ScreenGallery from '../../components/ScreenGallery.astro';
 import SiteNav from '../../components/SiteNav.astro';
+import KonektadoCase from '../../components/KonektadoCase.astro';
 import { projects } from '../../data/projects.js';
 import { getCaseDetail } from '../../data/cases.js';
 
@@ -16,8 +17,8 @@ const currentIndex = projects.findIndex((item) => item.slug === project.slug);
 const nextProject = projects[(currentIndex + 1) % projects.length];
 ---
 
-<BaseLayout title={`${project.title} — James Carlo Rivera`} description={detail.summary || project.summary} image={project.image} rail={false}>
-  <article class="case-study" style={`--project-accent:${project.accent}`}>
+<BaseLayout title={`${project.title} — James Carlo Rivera`} description={detail.summary || project.summary} image={project.image} rail={false} defaultTheme={project.theme === 'konektado' ? 'light' : 'dark'}>
+  {project.theme === 'konektado' ? <KonektadoCase project={project} detail={detail} nextProject={nextProject} /> : <article class="case-study" style={`--project-accent:${project.accent}`}>
     <SiteNav current="work" />
 
     <header class="case-hero" data-screen-label={project.title}>
@@ -30,7 +31,7 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
     </header>
 
     <div class="case-cover" data-tile>
-      {project.image ? <img src={project.image} alt={`${project.title} project preview`} /> : <div class="case-cover-art"><span>{project.number}</span><strong>{project.title}</strong><i></i><i></i><i></i></div>}
+      {project.image ? <img src={project.image} alt={project.imageAlt || `${project.title} project preview`} /> : <div class="case-cover-art"><span>{project.number}</span><strong>{project.title}</strong><i></i><i></i><i></i></div>}
       <p>{project.title} — project cover</p>
     </div>
 
@@ -39,6 +40,23 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
         <header><p>({String(index + 2).padStart(2,'0')}) — {section.title}</p></header>
         {section.lead && <h2>{section.lead}</h2>}
         {section.body && <p class="case-body-copy">{section.body}</p>}
+        {section.kind === 'video' && <figure class="case-video" data-case-video-player data-tile>
+          <video playsinline preload="metadata" poster={section.poster} data-case-video data-start-at={section.startAt || 0} aria-label={`${project.title} demo video`}>
+            <source src={section.src} type="video/mp4" />
+            Your browser does not support embedded video.
+          </video>
+          <button class="case-video-toggle" type="button" data-video-toggle aria-label={`Load ${project.title} demo`} disabled>
+            <i aria-hidden="true"></i>
+            <strong data-video-action>Loading film</strong>
+            <em data-video-time>02:28</em>
+          </button>
+        </figure>}
+        {section.kind === 'media' && <div class="case-media-grid">
+          {section.images.map((item: any) => <figure data-tile>
+            <img src={item.src} alt={item.alt} loading="lazy" decoding="async" />
+            <figcaption>{item.label}</figcaption>
+          </figure>)}
+        </div>}
         {section.kind === 'pipeline' && <CasePipeline versions={section.versions} />}
         {section.kind === 'screens' && <ScreenGallery screens={section.screens} project={project.title} />}
         {section.items && <div class="case-item-grid">{section.items.map(([title,copy]: [string,string]) => <article><strong>{title}</strong><p>{copy}</p></article>)}</div>}
@@ -49,5 +67,122 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
       <div><a href="/work/">← Back to all work</a><span>{project.liveUrl && <a href={project.liveUrl} target="_blank" rel="noreferrer">Live project ↗</a>}{project.repoUrl && <a href={project.repoUrl} target="_blank" rel="noreferrer">GitHub ↗</a>}</span></div>
       <a class="case-next" href={`/work/${nextProject.slug}/`}><span>Next project</span><strong>{nextProject.title}</strong><i>↗</i></a>
     </footer>
-  </article>
+  </article>}
 </BaseLayout>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-case-video-player]').forEach((player) => {
+    const video = player.querySelector<HTMLVideoElement>('[data-case-video]');
+    const toggle = player.querySelector<HTMLButtonElement>('[data-video-toggle]');
+    const action = player.querySelector<HTMLElement>('[data-video-action]');
+    const time = player.querySelector<HTMLElement>('[data-video-time]');
+    if (!video || !toggle || !action || !time) return;
+
+    const startAt = Number(video.dataset.startAt || 0);
+    const memoryKey = player.closest('.case-study--konektado') ? 'kn-ai-demo-time' : '';
+    let primed = false;
+    const formatTime = (seconds: number) => {
+      const safe = Math.max(0, Math.round(seconds));
+      return `${String(Math.floor(safe / 60)).padStart(2, '0')}:${String(safe % 60).padStart(2, '0')}`;
+    };
+    const updateTime = () => {
+      if (Number.isFinite(video.duration)) time.textContent = formatTime(video.duration - Math.max(video.currentTime, startAt));
+    };
+    const reveal = () => {
+      if (primed) return;
+      primed = true;
+      player.classList.add('is-primed');
+      toggle.disabled = false;
+      action.textContent = 'Play film';
+      toggle.setAttribute('aria-label', 'Play KONEKTADO demo');
+      updateTime();
+    };
+    const prime = () => {
+      reveal();
+      let resumeAt = startAt;
+      if (memoryKey) {
+        try { resumeAt = Math.max(startAt, Number(localStorage.getItem(memoryKey)) || startAt); } catch {}
+      }
+      if (Number.isFinite(video.duration)) resumeAt = Math.min(resumeAt, Math.max(startAt, video.duration - 1));
+      if (video.currentTime < resumeAt - .05) video.currentTime = resumeAt;
+    };
+
+    video.addEventListener('loadedmetadata', prime);
+    video.addEventListener('seeked', () => { if (video.currentTime >= startAt - .05) reveal(); });
+    video.addEventListener('canplay', () => { if (video.currentTime >= startAt - .05) reveal(); });
+    video.addEventListener('seeking', () => { if (video.currentTime < startAt) video.currentTime = startAt; });
+    video.addEventListener('timeupdate', updateTime);
+    let lastSaved = 0;
+    video.addEventListener('timeupdate', () => {
+      if (!memoryKey || Date.now() - lastSaved < 1500) return;
+      lastSaved = Date.now();
+      try { localStorage.setItem(memoryKey, String(video.currentTime)); } catch {}
+    });
+    video.addEventListener('play', () => {
+      player.classList.add('is-playing');
+      player.classList.remove('is-ended');
+      action.textContent = 'Pause film';
+      toggle.setAttribute('aria-label', 'Pause KONEKTADO demo');
+    });
+    video.addEventListener('pause', () => {
+      player.classList.remove('is-playing');
+      if (!video.ended) action.textContent = 'Play film';
+      toggle.setAttribute('aria-label', 'Play KONEKTADO demo');
+    });
+    video.addEventListener('ended', () => {
+      player.classList.add('is-ended');
+      action.textContent = 'Replay film';
+      time.textContent = '00:00';
+    });
+    toggle.addEventListener('click', async () => {
+      if (video.ended) video.currentTime = startAt;
+      if (video.paused) {
+        try { await video.play(); }
+        catch {
+          player.classList.remove('is-playing');
+          action.textContent = 'Play film';
+          toggle.setAttribute('aria-label', 'Play KONEKTADO demo');
+        }
+      } else video.pause();
+    });
+    reveal();
+    video.load();
+  });
+
+  document.querySelectorAll<HTMLElement>('.kn-phone').forEach((phone) => {
+    const frame = phone.querySelector<HTMLIFrameElement>('[data-live-frame]');
+    const fallback = phone.querySelector<HTMLElement>('[data-live-fallback]');
+    const heading = phone.querySelector<HTMLElement>('[data-live-heading]');
+    const status = phone.querySelector<HTMLElement>('[data-live-status]');
+    const dot = phone.querySelector<HTMLElement>('[data-live-dot]');
+    const reload = document.querySelector<HTMLButtonElement>('[data-live-reload]');
+    if (!frame || !fallback || !heading || !status || !dot || !reload) return;
+    let timer = 0;
+    const setStatus = (text: string, color: string) => { status.textContent = text; dot.style.background = color; };
+    const failed = () => {
+      phone.classList.remove('is-live');
+      heading.textContent = 'Preview unavailable here';
+      setStatus('Open in a new tab', 'var(--kn-amber)');
+    };
+    const start = () => {
+      window.clearTimeout(timer);
+      phone.classList.remove('is-live');
+      heading.textContent = 'Loading konektado.app…';
+      setStatus('Connecting', 'var(--kn-amber)');
+      timer = window.setTimeout(failed, 9000);
+    };
+    frame.addEventListener('load', () => {
+      window.clearTimeout(timer);
+      phone.classList.add('is-live');
+      setStatus('Live · konektado.app', 'var(--accent)');
+    });
+    frame.addEventListener('error', failed);
+    reload.addEventListener('click', () => {
+      start();
+      const url = new URL(frame.src);
+      url.searchParams.set('_preview', String(Date.now()));
+      frame.src = url.toString();
+    });
+    start();
+  });
+</script>

@@ -1,7 +1,7 @@
 ---
 const { project, compact = false } = Astro.props;
 ---
-<article class:list={["project-row", compact && "project-row--compact"]} style={`--project-accent:${project.accent}`} data-reveal data-row data-project={project.title}>
+<article class:list={["project-row", compact && "project-row--compact"]} style={`--project-accent:${project.accent}`} data-reveal data-row data-project={project.title} data-preview-image={project.theme === 'konektado' ? project.image : undefined}>
   <a href={`/work/${project.slug}/`} aria-label={`View ${project.title} case study`} data-cursor>
     <i class="project-wipe" data-row-wipe></i>
     <span class="project-number">{project.number}</span>

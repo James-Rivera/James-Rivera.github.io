@@ -1,0 +1,148 @@
+---
+import SiteNav from './SiteNav.astro';
+import '../styles/case-konektado.css';
+
+interface Props { project: any; detail: any; nextProject: any; }
+const { project, detail, nextProject } = Astro.props;
+const section = (title: string) => detail.sections.find((item: any) => item.title === title);
+const number = (title: string) => String(detail.sections.findIndex((item: any) => item.title === title) + 2).padStart(2, '0');
+
+const overview = section('Overview');
+const video = section('See KONEKTADO AI in action');
+const live = section('Live app');
+const problem = section('The problem');
+const research = section('Research foundation');
+const experience = section('Product experience');
+const mockups = section('Research system mockups');
+const trust = section('Trust is layered');
+const matching = section('Matching and discovery');
+const architecture = section('Technical architecture');
+const hackathon = section('From research to hackathon');
+const changed = section('What changed');
+const challenges = section('Challenges');
+const outcome = section('Outcome');
+const reflection = section('Reflection');
+const trackEmphasis = changed.items[2][1].split(';').map((copy: string) => copy.trim().replace(/^the (research|hackathon) track/i, 'This track'));
+---
+
+<article class="case-study case-study--konektado" style={`--project-accent:${project.accent}`}>
+  <SiteNav current="work" />
+
+  <header class="kn-hero" data-screen-label="Case hero">
+    <p class="kn-kicker" data-rise><i></i>(01) — {detail.eyebrow}</p>
+    <h1 class="kn-wordmark kn-wordmark--hero" aria-label="KONEKTADO"><span data-rise><i></i></span></h1>
+    <p class="kn-hero-summary" data-rise>{detail.summary}</p>
+    <div class="kn-actions" data-rise>
+      <a class="kn-button kn-button--primary" href={project.liveUrl} target="_blank" rel="noreferrer"><i></i>Open the live app</a>
+      <a class="kn-button" href="#live">Preview it here ↓</a>
+    </div>
+    <div class="kn-facts" data-rise>
+      {detail.facts.map(([label, value]: [string, string]) => <div><strong>{value}</strong><span>{label}</span></div>)}
+    </div>
+  </header>
+
+  <section class="kn-section kn-two kn-overview" data-screen-label="Overview">
+    <p class="kn-sticky-label">({number(overview.title)}) — {overview.title}</p>
+    <div>
+      <h2 data-rise data-scroll-words>{overview.lead}</h2>
+      <p class="kn-body" data-rise>{overview.body}</p>
+      <div class="kn-identity" data-rise>
+        <div><p class="kn-label">Identity · Konektado DS v1</p><div class="kn-wordmark kn-wordmark--small" aria-label="KONEKTADO"><i></i></div></div>
+        <div class="kn-swatches">
+          <div><i></i><span>#0D99FF</span></div><div><i></i><span>#F2E640</span></div><div><i></i><span>#FCC03B</span></div><div><i></i><span>#FFFFFF</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="kn-section kn-band kn-video" data-screen-label="Demo">
+    <header class="kn-label-row"><p data-rise>({number(video.title)}) — {video.title}</p><span data-rise><i></i>{video.label}</span></header>
+    <figure class="case-video" data-case-video-player data-tile>
+      <video playsinline preload="metadata" poster={video.poster} data-case-video data-start-at={video.startAt || 0} aria-label="KONEKTADO AI demo video">
+        <source src={video.src} type="video/mp4" />Your browser does not support embedded video.
+      </video>
+      <button class="case-video-toggle" type="button" data-video-toggle aria-label="Load KONEKTADO demo" disabled><i aria-hidden="true"></i><strong data-video-action>Loading film</strong><em data-video-time>02:28</em></button>
+    </figure>
+    <div class="kn-video-copy kn-two"><h2 data-rise>{video.lead}</h2><p class="kn-body" data-rise>{video.body}</p></div>
+  </section>
+
+  <section class="kn-section kn-live" id="live" data-screen-label="Live app">
+    <div>
+      <p class="kn-label" data-rise>({number(live.title)}) — {live.title}</p>
+      <h2 data-rise>{live.lead}</h2><p class="kn-body" data-rise>{live.body}</p>
+      <div class="kn-actions" data-rise><a class="kn-button kn-button--primary" href={live.url} target="_blank" rel="noreferrer">Open in a new tab ↗</a><button class="kn-button" data-live-reload type="button">Reload preview</button></div>
+      <div class="kn-live-facts" data-rise><div><strong>konektado.app</strong><span>Deployment</span></div><div><strong>{live.frame[0]} × {live.frame[1]}</strong><span>Preview width</span></div><div><strong>Live build</strong><span>Source</span></div></div>
+    </div>
+    <div class="kn-phone" data-phone data-tile>
+      <div class="kn-phone-frame">
+        <div class="kn-live-fallback" data-live-fallback><i></i><strong data-live-heading>Loading konektado.app…</strong><p>If the live app declines to be embedded, open it in a new tab instead.</p><a href={live.url} target="_blank" rel="noreferrer">konektado.app ↗</a></div>
+        <iframe data-live-frame src={live.url} title="Live preview of konektado.app" loading="lazy" referrerpolicy="no-referrer"></iframe>
+      </div>
+      <p class="kn-live-status"><i data-live-dot></i><span data-live-status>Connecting</span></p>
+    </div>
+  </section>
+
+  <section class="kn-section kn-band kn-hang" data-screen-label="Problem">
+    <span class="kn-numeral">{number(problem.title)}</span><div><p class="kn-label" data-rise>{problem.title}</p><h2 data-rise data-scroll-words>{problem.lead}</h2><div class="kn-cards">{problem.items.map(([title, copy]: [string,string]) => <article data-rise><strong>{title}</strong><p>{copy}</p></article>)}</div></div>
+  </section>
+
+  <section class="kn-section" data-screen-label="Research foundation">
+    <p class="kn-label" data-rise>({number(research.title)}) — {research.title}</p><h2 data-rise>{research.lead}</h2>
+    <div class="kn-split">{research.items.slice(0,2).map(([title, copy]: [string,string]) => <article data-rise><strong>{title}</strong><p>{copy}</p></article>)}</div>
+    <div class="kn-spec">{research.items.slice(2).map(([title, copy]: [string,string]) => <div data-rise><strong>{title}</strong><p>{copy}</p></div>)}</div>
+  </section>
+
+  <section class="kn-section kn-band" data-screen-label="Product experience">
+    <p class="kn-label" data-rise>({number(experience.title)}) — {experience.title}</p><h2 data-rise>{experience.lead}</h2>
+    <div class="kn-steps" data-steps><div class="kn-step-rail" aria-hidden="true"></div>{experience.items.map(([title, copy]: [string,string]) => <article data-step><span><i data-step-fill></i></span><strong>{title}</strong><p>{copy}</p></article>)}</div>
+  </section>
+
+  <section class="kn-section kn-figures" data-screen-label="Research system mockups">
+    <p class="kn-label" data-rise>({number(mockups.title)}) — {mockups.title}</p><h2 data-rise>{mockups.lead}</h2><p class="kn-body" data-rise>{mockups.body}</p>
+    {mockups.images.map((image: any, index: number) => <figure class:list={[index === 1 && 'kn-figure--inset']} data-tile><img src={image.src} alt={image.alt} loading="lazy" decoding="async" /><figcaption><span>Fig. {index + 1}</span>{image.label}</figcaption></figure>)}
+  </section>
+
+  <section class="kn-section kn-band" data-screen-label="Trust">
+    <p class="kn-label" data-rise>({number(trust.title)}) — {trust.title}</p><h2 data-rise>{trust.lead}</h2>
+    <div class="kn-layers">{trust.items.map(([title, copy]: [string,string], index: number) => <article data-rise style={`--layer:${index}`}><strong>{title}</strong><p>{copy}</p></article>)}</div>
+  </section>
+
+  <section class="kn-section" data-screen-label="Matching and discovery">
+    <p class="kn-label" data-rise>({number(matching.title)}) — {matching.title}</p><h2 data-rise>{matching.lead}</h2>
+    <div class="kn-spec kn-spec--large">{matching.items.map(([title, copy]: [string,string]) => <div data-rise><strong>{title}</strong><p>{copy}</p></div>)}</div>
+  </section>
+
+  <section class="kn-section kn-architecture" data-screen-label="Architecture">
+    <p class="kn-label" data-rise>({number(architecture.title)}) — {architecture.title}</p><h2 data-rise>{architecture.lead}</h2>
+    <div class="kn-chain" data-rise>{['Expo / React Native','Supabase auth','PostgreSQL model','Storage · verification evidence','Edge functions · email'].map((item, index) => <><span>{item}</span>{index < 4 && <i>→</i>}</>)}</div>
+    <div class="kn-quad">{architecture.items.map(([title, copy]: [string,string]) => <article data-rise><strong>{title}</strong><p>{copy}</p></article>)}</div>
+  </section>
+
+  <section class="kn-section kn-band kn-hang kn-hang--ai" data-screen-label="Hackathon">
+    <span class="kn-numeral">{number(hackathon.title)}</span><div><p class="kn-label" data-rise>{hackathon.title}</p><h2 data-rise>{hackathon.lead}</h2><p class="kn-body" data-rise>{hackathon.body}</p><div class="kn-cards">{hackathon.items.map(([title, copy]: [string,string]) => <article data-rise><strong><i></i>{title}</strong><p>{copy}</p></article>)}</div></div>
+  </section>
+
+  <section class="kn-section" data-screen-label="Two tracks">
+    <p class="kn-label" data-rise>({number(changed.title)}) — {changed.title}</p><h2 data-rise>{changed.lead}</h2>
+    <div class="kn-tracks">{changed.items.slice(0,2).map(([title, copy]: [string,string], index: number) => <article class:list={[index && 'kn-track--ai']} data-rise><header><strong>{title}</strong><span>{index ? 'Hackathon track' : 'Academic track'}</span></header><p>{copy} {trackEmphasis[index]}</p></article>)}</div>
+    <div class="kn-progression" data-rise><strong>{changed.items[3][0]}</strong><p>{changed.items[3][1]}</p></div>
+  </section>
+
+  <section class="kn-section kn-two kn-challenges" data-screen-label="Challenges">
+    <p class="kn-sticky-label">({number(challenges.title)}) — {challenges.title}</p><div class="kn-spec">{challenges.items.map(([title, copy]: [string,string]) => <div data-rise><strong>{title}</strong><p>{copy}</p></div>)}</div>
+  </section>
+
+  <section class="kn-section" data-screen-label="Outcome">
+    <p class="kn-label" data-rise>({number(outcome.title)}) — {outcome.title}</p><h2 data-rise>{outcome.lead}</h2>
+    <div class="kn-quad kn-outcome">{outcome.items.map(([title, copy]: [string,string], index: number) => <article data-rise><span>{String(index + 1).padStart(2,'0')}</span><strong>{title}</strong><p>{copy}</p></article>)}</div>
+  </section>
+
+  <section class="kn-section kn-band kn-reflect" data-screen-label="Reflection">
+    <p class="kn-label" data-rise>({number(reflection.title)}) — {reflection.title}</p><h2 data-rise data-scroll-words>{reflection.lead}</h2><p class="kn-body" data-rise>{reflection.body}</p><a class="kn-button kn-button--primary" data-rise href={project.liveUrl} target="_blank" rel="noreferrer">Visit konektado.app ↗</a>
+  </section>
+
+  <footer class="case-footer">
+    <div><a href="/work/">← Back to all work</a><span><a href={project.liveUrl} target="_blank" rel="noreferrer">Live project ↗</a><a href={project.repoUrl} target="_blank" rel="noreferrer">GitHub ↗</a></span></div>
+    <a class="case-next" href={`/work/${nextProject.slug}/`}><span>Next project</span><strong>{nextProject.title}</strong><i>↗</i></a>
+  </footer>
+</article>
