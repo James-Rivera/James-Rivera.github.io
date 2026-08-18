@@ -33,7 +33,7 @@ export const projects = [
   {
     slug: 'homelab', number: '04', title: 'Homelab', kind: 'featured',
     label: 'Infrastructure', year: '2024—', status: 'Self-hosted infrastructure',
-    summary: 'The Linux, Docker, reverse-proxy and networking environment where deployment became part of how I design products.',
+    summary: 'The Linux, Docker, reverse-proxy and networking environment where deployment became part of how I design software.',
     context: 'Building software is only half the work. The system still needs a home, a route, observability and a recovery path when something breaks.',
     contribution: 'I operate the hardware and software stack: containerized services, routing, certificates, storage, backups and remote access.',
     outcome: 'The lab supports real services and gives every project an environment where infrastructure decisions can be tested directly.',
@@ -42,11 +42,11 @@ export const projects = [
   },
   {
     slug: 'solesource', number: '05', title: 'SoleSource', kind: 'featured',
-    label: 'Commerce platform', year: '2025', status: 'Full-stack product build',
+    label: 'Commerce platform', year: '2025', status: 'Full-stack engineering build',
     summary: 'A premium sneaker storefront with product discovery, vouchers, transactional flows and operational integrations.',
     context: 'The project explored the complete shape of an online storefront rather than stopping at a visual catalog.',
     contribution: 'I designed and implemented the customer experience, commerce flows, PHP/MySQL backend and supporting voucher and messaging integrations.',
-    outcome: 'SoleSource became a practical exercise in joining brand expression, transaction design and backend behavior into one coherent product.',
+    outcome: 'SoleSource became a practical exercise in joining brand expression, transaction design and backend behavior into one coherent system.',
     stack: ['PHP', 'MySQL', 'JavaScript', 'REST API', 'SMS'], accent: '#d7f74a',
     image: '/images/solesource-thumbnail.jpg', imageAlt: 'SoleSource storefront preview',
     liveUrl: 'https://solesource.jamescarlo.me/', repoUrl: 'https://github.com/James-Rivera/solesource'

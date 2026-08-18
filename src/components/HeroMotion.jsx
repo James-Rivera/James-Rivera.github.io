@@ -328,9 +328,10 @@ export default function HeroMotion() {
           <button className="nav-theme-toggle" type="button" aria-label="Switch color theme" data-theme-toggle><i></i><b data-theme-label>Dark</b></button>
         </nav>
         <div className="hero-body">
-          <p className="hero-lead">I design and build complete systems for real operational problems — from the interface to the server they run on.</p>
+          <p className="hero-lead">I build software across the application and infrastructure stack—from user-facing products and backend systems to deployment and the environments they run on.</p>
           <div className="hero-title hero-primary">
-            <h1><span>Products,</span><span>not demos.</span></h1>
+            <p className="eyebrow">Products, not demos.</p>
+            <h1 className="hero-role"><span>Software Engineer ·</span><span>Full-Stack &amp; Systems</span></h1>
           </div>
           <div className="hero-links">
             <a href="#contact">Contact me</a><a href="#work">Selected systems ↓</a><a href="https://github.com/James-Rivera" target="_blank" rel="noreferrer">GitHub ↗</a>
@@ -338,7 +339,7 @@ export default function HeroMotion() {
           <div className="hero-meta">
             <span>Batangas, Philippines</span>
             <span>4th-year BSIT · PUP Sto. Tomas</span>
-            <span className="hero-availability"><i aria-hidden="true" />Open to internships &amp; product engineering roles</span>
+            <span className="hero-availability"><i aria-hidden="true" />Open to Software Engineering Internships</span>
           </div>
           <a className="hero-featured" href="/work/konektado/" aria-label="View Konektado community marketplace case study">
             <small><i aria-hidden="true" />Featured system 02</small>

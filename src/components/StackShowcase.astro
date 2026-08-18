@@ -2,10 +2,29 @@
 import SectionHeading from './SectionHeading.astro';
 import '../styles/showcases.css';
 
-const groups = [
-  { id: 'proven', label: 'Proven', title: 'Used in substantial projects', note: 'Things I have shipped or deployed something real with.', items: ['React','React Native','Expo','Next.js','TypeScript','JavaScript','Tailwind CSS','PHP','Supabase','PostgreSQL','Docker','Linux','Nginx','Cloudflare','Vercel','MikroTik','Git & GitHub'] },
-  { id: 'working', label: 'Working', title: 'Working knowledge', note: 'Enough to be useful and to know what I do not know yet.', items: ['Node.js','REST APIs','Auth & access control','MySQL / MariaDB','DigitalOcean','System design','Network configuration','Security fundamentals'] },
-  { id: 'exploring', label: 'Exploring', title: 'Currently exploring', note: 'Not in any shipped project—actively learning.', items: ['LLM-powered apps','Semantic retrieval','Embeddings','STM32','Embedded systems'] }
+interface StackGroup {
+  id: string;
+  label: string;
+  title: string;
+  note: string;
+  areas: Array<[string, string[]]>;
+}
+
+const groups: StackGroup[] = [
+  { id: 'proven', label: 'Proven', title: 'Used in substantial projects', note: 'Things I have shipped or deployed something real with.', areas: [
+    ['Application Engineering', ['React','React Native','Expo','Next.js','TypeScript','JavaScript','Tailwind CSS']],
+    ['Backend & Data', ['PHP','Supabase','PostgreSQL']],
+    ['Systems & Infrastructure', ['Docker','Linux','Nginx','Cloudflare','Vercel','MikroTik']],
+    ['Engineering Tools', ['Git & GitHub']]
+  ] },
+  { id: 'working', label: 'Working', title: 'Working knowledge', note: 'Enough to be useful and to know what I do not know yet.', areas: [
+    ['Backend & Data', ['Node.js','REST APIs','Auth & access control','MySQL / MariaDB','System design']],
+    ['Systems & Infrastructure', ['DigitalOcean','Network configuration','Security fundamentals']]
+  ] },
+  { id: 'exploring', label: 'Exploring', title: 'Currently exploring', note: 'Not in any shipped project—actively learning.', areas: [
+    ['Software Systems', ['LLM-powered apps','Semantic retrieval','Embeddings']],
+    ['Embedded Systems', ['STM32','Embedded systems']]
+  ] }
 ];
 ---
 
@@ -20,11 +39,16 @@ const groups = [
     </div>
 
     <div class="section-switcher-panels section-switcher-panels--stack">
-      {groups.map(({ id, title, note, items }, index) => (
+      {groups.map(({ id, title, note, areas }, index) => (
         <div class:list={['section-switcher-panel', index === 0 && 'is-active']} id={`stack-${id}`} role="tabpanel" aria-labelledby={`stack-${id}-tab`} aria-hidden={index === 0 ? undefined : 'true'} data-segmented-panel={id}>
           <div class="stack-group">
             <header><strong>{title}</strong><span>{note}</span></header>
-            <div>{items.map((item) => <span>{item}</span>)}</div>
+            <div class="stack-areas">{areas.map(([area, items]) => (
+              <section class="stack-area">
+                <h3>{area}</h3>
+                <div>{items.map((item) => <span>{item}</span>)}</div>
+              </section>
+            ))}</div>
           </div>
         </div>
       ))}
