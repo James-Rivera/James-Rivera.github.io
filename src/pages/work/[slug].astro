@@ -165,6 +165,7 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
     const dot = phone.querySelector<HTMLElement>('[data-live-dot]');
     const reload = document.querySelector<HTMLButtonElement>('[data-live-reload]');
     if (!frame || !fallback || !heading || !status || !dot || !reload) return;
+    const previewHost = new URL(frame.src).hostname;
     let timer = 0;
     const setStatus = (text: string, color: string) => { status.textContent = text; dot.style.background = color; };
     const failed = () => {
@@ -175,14 +176,14 @@ const nextProject = projects[(currentIndex + 1) % projects.length];
     const start = () => {
       window.clearTimeout(timer);
       phone.classList.remove('is-live');
-      heading.textContent = 'Loading konektado.app…';
+      heading.textContent = `Loading ${previewHost}…`;
       setStatus('Connecting', 'var(--kn-amber)');
       timer = window.setTimeout(failed, 9000);
     };
     frame.addEventListener('load', () => {
       window.clearTimeout(timer);
       phone.classList.add('is-live');
-      setStatus('Live · konektado.app', 'var(--accent)');
+      setStatus(`Preview · ${previewHost}`, 'var(--accent)');
     });
     frame.addEventListener('error', failed);
     reload.addEventListener('click', () => {
