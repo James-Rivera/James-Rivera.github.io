@@ -9,7 +9,8 @@ const number = (title: string) => String(detail.sections.findIndex((item: any) =
 
 const overview = section('Overview');
 const video = section('See KONEKTADO AI in action');
-const live = section('Live app');
+const live = section('Project website');
+const contribution = section('My technical contribution');
 const problem = section('The problem');
 const research = section('Research foundation');
 const experience = section('Product experience');
@@ -33,7 +34,7 @@ const trackEmphasis = changed.items[2][1].split(';').map((copy: string) => copy.
     <h1 class="kn-wordmark kn-wordmark--hero" aria-label="KONEKTADO"><span data-rise><i></i></span></h1>
     <p class="kn-hero-summary" data-rise>{detail.summary}</p>
     <div class="kn-actions" data-rise>
-      <a class="kn-button kn-button--primary" href={project.liveUrl} target="_blank" rel="noreferrer"><i></i>Open the live app</a>
+      <a class="kn-button kn-button--primary" href={project.liveUrl} target="_blank" rel="noreferrer"><i></i>Open project website</a>
       <a class="kn-button" href="#live">Preview it here ↓</a>
     </div>
     <div class="kn-facts" data-rise>
@@ -55,6 +56,12 @@ const trackEmphasis = changed.items[2][1].split(';').map((copy: string) => copy.
     </div>
   </section>
 
+  <section class="kn-section" data-screen-label="Technical contribution">
+    <p class="kn-label" data-rise>({number(contribution.title)}) — {contribution.title}</p>
+    <h2 data-rise>{contribution.lead}</h2>
+    <div class="kn-quad">{contribution.items.map(([title, copy]: [string, string]) => <article data-rise><strong>{title}</strong><p>{copy}</p></article>)}</div>
+  </section>
+
   <section class="kn-section kn-band kn-video" data-screen-label="Demo">
     <header class="kn-label-row"><p data-rise>({number(video.title)}) — {video.title}</p><span data-rise><i></i>{video.label}</span></header>
     <div class="kn-video-pin">
@@ -72,16 +79,16 @@ const trackEmphasis = changed.items[2][1].split(';').map((copy: string) => copy.
     <div class="kn-video-copy kn-two"><h2 data-rise>{video.lead}</h2><p class="kn-body" data-rise>{video.body}</p></div>
   </section>
 
-  <section class="kn-section kn-live" id="live" data-screen-label="Live app">
+  <section class="kn-section kn-live" id="live" data-screen-label="Project website">
     <div>
       <p class="kn-label" data-rise>({number(live.title)}) — {live.title}</p>
       <h2 data-rise>{live.lead}</h2><p class="kn-body" data-rise>{live.body}</p>
       <div class="kn-actions" data-rise><a class="kn-button kn-button--primary" href={live.url} target="_blank" rel="noreferrer">Open in a new tab ↗</a><button class="kn-button" data-live-reload type="button">Reload preview</button></div>
-      <div class="kn-live-facts" data-rise><div><strong>konektado.app</strong><span>Deployment</span></div><div><strong>{live.frame[0]} × {live.frame[1]}</strong><span>Preview width</span></div><div><strong>Live build</strong><span>Source</span></div></div>
+      <div class="kn-live-facts" data-rise><div><strong>konektado.app</strong><span>Deployment</span></div><div><strong>{live.frame[0]} × {live.frame[1]}</strong><span>Preview width</span></div><div><strong>Standalone website</strong><span>Preview source</span></div></div>
     </div>
     <div class="kn-phone" data-phone>
       <div class="kn-phone-frame">
-        <div class="kn-live-fallback" data-live-fallback><i></i><strong data-live-heading>Loading konektado.app…</strong><p>If the live app declines to be embedded, open it in a new tab instead.</p><a href={live.url} target="_blank" rel="noreferrer">konektado.app ↗</a></div>
+        <div class="kn-live-fallback" data-live-fallback><i></i><strong data-live-heading>Loading konektado.app…</strong><p>If the project website declines to be embedded, open it in a new tab instead.</p><a href={live.url} target="_blank" rel="noreferrer">konektado.app ↗</a></div>
         <iframe data-live-frame src={live.url} title="Live preview of konektado.app" loading="lazy" referrerpolicy="no-referrer"></iframe>
       </div>
       <p class="kn-live-status"><i data-live-dot></i><span data-live-status>Connecting</span></p>
@@ -148,7 +155,7 @@ const trackEmphasis = changed.items[2][1].split(';').map((copy: string) => copy.
   </section>
 
   <footer class="case-footer">
-    <div><a href="/work/">← Back to all work</a><span><a href={project.liveUrl} target="_blank" rel="noreferrer">Live project ↗</a><a href={project.repoUrl} target="_blank" rel="noreferrer">GitHub ↗</a></span></div>
+    <div><a href="/work/">← Back to all work</a><span><a href={project.liveUrl} target="_blank" rel="noreferrer">Project website ↗</a><a href={project.repoUrl} target="_blank" rel="noreferrer">Mobile application source ↗</a><a href="https://github.com/James-Rivera/konektado-landing" target="_blank" rel="noreferrer">Landing website source ↗</a></span></div>
     <a class="case-next" href={`/work/${nextProject.slug}/`}><span>Next project</span><strong>{nextProject.title}</strong><i>↗</i></a>
   </footer>
 </article>

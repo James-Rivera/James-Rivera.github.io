@@ -19,6 +19,7 @@ export function initSegmentedControls(scope = document) {
       panels.forEach((panel) => {
         const active = panel.dataset.segmentedPanel === value;
         panel.classList.toggle('is-active', active);
+        panel.inert = !active;
         if (active) panel.removeAttribute('aria-hidden');
         else panel.setAttribute('aria-hidden', 'true');
       });

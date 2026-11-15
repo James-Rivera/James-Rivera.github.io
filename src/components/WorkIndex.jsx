@@ -101,7 +101,7 @@ export default function WorkIndex({ projects }) {
   return <>
     <div className="work-controls" data-controls>
       <div className="work-filters" role="group" aria-label="Filter by kind">
-        {[['all', 'All'], ['systems', 'Systems'], ['school', 'School']].map(([value, label]) => <button key={value} type="button" className={filter === value ? 'is-active' : ''} aria-pressed={filter === value} onClick={() => setFilter(value)}><span>{label}</span><span>{String(value === 'all' ? projects.length : projects.filter((p) => p.group === value).length).padStart(2, '0')}</span></button>)}
+        {[['all', 'All'], ['systems', 'Featured'], ['school', 'Archive']].map(([value, label]) => <button key={value} type="button" className={filter === value ? 'is-active' : ''} aria-pressed={filter === value} onClick={() => setFilter(value)}><span>{label}</span><span>{String(value === 'all' ? projects.length : projects.filter((p) => p.group === value).length).padStart(2, '0')}</span></button>)}
       </div>
       <div className="work-view" role="group" aria-label="View">
         <button type="button" className={view === 'list' ? 'is-active' : ''} aria-pressed={view === 'list'} onClick={() => setView('list')}>List</button><span>/</span><button type="button" className={view === 'grid' ? 'is-active' : ''} aria-pressed={view === 'grid'} onClick={() => setView('grid')}>Grid</button>

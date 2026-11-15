@@ -6,6 +6,7 @@ const monoLinks = [
   ['Work', '/work/'],
   ['Gallery', '/gallery/'],
   ['About', '#about'],
+  ['Experience', '#experience'],
   ['Contact', '#contact']
 ];
 
@@ -323,26 +324,26 @@ export default function HeroMotion() {
       )}
       <div className="hero-frame">
         <nav className="hero-nav" data-hero-nav aria-label="Primary navigation">
-          <a className="mono-brand" data-nav-brand href="#top"><img src="/images/Logo Cleaned - White.png" alt="" data-logo /><span>James Carlo Rivera</span></a>
+          <a className="mono-brand" data-nav-brand href="#top" aria-label="James Carlo Rivera — home"><img src="/images/Logo Cleaned - White.png" alt="" data-logo /><span>James Carlo Rivera</span></a>
           <span className="site-nav-links">{monoLinks.map(([label, href]) => <a key={href} href={href} className={label === 'About' ? 'nav-about' : undefined}>{label}</a>)}</span>
           <button className="nav-theme-toggle" type="button" aria-label="Switch color theme" data-theme-toggle><i></i><b data-theme-label>Dark</b></button>
         </nav>
         <div className="hero-body">
-          <p className="hero-lead">I build software across the application and infrastructure stack—from user-facing products and backend systems to deployment and the environments they run on.</p>
+          <p className="hero-lead">I build web and mobile applications, from frontend interfaces and backend systems to database integration and deployment. My projects include KONEKTADO, a mobile service-matching platform; SoleSource, a PHP/MySQL storefront; and tools used at CJNET.<br /><span className="hero-tech">React · TypeScript · PHP · MySQL · Supabase</span></p>
           <div className="hero-title hero-primary">
-            <p className="eyebrow">Products, not demos.</p>
-            <h1 className="hero-role"><span>Software Engineer ·</span><span>Full-Stack &amp; Systems</span></h1>
+            <p className="eyebrow">James Carlo Rivera · Aspiring Software Engineer</p>
+            <h1 className="hero-role"><span>Full-Stack Developer</span><span>&amp; BSIT Student</span></h1>
           </div>
           <div className="hero-links">
-            <a href="#contact">Contact me</a><a href="#work">Selected systems ↓</a><a href="https://github.com/James-Rivera" target="_blank" rel="noreferrer">GitHub ↗</a>
+            <a href="#work">View Projects ↓</a><a href="https://github.com/James-Rivera" target="_blank" rel="noreferrer">GitHub ↗</a><a href="mailto:jamescarlorivera52@gmail.com?subject=Resume%20request">Request resume ↗</a><a href="#contact">Contact</a>
           </div>
           <div className="hero-meta">
             <span>Batangas, Philippines</span>
-            <span>4th-year BSIT · PUP Sto. Tomas</span>
-            <span className="hero-availability"><i aria-hidden="true" />Open to Software Engineering Internships</span>
+            <span>BSIT · PUP Sto. Tomas · Expected Aug 2027</span>
+            <span className="hero-availability"><i aria-hidden="true" />Open to Software Engineering &amp; IT Internships</span>
           </div>
-          <a className="hero-featured" href="/work/konektado/" aria-label="View Konektado community marketplace case study">
-            <small><i aria-hidden="true" />Featured system 02</small>
+          <a className="hero-featured" href="/work/konektado/" aria-label="View KONEKTADO mobile service-matching case study">
+            <small><i aria-hidden="true" />Flagship project 01</small>
             <strong>Konektado</strong>
             <em>View case ↗</em>
           </a>

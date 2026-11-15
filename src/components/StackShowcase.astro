@@ -11,25 +11,26 @@ interface StackGroup {
 }
 
 const groups: StackGroup[] = [
-  { id: 'proven', label: 'Proven', title: 'Used in substantial projects', note: 'Things I have shipped or deployed something real with.', areas: [
-    ['Application Engineering', ['React','React Native','Expo','Next.js','TypeScript','JavaScript','Tailwind CSS']],
-    ['Backend & Data', ['PHP','Supabase','PostgreSQL']],
-    ['Systems & Infrastructure', ['Docker','Linux','Nginx','Cloudflare','Vercel','MikroTik']],
-    ['Engineering Tools', ['Git & GitHub']]
+  { id: 'proven', label: 'Project experience', title: 'Used in application development and operations', note: 'Hands-on experience across projects; depth varies by technology.', areas: [
+    ['Programming & Web', ['JavaScript','TypeScript','PHP','SQL','HTML','CSS']],
+    ['Frameworks & Development', ['React','Next.js','React Native','Expo','Bootstrap']],
+    ['Backend & Databases', ['MySQL','Supabase','PostgreSQL','REST APIs']],
+    ['Infrastructure', ['Ubuntu Linux','Docker','MikroTik RouterOS','WinBox','Networking','Windows']],
+    ['Development Tools', ['Git','GitHub','Figma']]
   ] },
-  { id: 'working', label: 'Working', title: 'Working knowledge', note: 'Enough to be useful and to know what I do not know yet.', areas: [
-    ['Backend & Data', ['Node.js','REST APIs','Auth & access control','MySQL / MariaDB','System design']],
-    ['Systems & Infrastructure', ['DigitalOcean','Network configuration','Security fundamentals']]
+  { id: 'working', label: 'Academic foundation', title: 'Formal BSIT coursework', note: 'Completed university subjects, reinforced through practical projects.', areas: [
+    ['Computer Science Foundations', ['Object-Oriented Programming','Computer Programming','Structured Programming','Data Structures and Algorithms','Database Management']],
+    ['Applied Practice', ['Database Integration','API Integration','Debugging','Testing']]
   ] },
-  { id: 'exploring', label: 'Exploring', title: 'Currently exploring', note: 'Not in any shipped project—actively learning.', areas: [
-    ['Software Systems', ['LLM-powered apps','Semantic retrieval','Embeddings']],
-    ['Embedded Systems', ['STM32','Embedded systems']]
+  { id: 'exploring', label: 'Learning', title: 'Basic exposure and continued study', note: 'Areas I am still developing; not presented as production expertise.', areas: [
+    ['Software Systems', ['Node.js','System design','Security fundamentals']],
+    ['Research & Exploration', ['Semantic retrieval','Embeddings','STM32','Embedded systems']]
   ] }
 ];
 ---
 
-<section class="stack" data-screen-label="Stack">
-  <SectionHeading number="04" title="Stack" note="By depth, not by count" />
+<section class="stack" id="skills" data-screen-label="Technical skills">
+  <SectionHeading number="05" title="Technical skills" note="Project experience, coursework & learning" />
 
   <div class="section-switcher" data-segmented>
     <div class="section-switcher-tabs" role="tablist" aria-label="Technology experience levels">
@@ -40,7 +41,7 @@ const groups: StackGroup[] = [
 
     <div class="section-switcher-panels section-switcher-panels--stack">
       {groups.map(({ id, title, note, areas }, index) => (
-        <div class:list={['section-switcher-panel', index === 0 && 'is-active']} id={`stack-${id}`} role="tabpanel" aria-labelledby={`stack-${id}-tab`} aria-hidden={index === 0 ? undefined : 'true'} data-segmented-panel={id}>
+        <div class:list={['section-switcher-panel', index === 0 && 'is-active']} id={`stack-${id}`} role="tabpanel" aria-labelledby={`stack-${id}-tab`} aria-hidden={index === 0 ? undefined : 'true'} inert={index !== 0} data-segmented-panel={id}>
           <div class="stack-group">
             <header><strong>{title}</strong><span>{note}</span></header>
             <div class="stack-areas">{areas.map(([area, items]) => (

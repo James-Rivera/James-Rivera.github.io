@@ -6,52 +6,54 @@ import ProjectShowcase from '../components/ProjectShowcase.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import StackShowcase from '../components/StackShowcase.astro';
 import Statement from '../components/Statement.astro';
+import Experience from '../components/Experience.astro';
 
 const timeline = [
-  ['2026', 'KONEKTADO', 'Research prototype · KONEKTADO AI adaptation', 'A community job-matching platform built first as an academic research system, then reframed as a focused AI-assisted hackathon concept.'],
-  ['2025', 'FlowPress', 'Built and deployed at CJNET', 'The QR upload and print path for the shop, revised after watching how it was actually used.'],
-  ['2024', 'Homelab', 'Self-hosted infrastructure', 'Linux, Docker, Nginx and Cloudflare routing. Where deployment became something I operate.'],
-  ['2023', 'Polytechnic University of the Philippines', 'BSIT · final year', 'Coursework in systems, networks and databases, strengthened through projects built beyond the classroom.'],
-  ['2021', 'CJNET Computer Shop', 'Family business · operations', 'Support, networking, print workflow and internal tools—and the environment that tells me which problems are worth building for.'],
-  ['Next', 'Avera', 'Future direction', 'A product studio focused on practical software for workflows and communities I understand firsthand.']
+  ['2026', 'KONEKTADO', 'Lead Developer & Project Lead', 'Primary responsibility for technical development across the mobile application and backend integration; led five members. PUP RISFI 2026 · 3rd Runner-Up; qualified for startup incubation.'],
+  ['2026', 'PhotoDesk', 'Application Developer · adopted at CJNET', 'Photo preparation, exact-size A4 layouts and print-ready PDFs for a recurring shop workflow.'],
+  ['2025—26', 'SoleSource & FlowPress', 'Full-stack development', 'PHP/MySQL commerce workflows and a deployed upload tool shaped by debugging, staff feedback and operational constraints.'],
+  ['2024—', 'Avera Homelab', 'Linux & networking', 'Ubuntu administration, Docker deployment, DNS, self-hosted services and remote access.'],
+  ['2023—27', 'Polytechnic University of the Philippines', 'BS Information Technology · expected August 2027', 'Object-Oriented Programming, Computer Programming, Data Structures and Algorithms, and Database Management.']
 ];
 
 const process = [
-  ['01','Observe','Standing at the counter watching where the queue actually breaks—not asking anyone what they need.'],
-  ['02','Define','The workflow gets written before the stack does. Most ideas die here, which is the cheapest place to die.'],
-  ['03','Build & deploy','AI agents help with implementation. I own the requirements, architecture, integration, validation and the environment the system runs on.'],
-  ['04','Watch & revise','Real use is the test. I watch where people work around the system, then rebuild around what they actually do.']
+  ['01', 'Understand', 'Clarify requirements, observe the workflow and identify the constraints the application must handle.'],
+  ['02', 'Design', 'Plan screens, data models, APIs and system architecture before connecting the parts.'],
+  ['03', 'Implement & test', 'Develop features, integrate frontend and backend components, work with databases, and debug and test application behavior.'],
+  ['04', 'Deploy & maintain', 'Deploy to the target environment, troubleshoot real use, collect feedback and revise the software.']
 ];
 
 const questions = [
-  ['design and build?', 'Can you design and build it?', 'Yes—the same person decides what it should do, designs it, writes it, and puts it on the server. Nothing gets lost in a handoff because there isn’t one.'],
-  ['shipped anything real?', 'Have you shipped anything real?', 'FlowPress runs at our family shop every day, and I have two client projects in progress right now. Not demos, not coursework.'],
-  ['what have you gotten wrong?', 'What have you gotten wrong?', 'Plenty. The admin queue I built for FlowPress was bypassed by the staff it was for. I still lack a lot—I treat that as the job, not an admission. Eternal student.'],
-  ['do you actually use AI to code?', 'Do you actually use AI to code?', 'Yes, as an implementation partner. I carry a heavy load between school, the shop and client work, so agents do typing I would otherwise do slowly. Requirements, architecture, debugging and deployment stay mine.'],
-  ['what are you looking for?', 'What are you looking for?', 'I’m looking for a Software Engineering internship with a small, hands-on team where I can contribute across full-stack, backend, product and systems work. I want to understand the problem, help decide what should be built, ship it, and learn from how it performs in actual use.']
+  ['what do you develop?', 'What do you develop?', 'Web and mobile applications. My project experience includes React Native and Supabase for KONEKTADO, PHP/MySQL for SoleSource, and Next.js/TypeScript for PhotoDesk.'],
+  ['used in real operations?', 'Used in real operations?', 'FlowPress’s upload workflow and PhotoDesk are used at CJNET, our family computer and printing shop. I also work on a freelance Next.js website for AGMM, which is still in development.'],
+  ['what have you learned?', 'What have you learned?', 'Debugging and testing are only part of delivery. Staff bypassed FlowPress’s admin queue, which taught me to check whether a feature fits the way people actually work.'],
+  ['what is your technical foundation?', 'What is your technical foundation?', 'BSIT coursework in Object-Oriented Programming, Computer Programming, Data Structures and Algorithms, and databases, alongside practical application development, IT support, Linux and networking.'],
+  ['what are you looking for?', 'What are you looking for?', 'Software Engineering, IT Development or Full-Stack Development internships where I can contribute to implementation, database and API integration, debugging and testing while learning from experienced engineers.']
 ];
 ---
 
 <BaseLayout>
   <HeroMotion client:load />
 
-  <div class="marquee" aria-hidden="true"><div>{[0,1].map(() => <span>Software engineering <i>✳</i> Full stack <i>✳</i> Backend systems <i>✳</i> Mobile applications <i>✳</i> Self-hosted infrastructure <i>✳</i> Product thinking <i>✳</i></span>)}</div></div>
+  <div class="marquee" aria-hidden="true"><div>{[0,1].map(() => <span>Software engineering <i>✳</i> Full stack <i>✳</i> Backend systems <i>✳</i> Mobile applications <i>✳</i> Self-hosted infrastructure <i>✳</i> Debugging &amp; testing <i>✳</i></span>)}</div></div>
 
   <Statement />
 
   <ProjectShowcase />
 
   <section class="timeline" data-screen-label="Timeline">
-    <SectionHeading number="03" title="Path" note="2021 — present" />
+    <SectionHeading number="03" title="Education & projects" note="Coursework & application development" />
     <div class="timeline-grid"><i class="timeline-spine"><b></b></i>{timeline.map(([year,title,meta,copy]) => <article data-reveal data-erow><i data-erow-wipe></i><strong>{year}</strong><div><h3 data-erow-title>{title}</h3><span>{meta}</span><p data-erow-detail>{copy}</p></div></article>)}</div>
   </section>
+
+  <Experience />
 
   <StackShowcase />
 
   <section class="process" data-screen-label="How I work">
-    <SectionHeading number="05" title="How I work" note="Four steps, one feedback loop" />
+    <SectionHeading number="06" title="How I work" note="Four steps, one feedback loop" />
     <div class="process-grid" data-steps>{process.map(([number,title,copy]) => <article data-step><i><b data-step-fill></b></i><span>{number}</span><h3>{title}</h3><p>{copy}</p></article>)}</div>
-    <p class="process-manifesto" data-reveal>The judgement is the job. The typing is not.</p>
+    <p class="process-manifesto" data-reveal>Understand the requirements. Build, test and keep learning.</p>
   </section>
 
   <PrinciplesCarousel />
@@ -79,9 +81,9 @@ const questions = [
   </div>
 
   <footer class="contact" id="contact" data-screen-label="Contact">
-    <SectionHeading number="07" title="Contact" />
+    <SectionHeading number="08" title="Contact" />
     <a class="contact-title" href="mailto:jamescarlorivera52@gmail.com">Let’s build<br />something↗</a>
-    <div class="contact-meta"><div><span>Where</span><strong>Batangas, Philippines</strong></div><div><span>Open to</span><strong>Software Engineering Internships</strong></div><div><span>Reach me</span><a href="mailto:jamescarlorivera52@gmail.com">Email ↗</a><a href="https://github.com/James-Rivera" target="_blank" rel="noreferrer">GitHub ↗</a></div></div>
+    <div class="contact-meta"><div><span>Where</span><strong>Batangas, Philippines</strong></div><div><span>Open to</span><strong>Software Engineering &amp; IT Internships</strong></div><div><span>Reach me</span><a href="mailto:jamescarlorivera52@gmail.com">Email ↗</a><a href="mailto:jamescarlorivera52@gmail.com?subject=Resume%20request">Request resume ↗</a><a href="https://github.com/James-Rivera" target="_blank" rel="noreferrer">GitHub ↗</a></div></div>
     <div class="contact-bottom"><span>© {new Date().getFullYear()} James Carlo Rivera</span><span data-clock>Asia/Manila</span><a href="#top">Back to top ↑</a></div>
   </footer>
 </BaseLayout>

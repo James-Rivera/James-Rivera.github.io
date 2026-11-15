@@ -3,6 +3,6 @@ interface Props { number: string; title: string; note?: string; }
 const { number, title, note } = Astro.props;
 ---
 <header class="section-heading">
-  <p>({number}) — {title}</p>
+  <h2>({number}) — {title}</h2>
   {note && <span>{note}</span>}
 </header>
